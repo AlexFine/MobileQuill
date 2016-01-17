@@ -1,0 +1,42 @@
+<ion-view view-title="Notes">
+    <ion-content>
+        <div class="row" style="padding-bottom:0px; margin-bottom:0px;">
+            <div class="col col-50">
+                <div style="width:100%; padding:0; margin:0;">
+                    <button class="button button-large button-energized button-outline button-calm ion-plus-round" style="width:100%; padding:0; margin:0;" ng-click="takePic()" onclick="document.getElementById('fileID').click(); return false;">
+                        Take Photo
+                    </button>
+                </div>
+            </div>
+            <div class="col col-35">
+                <div style="width:100%; padding:0; margin:0;">
+                    <button class="button button-large button-balanced button-outline ion-checkmark-round" style="width:100%; padding:0; margin:0;" ng-click="share()">
+                        Save
+                    </button>
+                </div>
+            </div>
+       
+            
+            
+        </div>
+        <div class="list list-inset" style="margin-top:8px; margin-bottom:8px;">
+            <label class="item item-input" style="height:35px;">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="search" ng-model="query" value="Search">
+            </label>
+        </div>
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats | filter:query" type="item-text-wrap" href="#/tab/notes/{{note.id}}">
+
+                <img ng-src="{{chat.face}}">
+                <h2>{{chat.name}}</h2>
+                <p>{{chat.lastText}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+
+                <ion-option-button class="button-assertive" ng-click="remove(chat)">
+                    Delete
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
