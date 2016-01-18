@@ -23,20 +23,30 @@ angular.module('starter.controllers', [])
 
   .controller('Camera', function($scope, Camera){
     $scope.function =
-    $scope.picText = function(img){
+    $scope.picText = function(){
 
       var canvas = document.getElementById('c')
-      $scope.text = "test2"
 
+      var ctx = canvas.getContext('2d');
+      ctx.font = '30px "Arial Black"'
+      ctx.fillText('Hell0 World', 100, 40)
+      // ctx.fillText("囚犯離奇掙脫囚犯離奇掙脫", 100, 40)
+      ctx.font = '30px "Times New Roman"'
+      ctx.fillText('from beyond', 100, 80)
+      // ctx.fillText('2小時可換乘2次2小時可換乘2次', 100, 80)
+      ctx.font = '30px sans-serif'
+      ctx.fillText('the Cosmic Void', 100, 120)
       Tesseract.recognize(canvas,{
         tessedit_char_blacklist:'',
         progress: function(e){
           console.log(e)
-          $scope.text = e
+          $scope.text = e.reconized
         }
       }).then( function(d){
-        $scope.text = d
+        $scope.text = d.text
+        console.log(d.text)
       } )
+      //$scope.text = "test3"
     }
     $scope.getPhoto = function() {
       console.log('Getting camera');
@@ -65,7 +75,7 @@ angular.module('starter.controllers', [])
 
         }
         $scope.text = "test"
-        $scope.picText(ctx);
+        $scope.picText();
         //var myData = context.getImageData(0, 0, img.width, img.height);
         //$scope.text = "data:image/jpeg;base64," + imageURI
 
