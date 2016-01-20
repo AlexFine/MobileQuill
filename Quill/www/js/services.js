@@ -5,13 +5,13 @@ angular.module('starter.services', [])
       getPicture: function () {
         var q = $q.defer();
         var options = {
-          quality: 50,
+          quality: 100,
           //destinationType: Camera.DestinationType.DATA_URL,
           sourceType: Camera.PictureSourceType.CAMERA,
           allowEdit: true,
           //encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 100,
-          targetHeight: 100,
+          targetWidth:window.innerWidth,
+          targetHeight: window.innerHeight,
           popoverOptions: CameraPopoverOptions,
           saveToPhotoAlbum: false,
           correctOrientation:true

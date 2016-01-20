@@ -23,19 +23,21 @@ angular.module('starter.controllers', [])
 
   .controller('Camera', function($scope, Camera){
     $scope.function =
-    $scope.picText = function(){
+    $scope.picText = function(imageURI){
+      $scope.text = "ran picTExt"
+      canvas = document.getElementById('c');
 
-      var canvas = document.getElementById('c')
 
-      var ctx = canvas.getContext('2d');
-      ctx.font = '30px "Arial Black"'
-      ctx.fillText('Hell0 World', 100, 40)
-      // ctx.fillText("囚犯離奇掙脫囚犯離奇掙脫", 100, 40)
-      ctx.font = '30px "Times New Roman"'
-      ctx.fillText('from beyond', 100, 80)
-      // ctx.fillText('2小時可換乘2次2小時可換乘2次', 100, 80)
-      ctx.font = '30px sans-serif'
-      ctx.fillText('the Cosmic Void', 100, 120)
+
+
+
+      //document.body.appendChild(canvas);
+      //canvas =document.getElementById("canvas")
+
+      console.log(canvas);
+      console.log(canvas)
+      $scope.text = "created canvas"
+
       Tesseract.recognize(canvas,{
         tessedit_char_blacklist:'',
         progress: function(e){
@@ -46,39 +48,40 @@ angular.module('starter.controllers', [])
         $scope.text = d.text
         console.log(d.text)
       } )
+
+
       //$scope.text = "test3"
     }
     $scope.getPhoto = function() {
-      console.log('Getting camera');
+
       Camera.getPicture().then(function(imageURI) {
         console.log(imageURI);
+        $scope.picText(imageURI);
 
+        $scope.text = "test"
+
+        //var myData = context.getImageData(0, 0, img.width, img.height);
+        //$scope.text = "data:image/jpeg;base64," + imageURI
+        var img = new Image();
+        img.src = imageURI;
         $scope.lastPhoto = imageURI;
         $scope.text = imageURI
-        var canvas = document.getElementById('c');
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
+        canvas = document.getElementById('c');
+        canvas.height = img.height;
+        canvas.width = img.width;
 
-        // Get a 2D context.
+
         var ctx = canvas.getContext('2d');
 
         // create new image object to use as pattern
-        var img = new Image();
-        img.src = imageURI;
+
         img.onload = function(){
+
           // Create pattern and don't repeat!
-          var ptrn = ctx.createPattern(img,'no-repeat');
+          var ptrn = ctx.createPattern(img, 'no-repeat');
           ctx.fillStyle = ptrn;
-          ctx.fillRect(0,0,canvas.width,canvas.height);
-
-
-
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
-        $scope.text = "test"
-        $scope.picText();
-        //var myData = context.getImageData(0, 0, img.width, img.height);
-        //$scope.text = "data:image/jpeg;base64," + imageURI
-
 
       }, function(err) {
         console.err(err);
