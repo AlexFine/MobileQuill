@@ -25,8 +25,7 @@
     <script src="js/services.js"></script>
 
   </head>
-  <body ng-app="starter" ng-controller="Camera">
-  <canvas id="c"></canvas>
+  <body ng-app="starter" >
 
   <script type="text/javascript">
 
@@ -61,12 +60,7 @@
   -->
 
     <ion-content padding="true">
-      <button ng-click="getPhoto()" class="button button-block button-primary">Take Photo</button>
-      <img ng-src="{{lastPhoto}}" style="max-width: 100%">
-      <img id = "myImage">
-      <p>{{text}}</p>
-      <button ng-click="picText()" class="button button-block button-primary">reconize</button>
-      <button onclick="test()">Click me</button>
+      
 
     </ion-content>
     <!--
