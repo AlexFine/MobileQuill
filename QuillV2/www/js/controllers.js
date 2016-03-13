@@ -93,13 +93,13 @@ angular.module('starter.controllers', [])
             canvas2.height = imageURI.height;
             $scope.status = "STARTED REACHED THIS PLACE 4" + imageURI;
       
-            canvas2.getContext("2d").drawImage(imageURI, 0, 0);
+            canvasbanana = canvas2.getContext("2d");
             $scope.status = "STARTED REACHED THIS PLACE 5" + imageURI;
          
-            canvas2.drawImage(imageURI, 0, 0);
+            canvasbanana.drawImage(imageURI, 0, 0);
        $scope.status = "STARTED REACHED THIS PLACE 6" + imageURI;
        
-            return canvas2;
+            return canvasbanana;
          $scope.status = "finish convert to canvas";
         }
         
