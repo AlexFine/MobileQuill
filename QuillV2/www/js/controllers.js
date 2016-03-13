@@ -98,8 +98,23 @@ angular.module('starter.controllers', [])
         canvasbanana = canvas2.getContext("2d");
         $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
 
-        canvasbanana.drawImage(lastPhoto, 0, 0);
+        var img = new Image();
+        img.src = "../img/text.png";
+        img.width = "1000";
+        img.height="1000";
+        canvas2.width = img.width;
+        canvas2.height = img.height;
+        console.log(img.width + " " + img.height);
+        img.onload = function() {
+            canvasbanana.drawImage(img, 0,0);
+        }
+       $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+       
+         return canvasbanana;
+         $scope.status = "finish convert to canvas";
         $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+
+
 
         return canvasbanana;
         $scope.status = "finish convert to canvas";
