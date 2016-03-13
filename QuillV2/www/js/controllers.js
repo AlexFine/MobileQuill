@@ -80,9 +80,10 @@ angular.module('starter.controllers', [])
             saveToPhotoAlbum: false
         });
     };
-    var img = new Image();
-    img.src = '../img/text.png';
+ 
         $scope.convertToCanvas = function(lastPhoto){
+            lastPhoto.src = lastPhoto;
+            
             $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
         
             var canvas2 = document.getElementById("canvas2");
@@ -97,7 +98,7 @@ angular.module('starter.controllers', [])
             canvasbanana = canvas2.getContext("2d");
             $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
          
-            canvasbanana.drawImage(img, 0, 0);
+            canvasbanana.drawImage(lastPhoto, 0, 0);
        $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
        
             return canvasbanana;

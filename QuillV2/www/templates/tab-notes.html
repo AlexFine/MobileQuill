@@ -2,23 +2,30 @@
     <ion-content>
         <div style="margin:1%;">
             <button class="button button-outline button-energized icon ion-ios-camera-outline" style="width:49%;">
-               Take Photo  
+                Take Photo
             </button>
             <button class="button button-outline button-balanced icon ion-ios-checkmark-outline" style="width:50%;">
-              Save 
+                Save
             </button>
         </div>
-        <ion-list>
-            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="note in notes" type="item-text-wrap" href="#/tab/notes/{{note.id}}">
-                <img ng-src="{{note.face}}">
-                <h2>{{note.name}}</h2>
-                <p>{{note.lastText}}</p>
-                <i class="icon ion-chevron-right icon-accessory"></i>
+        <div style="margin:1%;">
+        <label class="item item-input" style="height:35px;">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="search" ng-model="query" value="Search">
+        </label>
+            </div>
+        <div class="list" style="height:5%;">
+            <div ng-repeat="note in notes | filter:query;">
+                <a class="item item-thumbnail-left"  href="#/tab/notes/{{note.id}}">
+                    <img ng-src="{{note.face}}">
+                    <h2>{{note.name}}</h2>
+                    <p>{{note.lastText}}</p>
+                </a>
+            </div>
 
-                <ion-option-button class="button-assertive" ng-click="remove(note)">
-                    Delete
-                </ion-option-button>
-            </ion-item>
-        </ion-list>
+
+
+        </div>
+
     </ion-content>
 </ion-view>
