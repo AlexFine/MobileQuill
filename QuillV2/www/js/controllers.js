@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('PhotoCtrl', function ($scope, Camera) {
-    $scope.function =
+    
         $scope.picText = function () {
             var canvas = document.getElementById('c')
             canvas.width = 400
