@@ -85,7 +85,7 @@ angular.module('starter.controllers', [])
         $scope.convertToCanvas = function(lastPhoto){
             $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
         
-            var canvas2 = document.getElementById("canvas");
+            var canvas2 = document.getElementById("canvas2");
             $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
             
             canvas2.width = lastPhoto.width;

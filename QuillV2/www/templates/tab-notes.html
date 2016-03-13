@@ -1,16 +1,24 @@
-<ion-view view-title="Chats">
-  <ion-content>
-    <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="note in notes" type="item-text-wrap" href="#/tab/notes/{{note.id}}">
-        <img ng-src="{{note.face}}">
-        <h2>{{note.name}}</h2>
-        <p>{{note.lastText}}</p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
+<ion-view view-title="Home">
+    <ion-content>
+        <div style="margin:1%;">
+            <button class="button button-outline button-energized icon ion-ios-camera-outline" style="width:49%;">
+               Take Photo  
+            </button>
+            <button class="button button-outline button-balanced icon ion-ios-checkmark-outline" style="width:50%;">
+              Save 
+            </button>
+        </div>
+        <ion-list>
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="note in notes" type="item-text-wrap" href="#/tab/notes/{{note.id}}">
+                <img ng-src="{{note.face}}">
+                <h2>{{note.name}}</h2>
+                <p>{{note.lastText}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-assertive" ng-click="remove(note)">
-          Delete
-        </ion-option-button>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+                <ion-option-button class="button-assertive" ng-click="remove(note)">
+                    Delete
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>
