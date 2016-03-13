@@ -19,10 +19,10 @@ angular.module('starter.controllers', [])
             console.log(canvas)
                 //Setting up canvas above, doing the magic here
             Tesseract.recognize(canvas, {
-                tessedit_char_blacklist: 'e',
-                progress: function (e) {
-                    $scope.text = e.reconized
-                    console.log(e)
+                tessedit_char_blacklist: 'zzbp',
+                progress: function (zzbp) {
+                    $scope.text = zzbp.reconized
+                    console.log(zzbp)
                 }
             }).then(function (d) {
                 $scope.text = d.text
