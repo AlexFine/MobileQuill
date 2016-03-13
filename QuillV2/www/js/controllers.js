@@ -27,7 +27,10 @@ angular.module('starter.controllers', [])
             }).then(function (d) {
                 $scope.text = d.text
                 console.log(d.text)
-            })
+            },function (err){
+                console.log(err);
+                alert(err);
+            });
         }
     
     $scope.getPhoto = function(){
@@ -56,6 +59,7 @@ angular.module('starter.controllers', [])
             $scope.picText();
         }, function (err){
             console.log(err);
+            alert(err);
             
         });
     }
