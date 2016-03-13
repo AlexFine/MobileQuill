@@ -63,6 +63,7 @@ angular.module('starter.controllers', [])
     //            
     //        });
     //    }
+    $scope.lastPhoto = "../img/text.png";
     $scope.status = "start status";
     $scope.getPhoto = function () {
         Camera.getPicture().then(function (imageURI) {
