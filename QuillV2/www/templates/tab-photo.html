@@ -7,15 +7,19 @@
                 Take Photo
             </button>
         </div>
-        <img ng-src="{{lastPhoto}}" style="max-width:100%">
         <img id="myImage">
         <p>{{text}}</p>
         <button class="button button-outline button-positive" ng-click="picText()">Reconize</button>
         <button class="button button-outline button-positive" onclick="test()">Test</button>
 
         <p>BREAK</p>
+        <p>{{status}}</p>
         <button ng-click="getPhoto()" class="button button-block button-primary">Take Photo</button>
+        <button ng-click="convertToCanvas(lastPhoto)" class="button button-block button-primary">Convert To Canvas</button>
+        
         <img ng-src="{{lastPhoto}}" style="max-width: 100%">
+        <p>Break</p>
+        <div id="canvas"></div>
         <script type="text/javascript">
             text = "test4"
             var canvas = document.getElementById('c')

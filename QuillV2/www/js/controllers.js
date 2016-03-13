@@ -63,10 +63,13 @@ angular.module('starter.controllers', [])
     //            
     //        });
     //    }
+    $scope.status = "start status";
     $scope.getPhoto = function () {
         Camera.getPicture().then(function (imageURI) {
+            $scope.status = "get picture";
             console.log(imageURI);
             $scope.lastPhoto = imageURI;
+            $scope.convertToCanvas(imageURI);
         }, function (err) {
             console.err(err);
         }, {
@@ -76,6 +79,29 @@ angular.module('starter.controllers', [])
             saveToPhotoAlbum: false
         });
     };
+
+        $scope.convertToCanvas = function(imageURI){
+            $scope.status = "STARTED REACHED THIS PLACE 1" + imageURI;
+        
+            var canvas2 = document.getElementById("canvas");
+            $scope.status = "STARTED REACHED THIS PLACE 2" + imageURI;
+            
+            canvas2.width = imageURI.width;
+            $scope.status = "STARTED REACHED THIS PLACE 3" + imageURI;
+        
+            canvas2.height = imageURI.height;
+            $scope.status = "STARTED REACHED THIS PLACE 4" + imageURI;
+      
+            canvas2.getContext("2d").drawImage(imageURI, 0, 0);
+            $scope.status = "STARTED REACHED THIS PLACE 5" + imageURI;
+         
+            canvas2.drawImage(imageURI, 0, 0);
+       $scope.status = "STARTED REACHED THIS PLACE 6" + imageURI;
+       
+            return canvas2;
+         $scope.status = "finish convert to canvas";
+        }
+        
 })
 
 .controller('NotesCtrl', function ($scope, Notes) {
