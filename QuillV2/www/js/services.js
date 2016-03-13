@@ -47,4 +47,35 @@ angular.module('starter.services', [])
       return null;
     }
   };
-});
+})
+
+.factory('Camera', ['$q', function($q) {
+    //q allows us to run functions asynchronously
+    //For more information see https://docs.angularjs.org/api/ng/service/$q
+    return{
+        getPicture: function() {
+            var q = $q.defer();
+            var options = {
+                quality:50,
+                //quality of image/canvas
+                //destinationType = Camera.DestinationType.DATA_URL,
+                //Destination of image. This is not applicable for us. 
+                sourceType: Camera.PictureSourceType.CAMERA,
+                allowEdit: true,
+                targetWidth: 100, 
+                targetHeight: 100,
+                popoverOptions: CameraPopoverOptions, 
+                saveToPhotoAlbum: false,
+                correctOrientation: true
+                //All the settings for taking the photo
+            };
+            navigator.camera.getPicture(function (result) {
+                q.resolve(result);
+            }, function(err){
+                q.reject(err);
+                
+            }, options);
+            return q.promise;
+        }
+    }
+}]);

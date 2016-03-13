@@ -1,0 +1,8 @@
+{
+    "jscodehints.detectedExclusions": [
+        "/Users/alexfine/Desktop/Github/MobileQuill/QuillV2/www/js/app.js",
+        "/Users/alexfine/Desktop/Github/MobileQuill/QuillV2/platforms/ios/www/lib/ionic/js/ionic.min.js",
+        "/Users/alexfine/Desktop/Github/MobileQuill/QuillV2/www/lib/ionic/js/ionic.min.js",
+        "/Users/alexfine/Desktop/Github/MobileQuill/QuillV2/www/lib/ionic/js/ionic.js"
+    ]
+}
