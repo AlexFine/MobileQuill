@@ -143,6 +143,11 @@ angular.module('starter.controllers', [])
 
 .controller('NoteDetailCtrl', function ($scope, $stateParams, Notes) {
     $scope.note = Notes.get($stateParams.noteId);
+    $scope.summaryisCollapsed = true;
+    $scope.keywordsisCollapsed = true;
+    $scope.textisCollapsed = false;
+    $scope.researchisCollapsed = true;
+    
 })
 
 .controller('AccountCtrl', function ($scope) {

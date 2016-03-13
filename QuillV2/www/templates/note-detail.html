@@ -5,10 +5,45 @@
   The Friends service returns an array of friend data
 -->
 <ion-view view-title="{{note.name}}">
-  <ion-content class="padding">
-    <img ng-src="{{note.face}}" style="width: 64px; height: 64px">
-    <p>
-      {{note.lastText}}
-    </p>
-  </ion-content>
+    <ion-content class="padding">
+
+        <div class="card">
+            <div class="item item-divider" ng-click="summaryisCollapsed = !summaryisCollapsed">
+                Summary 
+            </div>
+            <div class="item item-text-wrap"  ng-if="summaryisCollapsed">
+                {{note.lastText}}
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-divider" ng-click="keywordsisCollapsed = !keywordsisCollapsed">
+                Keywords And Motifs 
+            </div>
+            <div class="item item-text-wrap" ng-if="keywordsisCollapsed">
+                {{note.lastText}}
+            </div>
+        </div>
+         <div class="card">
+            <div class="item item-divider" ng-click="researchisCollapsed = !researchisCollapsed">
+                Extra Research
+            </div>
+            <div class="item item-text-wrap"  ng-if="researchisCollapsed">
+                {{note.lastText}}
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-divider" ng-click="textisCollapsed = !textisCollapsed">
+                Text  (click to<span ng-if="!textisCollapsed"> view</span><span ng-if="textisCollapsed"> minimize</span>)
+            </div>
+            <div class="item item-text-wrap" ng-if="textisCollapsed">
+                <img ng-src="{{note.face}}" style="width: 100%; height: 100%;">
+                <p>The primary objective at Omaha was to secure a beachhead of some eight kilometres (5 miles) depth, between Port-en-Bessin and the Vire River, linking with the British landings at Gold to the east, and reaching the area of Isigny to the west to link up with VII Corps landing at Utah. Opposing the landings was the German 352nd Infantry Division, a large portion of whom were teenagers, though they were supplemented by veterans who had fought on the Eastern Front. The 352nd had never had any battalion or regimental training. Of the 12,020 men of the division, only 6,800 were experienced combat troops, detailed to defend a 53 kilometres (33 mi) front. The Germans were largely deployed in strongpoints along the coast—the German strategy was based on defeating any seaborne assault at the water line. Nevertheless, Allied calculations indicated that Omaha's defenses were three times as strong as those they had encountered during the Battle of Kwajalein, and its defenders were four times as many.[5]
+
+</p>
+            </div>
+        </div>
+        
+
+        
+    </ion-content>
 </ion-view>
