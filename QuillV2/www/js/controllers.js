@@ -27,42 +27,55 @@ angular.module('starter.controllers', [])
             }).then(function (d) {
                 $scope.text = d.text
                 console.log(d.text)
-            },function (err){
+            }, function (err) {
                 console.log(err);
                 alert(err);
             });
         }
-    
-    $scope.getPhoto = function(){
-        console.log('Getting camera');
-        Camera.getPicture().then(function(imageURI) {
+
+    //    $scope.getPhoto = function(){
+    //        console.log('Getting camera');
+    //        Camera.getPicture().then(function(imageURI) {
+    //            console.log(imageURI);
+    //            
+    //            $scope.lastPhoto = imageURI;
+    //            $scope.text = imageURI
+    //            var canvas = document.getElementById('c');
+    //            canvas.height = window.innerHeight;
+    //            canvas.width = window.innerWidth;
+    //            
+    //            var ctx = canvas.getContext('2d');
+    //            
+    //            var img = new Image ();
+    //            img.src = imageURI;
+    //            img.onload = function(){
+    //                var ptrn = ctx.createPatter(img, 'no-repeat');
+    //                ctx.fillStyle = ptrn; 
+    //                ctx.fillRect(0,0,canvas.width,canvas.height);
+    //                
+    //                
+    //            }
+    //            $scope.text = "test"
+    //            $scope.picText();
+    //        }, function (err){
+    //            console.log(err);
+    //            alert(err);
+    //            
+    //        });
+    //    }
+    $scope.getPhoto = function () {
+        Camera.getPicture().then(function (imageURI) {
             console.log(imageURI);
-            
             $scope.lastPhoto = imageURI;
-            $scope.text = imageURI
-            var canvas = document.getElementById('c');
-            canvas.height = window.innerHeight;
-            canvas.width = window.innerWidth;
-            
-            var ctx = canvas.getContext('2d');
-            
-            var img = new Image ();
-            img.src = imageURI;
-            img.onload = function(){
-                var ptrn = ctx.createPatter(img, 'no-repeat');
-                ctx.fillStyle = ptrn; 
-                ctx.fillRect(0,0,canvas.width,canvas.height);
-                
-                
-            }
-            $scope.text = "test"
-            $scope.picText();
-        }, function (err){
-            console.log(err);
-            alert(err);
-            
+        }, function (err) {
+            console.err(err);
+        }, {
+            quality: 75,
+            targetWidth: 320,
+            targetHeight: 320,
+            saveToPhotoAlbum: false
         });
-    }
+    };
 })
 
 .controller('NotesCtrl', function ($scope, Notes) {

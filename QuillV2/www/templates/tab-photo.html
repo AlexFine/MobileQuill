@@ -1,7 +1,7 @@
 <ion-view view-title="Take Photo">
     <ion-content class="padding">
         <canvas id="c"></canvas>
-        
+
         <div>
             <button class="button button-outline button-positive" ng-click="getPhoto()">
                 Take Photo
@@ -10,11 +10,12 @@
         <img ng-src="{{lastPhoto}}" style="max-width:100%">
         <img id="myImage">
         <p>{{text}}</p>
-        <button class="button button-outline button-positive"  ng-click="picText()" >Reconize</button>
+        <button class="button button-outline button-positive" ng-click="picText()">Reconize</button>
         <button class="button button-outline button-positive" onclick="test()">Test</button>
-        
-        
 
+        <p>BREAK</p>
+        <button ng-click="getPhoto()" class="button button-block button-primary">Take Photo</button>
+        <img ng-src="{{lastPhoto}}" style="max-width: 100%">
         <script type="text/javascript">
             text = "test4"
             var canvas = document.getElementById('c')
