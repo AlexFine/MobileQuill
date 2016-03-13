@@ -17,9 +17,11 @@
         <div class="list" style="height:5%;">
             <div ng-repeat="note in notes | filter:query;">
                 <a class="item item-thumbnail-left"  href="#/tab/notes/{{note.id}}">
-                    <img ng-src="{{note.face}}">
-                    <h2>{{note.name}}</h2>
-                    <p>{{note.lastText}}</p>
+                    <img ng-src="{{note.face}}" style="border-radius:4px;">
+                    <h2> {{note.name}}</h2>
+                    <p> {{note.lastText}}</p>
+                    <p style="color:#B0B0B0">{{note.date}}</p>
+                    
                 </a>
             </div>
 

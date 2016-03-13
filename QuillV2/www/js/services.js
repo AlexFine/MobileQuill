@@ -6,29 +6,34 @@ angular.module('starter.services', [])
   // Some fake testing data
   var notes = [{
     id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
+    name: 'World War Two, D-Day, Omaha Beach',
+    lastText: 'The invation of normandy marked the begginning of the end for Germany',
+    face: 'img/text1.JPG',
+    date: '03/11/2016'
   }, {
     id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
+    name: 'Electrochemistry, Galvanic Cells, Redox Reactions',
+    lastText: 'Galvanic cells spontaniously produce electricity in systems and require a salt bridge.',
+    face: 'img/text2.JPG',
+    date: '03/09/2016'
   }, {
     id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
+    name: 'Civil Rights, FDR, 1932 Election',
+    lastText: "Despite FDR's successful economic plans, he faltered on social rights issues.",
+    face: 'img/text3.JPG',
+    date: '03/06/2016'
   }, {
     id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
+    name: 'Donald Trump, Racism, Bigotry',
+    lastText: 'Donald Trump and his campaign messages alarming remind the American ',
+    face: 'img/text4.JPG',
+    date: '03/05/2016'
   }, {
     id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
+    name: 'Bernie Sanders, Hilary Clinton, DNC',
+    lastText: 'Hilary Clinton and Bernie Sanders are battling for the Democratic National Convention support, with Hilary gaining much of the popularity.',
+    face: 'img/text5.JPG',
+    date: '03/01/2016'
   }];
 
   return {
