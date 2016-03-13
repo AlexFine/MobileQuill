@@ -80,36 +80,36 @@ angular.module('starter.controllers', [])
             saveToPhotoAlbum: false
         });
     };
- 
-        $scope.convertToCanvas = function(lastPhoto){
-            lastPhoto.src = lastPhoto;
-            
-            $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
-        
-            var canvas2 = document.getElementById("canvas2");
-            $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
-            
-            canvas2.width = lastPhoto.width;
-            $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
-        
-            canvas2.height = lastPhoto.height;
-            $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
-      
-            canvasbanana = canvas2.getContext("2d");
-            $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
-         
-            canvasbanana.drawImage(lastPhoto, 0, 0);
-       $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
-       
-            return canvasbanana;
-         $scope.status = "finish convert to canvas";
-        }
-        
-        
-        
+
+    $scope.convertToCanvas = function (lastPhoto) {
+        lastPhoto.src = lastPhoto;
+
+        $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
+
+        var canvas2 = document.getElementById("canvas2");
+        $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
+
+        canvas2.width = lastPhoto.width;
+        $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
+
+        canvas2.height = lastPhoto.height;
+        $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
+
+        canvasbanana = canvas2.getContext("2d");
+        $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
+
+        canvasbanana.drawImage(lastPhoto, 0, 0);
+        $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+
+        return canvasbanana;
+        $scope.status = "finish convert to canvas";
+    }
+
+
+
 })
 
-.controller('NotesCtrl', function ($scope, Notes) {
+.controller('NotesCtrl', function ($scope, Notes, $state) {
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
     // To listen for when this page is active (for example, to refresh data),
@@ -117,7 +117,9 @@ angular.module('starter.controllers', [])
     //
     //$scope.$on('$ionicView.enter', function(e) {
     //});
-
+    $scope.goto = function (toState, params) {
+        $state.go(toState, params) //remember to inject $state to your controller
+    }
     $scope.notes = Notes.all();
     $scope.remove = function (note) {
         Notes.remove(note);
