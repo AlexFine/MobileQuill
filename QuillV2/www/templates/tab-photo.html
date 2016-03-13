@@ -5,5 +5,35 @@
                 Take Photo
             </button>
         </div>
+
+        <canvas id="c"></canvas>
+
+        <script type="text/javascript">
+            text = "test4"
+            var canvas = document.getElementById('c')
+            canvas.width = 400
+            canvas.height = 400
+            var ctx = canvas.getContext('2d');
+            ctx.font = '30px "Arial Black"'
+            ctx.fillText('Hello World', 100, 40)
+                //Text for hello world
+            ctx.font = '30px "Times New Roman"'
+            ctx.fillText('from beyond', 100, 80)
+                //text for from beyond 
+            ctx.font = '30px sans-serif'
+            ctx.fillText('the Cosmic Void', 100, 120)
+            console.log(canvas)
+                //Setting up canvas above, doing the magic here
+            Tesseract.recognize(canvas, {
+                tessedit_char_blacklist: 'e',
+                progress: function (e) {
+                    console.log(e)
+                    $scope.text = e
+                }
+            }).then(function (d) {
+                console.log(d)
+                $scope.text = d
+            })
+        </script>
     </ion-content>
 </ion-view>

@@ -52,11 +52,12 @@ angular.module('starter.services', [])
 .factory('Camera', ['$q', function($q) {
     //q allows us to run functions asynchronously
     //For more information see https://docs.angularjs.org/api/ng/service/$q
+    //Use as input for the tesseract 
     return{
         getPicture: function() {
             var q = $q.defer();
             var options = {
-                quality:50,
+                quality:100,
                 //quality of image/canvas
                 //destinationType = Camera.DestinationType.DATA_URL,
                 //Destination of image. This is not applicable for us. 
