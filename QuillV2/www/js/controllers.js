@@ -74,34 +74,37 @@ angular.module('starter.controllers', [])
         }, function (err) {
             console.err(err);
         }, {
-            quality: 75,
+            quality: 100,
             targetWidth: 320,
             targetHeight: 320,
             saveToPhotoAlbum: false
         });
     };
-
-        $scope.convertToCanvas = function(imageURI){
-            $scope.status = "STARTED REACHED THIS PLACE 1" + imageURI;
+    var img = new Image();
+    img.src = '../img/text.png';
+        $scope.convertToCanvas = function(lastPhoto){
+            $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
         
             var canvas2 = document.getElementById("canvas");
-            $scope.status = "STARTED REACHED THIS PLACE 2" + imageURI;
+            $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
             
-            canvas2.width = imageURI.width;
-            $scope.status = "STARTED REACHED THIS PLACE 3" + imageURI;
+            canvas2.width = lastPhoto.width;
+            $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
         
-            canvas2.height = imageURI.height;
-            $scope.status = "STARTED REACHED THIS PLACE 4" + imageURI;
+            canvas2.height = lastPhoto.height;
+            $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
       
             canvasbanana = canvas2.getContext("2d");
-            $scope.status = "STARTED REACHED THIS PLACE 5" + imageURI;
+            $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
          
-            canvasbanana.drawImage(imageURI, 0, 0);
-       $scope.status = "STARTED REACHED THIS PLACE 6" + imageURI;
+            canvasbanana.drawImage(img, 0, 0);
+       $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
        
             return canvasbanana;
          $scope.status = "finish convert to canvas";
         }
+        
+        
         
 })
 
