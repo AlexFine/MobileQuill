@@ -1,9 +1,11 @@
 angular.module('starter.controllers', [])
 
 .controller('PhotoCtrl', function ($scope, Camera) {
-    
+
         $scope.picText = function () {
             var canvas = document.getElementById('canvas2');
+
+
             Tesseract.recognize(canvas, {
                 tessedit_char_blacklist: 'zzbp',
                 progress: function (zzbp) {
@@ -24,30 +26,30 @@ angular.module('starter.controllers', [])
     //        console.log('Getting camera');
     //        Camera.getPicture().then(function(imageURI) {
     //            console.log(imageURI);
-    //            
+    //
     //            $scope.lastPhoto = imageURI;
     //            $scope.text = imageURI
     //            var canvas = document.getElementById('c');
     //            canvas.height = window.innerHeight;
     //            canvas.width = window.innerWidth;
-    //            
+    //
     //            var ctx = canvas.getContext('2d');
-    //            
+    //
     //            var img = new Image ();
     //            img.src = imageURI;
     //            img.onload = function(){
     //                var ptrn = ctx.createPatter(img, 'no-repeat');
-    //                ctx.fillStyle = ptrn; 
+    //                ctx.fillStyle = ptrn;
     //                ctx.fillRect(0,0,canvas.width,canvas.height);
-    //                
-    //                
+    //
+    //
     //            }
     //            $scope.text = "test"
     //            $scope.picText();
     //        }, function (err){
     //            console.log(err);
     //            alert(err);
-    //            
+    //
     //        });
     //    }
     $scope.lastPhoto = "../img/text.png";
@@ -97,7 +99,7 @@ angular.module('starter.controllers', [])
             canvasbanana.drawImage(img, 0,0);
         }
        $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
-       
+
          return canvasbanana;
          $scope.status = "finish convert to canvas";
         $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
@@ -120,6 +122,7 @@ angular.module('starter.controllers', [])
     //
     //$scope.$on('$ionicView.enter', function(e) {
     //});
+    $scope.api =function()
     $scope.goto = function (toState, params) {
         $state.go(toState, params) //remember to inject $state to your controller
     }
@@ -135,7 +138,7 @@ angular.module('starter.controllers', [])
     $scope.keywordsisCollapsed = true;
     $scope.textisCollapsed = false;
     $scope.researchisCollapsed = true;
-    
+
 })
 
 .controller('AccountCtrl', function ($scope) {
