@@ -2,3 +2,8 @@
 body{
     font-family: 'Raleway', sans-serif;
 }
+hr{
+    height:0px;
+    border:1px dashed red;
+
+}
