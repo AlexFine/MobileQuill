@@ -3,21 +3,7 @@ angular.module('starter.controllers', [])
 .controller('PhotoCtrl', function ($scope, Camera) {
     
         $scope.picText = function () {
-            var canvas = document.getElementById('c')
-            canvas.width = 400
-            canvas.height = 400
-            var ctx = canvas.getContext('2d');
-            //ctx is a common name for canvas attributes 
-            ctx.font = '30px "Arial Black"'
-            ctx.fillText('Hello World', 100, 40)
-                //Text for hello world
-            ctx.font = '30px "Times New Roman"'
-            ctx.fillText('from beyond', 100, 80)
-                //text for from beyond 
-            ctx.font = '30px sans-serif'
-            ctx.fillText('the Cosmic Void', 100, 120)
-            console.log(canvas)
-                //Setting up canvas above, doing the magic here
+            var canvas = document.getElementById('canvas2');
             Tesseract.recognize(canvas, {
                 tessedit_char_blacklist: 'zzbp',
                 progress: function (zzbp) {
@@ -25,13 +11,14 @@ angular.module('starter.controllers', [])
                     console.log(zzbp)
                 }
             }).then(function (d) {
-                $scope.text = d.text
                 console.log(d.text)
+                //$scope.text = d.text
             }, function (err) {
                 console.log(err);
                 alert(err);
             });
         }
+        
 
     //    $scope.getPhoto = function(){
     //        console.log('Getting camera');
@@ -70,7 +57,8 @@ angular.module('starter.controllers', [])
             $scope.status = "get picture";
             console.log(imageURI);
             $scope.lastPhoto = imageURI;
-            $scope.convertToCanvas(imageURI);
+            var temp = $scope.convertToCanvas(imageURI);
+            
         }, function (err) {
             console.err(err);
         }, {
