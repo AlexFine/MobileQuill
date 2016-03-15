@@ -20,7 +20,7 @@ angular.module('starter.controllers', [])
                 alert(err);
             });
         }
-        
+
 
     //    $scope.getPhoto = function(){
     //        console.log('Getting camera');
@@ -60,7 +60,7 @@ angular.module('starter.controllers', [])
             console.log(imageURI);
             $scope.lastPhoto = imageURI;
             var temp = $scope.convertToCanvas(imageURI);
-            
+
         }, function (err) {
             console.err(err);
         }, {
@@ -128,7 +128,8 @@ angular.module('starter.controllers', [])
       gapi.client.load('uberApi', 'v1', function() {
         console.log("success")
         gapi.client.uberApi.ride.return({'message':
-          'WON'}).execute(function(resp) {
+          'If you were a pirate, you know what would be the one thing that would really make you mad? Treasure chests with no handles. How the hell are you supposed to carry it?! The face of a child can say it all, especially the mouth part of the face.',
+          'num':1}).execute(function(resp) {
           console.log(resp);
         });
       }, ROOT);
