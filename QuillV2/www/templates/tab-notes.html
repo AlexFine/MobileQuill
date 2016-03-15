@@ -4,7 +4,7 @@
             <button class="button button-outline button-energized icon ion-ios-camera-outline" style="width:49%;" ng-click="goto('tab.photo')">
                 Take Photo
             </button>
-            <button class="button button-outline button-balanced icon ion-ios-checkmark-outline" style="width:50%;">
+            <button class="button button-outline button-balanced icon ion-ios-checkmark-outline" style="width:50%;" ng-click="api()">
                 Save
             </button>
         </div>
@@ -21,7 +21,7 @@
                     <h2> {{note.name}}</h2>
                     <p> {{note.lastText}}</p>
                     <p style="color:#B0B0B0">{{note.date}}</p>
-                    
+
                 </a>
             </div>
 

@@ -122,7 +122,17 @@ angular.module('starter.controllers', [])
     //
     //$scope.$on('$ionicView.enter', function(e) {
     //});
-    $scope.api =function()
+    $scope.api =function(){
+      console.log("started")
+      var ROOT = 'https://quill-1176.appspot.com/_ah/api';
+      gapi.client.load('uberApi', 'v1', function() {
+        console.log("success")
+        gapi.client.uberApi.ride.return({'message':
+          'WON'}).execute(function(resp) {
+          console.log(resp);
+        });
+      }, ROOT);
+    }
     $scope.goto = function (toState, params) {
         $state.go(toState, params) //remember to inject $state to your controller
     }
