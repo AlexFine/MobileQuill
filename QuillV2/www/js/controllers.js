@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['starter.services'])
+angular.module('starter.controllers', [])
 
 .controller('PhotoCtrl', function ($scope, Camera) {
 
@@ -27,42 +27,42 @@ angular.module('starter.controllers', ['starter.services'])
     };
 
     $scope.convertToCanvas = function (lastPhoto, $http) {
-        // console.log("reached last photo")
-        // lastPhoto.src = lastPhoto;
-        // console.log("processed last photo")
+         console.log("reached last photo")
+         lastPhoto.src = lastPhoto;
+         console.log("processed last photo")
 
-        // $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
+         $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
 
-        // var canvas2 = document.getElementById("canvas2");
-        // $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
+         var canvas2 = document.getElementById("canvas2");
+         $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
 
-        // canvas2.width = lastPhoto.width;
-        // $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
+         canvas2.width = lastPhoto.width;
+         $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
 
-        // canvas2.height = lastPhoto.height;
-        // $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
+         canvas2.height = lastPhoto.height;
+         $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
 
-        // canvasbanana = canvas2.getContext("2d");
-        // $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
+         canvasbanana = canvas2.getContext("2d");
+         $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
 
-        // var img = new Image();
-        // img.src = lastPhoto;
-        // img.width = "1000";
-        // img.height = "1000";
-        // canvas2.width = img.width;
-        // canvas2.height = img.height;
-        // console.log(img.width + " " + img.height);
-        // img.onload = function () {
-        //     canvasbanana.drawImage(img, 0, 0);
-        // }
-        // $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+         var img = new Image();
+         img.src = lastPhoto;
+         img.width = "1000";
+         img.height = "1000";
+         canvas2.width = img.width;
+         canvas2.height = img.height;
+         console.log(img.width + " " + img.height);
+         img.onload = function () {
+             canvasbanana.drawImage(img, 0, 0);
+         }
+         $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
 
-        // return canvasbanana;
-        // $scope.picText();
+         return canvasbanana;
+         $scope.picText();
 
-        // $scope.status = "finish convert to canvas";
-        // $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
-canvas.toDataUrl()
+         $scope.status = "finish convert to canvas";
+         $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+        var dataURL = canvas.toDataUrl(canvasbanana);
 
 
         // return canvasbanana;
@@ -71,46 +71,131 @@ canvas.toDataUrl()
 
         var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
         var postReq = {
-            "requests":[
+            "requests": [
                 {
-                "image":{
-                    "content":
-                },
-                "features":[
-                {
-                    "type":"LABEL_DETECTION",
-                    "maxResults":"10"
+                    "image": {
+                        "content": dataURL
+                    },
+                    "features": [
+                        {
+                            "type": "LABEL_DETECTION",
+                            "maxResults": "10"
                 }
             ]
         }
     ]
-}
+        }
 
-    $http.post(url, postReq).then(function(res) {
-        console.log(res.textAnnotations.description);
-    });
+        $http.post(url, postReq).then(function (res) {
+            console.log(res.textAnnotations.description);
+        });
     }
 
     $scope.picText = function () {
-        var canvas = document.getElementById('canvas2');
+            var canvas = document.getElementById('canvas2');
 
 
-        Tesseract.recognize(canvas, {
-            tessedit_char_blacklist: 'zzbp',
-            progress: function (zzbp) {
-                $scope.text = zzbp.reconized
-                console.log(zzbp);
+            Tesseract.recognize(canvas, {
+                tessedit_char_blacklist: 'zzbp',
+                progress: function (zzbp) {
+                    $scope.text = zzbp.reconized
+                    console.log(zzbp);
 
-            }
-        }).then(function (d) {
-            console.log(d.text);
-            $scope.api(d.text);
-            //$scope.text = d.text
-        }, function (err) {
-            console.log(err);
-            alert(err);
-        });
-    }
+                }
+            }).then(function (d) {
+                console.log(d.text);
+                $scope.api(d.text);
+                //$scope.text = d.text
+            }, function (err) {
+                console.log(err);
+                alert(err);
+            });
+        }
+        //=======
+        ////    $scope.toBase64Image = function (img_path) {
+        ////        $scope.status = "made to base 64";
+        ////        var q = $q.defer();
+        ////        window.imageResizer.resizeImage(function (success_resp) {
+        ////            console.log('success, img toBase64Image: ' + JSON.stringify(success_resp));
+        ////            q.resolve(success_resp);
+        ////        }, function (fail_resp) {
+        ////            console.log('fail, img toBase64Image: ' + JSON.stringify(fail_resp));
+        ////            q.reject(fail_resp);
+        ////        }, img_path, 1, 1, {
+        ////            imageDataType: ImageResizer.IMAGE_DATA_TYPE_URL,
+        ////            resizeType: ImageResizer.RESIZE_TYPE_FACTOR,
+        ////            format: 'jpg'
+        ////        });
+        ////        //Kushal call your function here
+        ////        $scope.status = "success" + q.promise;
+        ////        return q.promise;
+        ////    }
+        //
+        //    
+        //        $scope.convertToCanvas = function (lastPhoto) {
+        //            console.log("reached last photo")
+        //            lastPhoto.src = lastPhoto;
+        //            console.log("processed last photo")
+        //    
+        //            $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
+        //    
+        //            var canvas2 = document.getElementById("canvas2");
+        //            $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
+        //    
+        //            canvas2.width = 300;
+        //            $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
+        //    
+        //            canvas2.height = 300;
+        //            $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
+        //    
+        //            canvasbanana = canvas2.getContext("2d");
+        //            $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
+        //    
+        //            var img = new Image();
+        //            img.src = lastPhoto;
+        //            img.width = "1000";
+        //            img.height = "1000";
+        //            canvas2.width = 300;
+        //            canvas2.height = 300;
+        //            console.log(img.width + " " + img.height);
+        //            img.onload = function () {
+        //                canvasbanana.drawImage(img, 0, 0);
+        //            }
+        //            $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+        //            $scope.picText();
+        //            var dataURl = canvasbanana.toDataURL(encodeToBase64String);
+        //            $scope.status = dataURL;
+        //            //$scope.kushalAPI(dataURL);
+        //            return canvasbanana;
+        //            
+        //    
+        //            $scope.status = "finish convert to canvas";
+        //        }
+        //    //
+        //    //    $scope.picText = function () {
+        //    //
+        //    //        var canvas = document.getElementById('canvas2');
+        //    //        $scope.status = "reaced picText" ;
+        //    //
+        //    //        Tesseract.recognize(canvas, {
+        //    //            tessedit_char_blacklist: 'zzbp',
+        //    //            progress: function (zzbp) {
+        //    //                $scope.text = zzbp.reconized
+        //    //                console.log(zzbp);
+        //    //                $scope.status = zzbp;
+        //    //
+        //    //            }
+        //    //        }).then(function (d) {
+        //    //            console.log(d.text);
+        //    //            $scope.status = d.text;
+        //    //            $scope.api(d.text);
+        //    //            //$scope.text = d.text
+        //    //        }, function (err) {
+        //    //            console.log(err);
+        //    //            alert(err);
+        //    //        });
+        //    //    }
+        //>>>>>>> Stashed changes
     $scope.api = function (text) {
         var text;
         console.log("started")
@@ -162,79 +247,79 @@ canvas.toDataUrl()
 
     //Select photo testing here 
     // 1
-$scope.images = [];
- 
-$scope.addImage = function() {
-	// 2
-	var options = {
-		destinationType : Camera.DestinationType.FILE_URI,
-		sourceType : Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
-		allowEdit : false,
-		encodingType: Camera.EncodingType.JPEG,
-		popoverOptions: CameraPopoverOptions,
-	};
-	
-	// 3
-	$cordovaCamera.getPicture(options).then(function(imageData) {
- 
-		// 4
-		onImageSuccess(imageData);
- 
-		function onImageSuccess(fileURI) {
-			createFileEntry(fileURI);
-		}
- 
-		function createFileEntry(fileURI) {
-			window.resolveLocalFileSystemURL(fileURI, copyFile, fail);
-		}
- 
-		// 5
-		function copyFile(fileEntry) {
-			var name = fileEntry.fullPath.substr(fileEntry.fullPath.lastIndexOf('/') + 1);
-			var newName = makeid() + name;
- 
-			window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(fileSystem2) {
-				fileEntry.copyTo(
-					fileSystem2,
-					newName,
-					onCopySuccess,
-					fail
-				);
-			},
-			fail);
-		}
-		
-		// 6
-		function onCopySuccess(entry) {
-			$scope.$apply(function () {
-				$scope.images.push(entry.nativeURL);
-			});
-		}
- 
-		function fail(error) {
-			console.log("fail: " + error.code);
-		}
- 
-		function makeid() {
-			var text = "";
-			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
- 
-			for (var i=0; i < 5; i++) {
-				text += possible.charAt(Math.floor(Math.random() * possible.length));
-			}
-			return text;
-		}
- 
-	}, function(err) {
-		console.log(err);
-	});
-}
+    $scope.images = [];
 
-$scope.urlForImage = function(imageName) {
-  var name = imageName.substr(imageName.lastIndexOf('/') + 1);
-  var trueOrigin = cordova.file.dataDirectory + name;
-  return trueOrigin;
-}
+    $scope.addImage = function () {
+        // 2
+        var options = {
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
+            allowEdit: false,
+            encodingType: Camera.EncodingType.JPEG,
+            popoverOptions: CameraPopoverOptions,
+        };
+
+        // 3
+        $cordovaCamera.getPicture(options).then(function (imageData) {
+
+            // 4
+            onImageSuccess(imageData);
+
+            function onImageSuccess(fileURI) {
+                createFileEntry(fileURI);
+            }
+
+            function createFileEntry(fileURI) {
+                window.resolveLocalFileSystemURL(fileURI, copyFile, fail);
+            }
+
+            // 5
+            function copyFile(fileEntry) {
+                var name = fileEntry.fullPath.substr(fileEntry.fullPath.lastIndexOf('/') + 1);
+                var newName = makeid() + name;
+
+                window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fileSystem2) {
+                        fileEntry.copyTo(
+                            fileSystem2,
+                            newName,
+                            onCopySuccess,
+                            fail
+                        );
+                    },
+                    fail);
+            }
+
+            // 6
+            function onCopySuccess(entry) {
+                $scope.$apply(function () {
+                    $scope.images.push(entry.nativeURL);
+                });
+            }
+
+            function fail(error) {
+                console.log("fail: " + error.code);
+            }
+
+            function makeid() {
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for (var i = 0; i < 5; i++) {
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+                }
+                return text;
+            }
+
+        }, function (err) {
+            console.log(err);
+        });
+    }
+
+    $scope.urlForImage = function (imageName) {
+        var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+        var trueOrigin = cordova.file.dataDirectory + name;
+        return trueOrigin;
+    }
 })
 
 .controller('NotesCtrl', function ($scope, Notes, $state) {
