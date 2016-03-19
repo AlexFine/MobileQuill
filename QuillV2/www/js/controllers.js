@@ -26,7 +26,7 @@ angular.module('starter.controllers', [])
         });
     };
 
-    $scope.convertToCanvas = function (lastPhoto, $http) {
+    $scope.convertToCanvas = function (lastPhoto) {
          console.log("reached last photo")
          lastPhoto.src = lastPhoto;
          console.log("processed last photo")
@@ -57,13 +57,13 @@ angular.module('starter.controllers', [])
          }
          $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
          var dataURL = canvasbanana.toDataUrl(encodeBase64);
-
-         //return canvasbanana;
+        $scope.picText();
+         return canvasbanana;
 
         
     }
 
-    $scope.picText = function () {
+    $scope.picText = function ($http) {
             var canvas = document.getElementById('canvas2');
             canvasbanana = canvas.getContect("2d");
 
