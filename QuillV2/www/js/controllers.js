@@ -54,8 +54,8 @@ angular.module('starter.controllers', ['ion-gallery'])
             saveToPhotoAlbum: false
         });
 
-        $scope.picText();
-        $scope.api();
+//        $scope.picText();
+//        $scope.api();
 
     };
 
