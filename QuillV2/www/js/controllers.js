@@ -37,10 +37,9 @@ angular.module('starter.controllers', ['ion-gallery'])
             $scope.status = "get picture";
             //console.log(imageURI);
             $scope.lastPhoto = imageURI;
-            var temp = $scope.convertToCanvas(imageURI);
+            //var temp = $scope.convertToCanvas(imageURI);
             //$scope.convertToCanvas(imageURI);
-            $scope.picText();
-            $scope.api();
+            
             console.log("called the convertToCanvas Function")
             $scope.items.push('../img/text.png');
             $scope.items.push('imageURI', "Most recent photo")
@@ -53,6 +52,9 @@ angular.module('starter.controllers', ['ion-gallery'])
             targetHeight: 320,
             saveToPhotoAlbum: false
         });
+
+        $scope.picText();
+        $scope.api();
     };
 
     $scope.convertToCanvas = function (lastPhoto) {
