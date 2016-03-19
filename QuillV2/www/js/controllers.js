@@ -1,11 +1,36 @@
-angular.module('starter.controllers', ['base64'])
 
-.controller('PhotoCtrl', ['$scope', '$http', '$base64', function ($scope, $http, $base64, Camera) {
+angular.module('starter.controllers', ['ion-gallery'])
+
+.controller('PhotoCtrl', function ($scope, Camera, $http) {
 
 
     $scope.lastPhoto = "../img/text.png";
     $scope.status = "start status";
     $scope.summary;
+    
+    $scope.items = [
+        {
+            src: 'img/text1.JPG',
+            sub: 'Most recent photos 03/11/2016'
+  },
+        {
+            src: 'img/text2.JPG',
+            sub: 'Most recent photos 03/09/2016'/* Not showed */
+  },
+        {
+            src: 'img/text3.JPG',
+            sub: 'Most recent photos 03/07/2016'/* Not showed */
+  },
+        {
+            src: 'img/text4.JPG',
+            sub: 'Most recent photos 03/05/2016'/* Not showed */
+  },
+        {
+            src: 'img/text5.JPG',
+            sub: 'Most recent photos 03/04/2016'/* Not showed */
+  }    
+        
+]
 
     $scope.getPhoto = function () {
         Camera.getPicture().then(function (imageURI) {
@@ -13,10 +38,12 @@ angular.module('starter.controllers', ['base64'])
             //console.log(imageURI);
             $scope.lastPhoto = imageURI;
             var temp = $scope.convertToCanvas(imageURI);
-            $scope.convertToCanvas(imageURI);
+            //$scope.convertToCanvas(imageURI);
             $scope.picText();
             $scope.api();
             console.log("called the convertToCanvas Function")
+            $scope.items.push('../img/text.png');
+            $scope.items.push('imageURI', "Most recent photo")
 
         }, function (err) {
             console.err(err);
@@ -29,47 +56,63 @@ angular.module('starter.controllers', ['base64'])
     };
 
     $scope.convertToCanvas = function (lastPhoto) {
-         console.log("reached last photo")
-         lastPhoto.src = lastPhoto;
-         console.log("processed last photo")
+// <<<<<<< HEAD
+//          console.log("reached last photo")
+//          lastPhoto.src = lastPhoto;
+//          console.log("processed last photo")
 
-         $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
+//          $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
 
-         var canvas2 = document.getElementById("canvas2");
-         $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
+//          var canvas2 = document.getElementById("canvas2");
+//          $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
 
-         canvas2.width = lastPhoto.width;
-         $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
+//          canvas2.width = lastPhoto.width;
+//          $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
+// =======
+//         console.log("reached last photo")
+//         lastPhoto.src = lastPhoto;
+//         console.log("processed last photo")
+// >>>>>>> origin/master
 
-         canvas2.height = lastPhoto.height;
-         $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
+//         $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
 
-         canvasbanana = canvas2.getContext("2d");
-         $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
+//         var canvas2 = document.getElementById("canvas2");
+//         $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
 
-         var img = new Image();
-         img.src = lastPhoto;
-         img.width = "1000";
-         img.height = "1000";
-         canvas2.width = img.width;
-         canvas2.height = img.height;
-         console.log(img.width + " " + img.height);
-         img.onload = function () {
-             canvasbanana.drawImage(img, 0, 0);
-         }
-         $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+//         canvas2.width = lastPhoto.width;
+//         $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
+
+// <<<<<<< HEAD
+
+//          return lastPhoto;
+// =======
+//         canvas2.height = lastPhoto.height;
+//         $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
+
+//         canvasbanana = canvas2.getContext("2d");
+//         $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
+
+//         var img = new Image();
+//         img.src = lastPhoto;
+//         img.width = "1000";
+//         img.height = "1000";
+//         canvas2.width = img.width;
+//         canvas2.height = img.height;
+//         console.log(img.width + " " + img.height);
+//         img.onload = function () {
+//             canvasbanana.drawImage(img, 0, 0);
+//         }
+//         var dataURL = canvasbanana.toDataURL(encodeBase64);
+//         $scope.picText();
+//         $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+// >>>>>>> origin/master
+
+//         return canvasbanana;
 
 
-         return lastPhoto;
-
-        // return canvasbanana;
-
-        // $scope.status = "finish convert to canvas";
-
-        
     }
 
-    $scope.picText = function () {
+    $scope.picText = function ($http) {
             var canvas = document.getElementById('canvas2');
             canvasbanana = canvas.getContext("2d");
 
@@ -134,7 +177,6 @@ angular.module('starter.controllers', ['base64'])
             
             $scope.text = text;
             console.log($scope.text);
-
             return text;
         }
         //=======
@@ -351,7 +393,8 @@ angular.module('starter.controllers', ['base64'])
         var trueOrigin = cordova.file.dataDirectory + name;
         return trueOrigin;
     }
-}])
+})
+
 
 .controller('NotesCtrl', function ($scope, Notes, $state) {
     // With the new view caching in Ionic, Controllers are only called

@@ -8,23 +8,30 @@
     <ion-content class="padding">
 
         <div class="card">
-            <div class="item item-divider" ng-click="summaryisCollapsed = !summaryisCollapsed">
+            <div class="item item-divider item-calm" ng-click="summaryisCollapsed = !summaryisCollapsed">
                 Summary
             </div>
-            <div class="item item-text-wrap" ng-if="summaryisCollapsed">
+            <div class="item item-text-wrap " ng-if="summaryisCollapsed">
                 {{note.lastText}}
             </div>
         </div>
         <div class="card">
-            <div class="item item-divider" ng-click="keywordsisCollapsed = !keywordsisCollapsed">
+            <div class="item item-divider item-calm" ng-click="keywordsisCollapsed = !keywordsisCollapsed">
                 Keywords And Motifs
             </div>
             <div class="item item-text-wrap" ng-if="keywordsisCollapsed">
-                {{note.lastText}}
+                <ul>
+                    <li>Normandy</li>
+                    <li>Germany</li>
+                    <li>United States</li>
+                    <li>Omaha Beach</li>
+                    <li>Casualities</li>
+                    
+                </ul>
             </div>
         </div>
         <div class="card">
-            <div class="item item-divider" ng-click="researchisCollapsed = !researchisCollapsed">
+            <div class="item item-divider item-calm" ng-click="researchisCollapsed = !researchisCollapsed">
                 Extra Research
             </div>
             <div class="item item-text-wrap" ng-if="researchisCollapsed">
@@ -32,7 +39,7 @@
             </div>
         </div>
         <div class="card">
-            <div class="item item-divider" ng-click="textisCollapsed = !textisCollapsed">
+            <div class="item item-divider item-light" ng-click="textisCollapsed = !textisCollapsed">
                 Text (click to<span ng-if="!textisCollapsed"> view</span><span ng-if="textisCollapsed"> minimize</span>)
             </div>
             <div class="item item-text-wrap" ng-if="textisCollapsed">
@@ -45,7 +52,7 @@
         
         <hr>
         <button class="button button-block button-assertive">
-            Delete
+            Delete Note
         </button>
 
 
