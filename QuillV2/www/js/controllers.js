@@ -13,7 +13,8 @@ angular.module('starter.controllers', [])
             //console.log(imageURI);
             $scope.lastPhoto = imageURI;
             var temp = $scope.convertToCanvas(imageURI);
-            $scope.convertToCanvas(imageURI);
+            //$scope.convertToCanvas(imageURI);
+            $scope.toBase64Image(imageURI);
             console.log("called the convertToCanvas Function")
 
         }, function (err) {
@@ -26,66 +27,86 @@ angular.module('starter.controllers', [])
         });
     };
 
-    $scope.convertToCanvas = function (lastPhoto) {
-        console.log("reached last photo")
-        lastPhoto.src = lastPhoto;
-        console.log("processed last photo")
-
-        $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
-
-        var canvas2 = document.getElementById("canvas2");
-        $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
-
-        canvas2.width = 300;
-        $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
-
-        canvas2.height = 300;
-        $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
-
-        canvasbanana = canvas2.getContext("2d");
-        $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
-
-        var img = new Image();
-        img.src = lastPhoto;
-        img.width = "1000";
-        img.height = "1000";
-        canvas2.width = 300;
-        canvas2.height = 300;
-        console.log(img.width + " " + img.height);
-        img.onload = function () {
-            canvasbanana.drawImage(img, 0, 0);
-        }
-        $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
-        $scope.picText();
-        return canvasbanana;
-        
-
-        $scope.status = "finish convert to canvas";
-    }
-
-    $scope.picText = function () {
-
-        var canvas = document.getElementById('canvas2');
-        $scope.status = "reaced picText" ;
-
-        Tesseract.recognize(canvas, {
-            tessedit_char_blacklist: 'zzbp',
-            progress: function (zzbp) {
-                $scope.text = zzbp.reconized
-                console.log(zzbp);
-                $scope.status = zzbp;
-
-            }
-        }).then(function (d) {
-            console.log(d.text);
-            $scope.status = d.text;
-            $scope.api(d.text);
-            //$scope.text = d.text
-        }, function (err) {
-            console.log(err);
-            alert(err);
+    $scope.toBase64Image = function (img_path) {
+        $scope.status = "made to base 64";
+        var q = $q.defer();
+        window.imageResizer.resizeImage(function (success_resp) {
+            console.log('success, img toBase64Image: ' + JSON.stringify(success_resp));
+            q.resolve(success_resp);
+        }, function (fail_resp) {
+            console.log('fail, img toBase64Image: ' + JSON.stringify(fail_resp));
+            q.reject(fail_resp);
+        }, img_path, 1, 1, {
+            imageDataType: ImageResizer.IMAGE_DATA_TYPE_URL,
+            resizeType: ImageResizer.RESIZE_TYPE_FACTOR,
+            format: 'jpg'
         });
+        //Kushal call your function here
+        $scope.status = "success" + q.promise;
+        return q.promise;
     }
+
+    //
+    //    $scope.convertToCanvas = function (lastPhoto) {
+    //        console.log("reached last photo")
+    //        lastPhoto.src = lastPhoto;
+    //        console.log("processed last photo")
+    //
+    //        $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
+    //
+    //        var canvas2 = document.getElementById("canvas2");
+    //        $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
+    //
+    //        canvas2.width = 300;
+    //        $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
+    //
+    //        canvas2.height = 300;
+    //        $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
+    //
+    //        canvasbanana = canvas2.getContext("2d");
+    //        $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
+    //
+    //        var img = new Image();
+    //        img.src = lastPhoto;
+    //        img.width = "1000";
+    //        img.height = "1000";
+    //        canvas2.width = 300;
+    //        canvas2.height = 300;
+    //        console.log(img.width + " " + img.height);
+    //        img.onload = function () {
+    //            canvasbanana.drawImage(img, 0, 0);
+    //        }
+    //        $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+    //        $scope.picText();
+    //        return canvasbanana;
+    //        
+    //
+    //        $scope.status = "finish convert to canvas";
+    //    }
+    //
+    //    $scope.picText = function () {
+    //
+    //        var canvas = document.getElementById('canvas2');
+    //        $scope.status = "reaced picText" ;
+    //
+    //        Tesseract.recognize(canvas, {
+    //            tessedit_char_blacklist: 'zzbp',
+    //            progress: function (zzbp) {
+    //                $scope.text = zzbp.reconized
+    //                console.log(zzbp);
+    //                $scope.status = zzbp;
+    //
+    //            }
+    //        }).then(function (d) {
+    //            console.log(d.text);
+    //            $scope.status = d.text;
+    //            $scope.api(d.text);
+    //            //$scope.text = d.text
+    //        }, function (err) {
+    //            console.log(err);
+    //            alert(err);
+    //        });
+    //    }
     $scope.api = function (text) {
         $scope.status = "reached api function"
         var text;
