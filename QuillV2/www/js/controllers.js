@@ -2,7 +2,7 @@
 angular.module('starter.controllers', ['ion-gallery'])
 
 .controller('PhotoCtrl', function ($scope, Camera, $http) {
-
+ 
 
     $scope.lastPhoto = "../img/text.png";
     $scope.status = "start status";
@@ -34,12 +34,13 @@ angular.module('starter.controllers', ['ion-gallery'])
 
     $scope.getPhoto = function () {
         Camera.getPicture().then(function (imageURI) {
+               
             $scope.status = "get picture";
             //console.log(imageURI);
             $scope.lastPhoto = imageURI;
             //var temp = $scope.convertToCanvas(imageURI);
             //$scope.convertToCanvas(imageURI);
-            
+
             console.log("called the convertToCanvas Function")
             $scope.items.push('../img/text.png');
             $scope.items.push('imageURI', "Most recent photo")
@@ -55,6 +56,7 @@ angular.module('starter.controllers', ['ion-gallery'])
 
         $scope.picText();
         $scope.api();
+
     };
 
     $scope.convertToCanvas = function (lastPhoto) {
@@ -115,8 +117,7 @@ angular.module('starter.controllers', ['ion-gallery'])
     }
 
     $scope.picText = function ($http) {
-            // var canvas = document.getElementById('canvas2');
-            // canvasbanana = canvas.getContext("2d");
+
 
             var text;
             // var img = new Image();

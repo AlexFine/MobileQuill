@@ -33,11 +33,11 @@ testing code for testing each part of the tesseract code inidivudalliy
        
 -->
         <button ng-click="getPhoto()" class="button button-block button-outline button-balanced">Take Photos</button>
-        <button ng-click="picText()"class="button button-block button-outline button-calm">Analyze Photos</button>
+        <button ng-click="picText(); api()"class="button button-block button-outline button-calm">Analyze Photos</button>
 
         <ion-gallery ion-gallery-items="items"></ion-gallery>
-        <p>Text: {{text}}</p>
-                <p>Summary: {{summary}}</p>
+        <p ng-if="text.length>1">Text: {{text}}</p>
+                <p ng-if="summary.length>1">Summary: {{summary}}</p>
 <!--
         <div clas="card">
             <div class="item item-text-wrap">
