@@ -37,7 +37,7 @@ angular.module('starter.controllers', ['ion-gallery'])
             $scope.status = "get picture";
             //console.log(imageURI);
             $scope.lastPhoto = imageURI;
-            var temp = $scope.convertToCanvas(imageURI);
+    //        var temp = $scope.convertToCanvas(imageURI);
             //$scope.convertToCanvas(imageURI);
             $scope.picText();
             $scope.api();
