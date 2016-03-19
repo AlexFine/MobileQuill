@@ -42,8 +42,14 @@ angular.module('starter.controllers', ['ion-gallery'])
             //$scope.convertToCanvas(imageURI);
 
             console.log("called the convertToCanvas Function")
-            $scope.items.push('../img/text.png');
-            $scope.items.push('imageURI', "Most recent photo")
+
+             var newimage = {
+                src:'img/text6.JPG',
+                sub: 'Most recent photos 03/19/2016'
+            }
+            $scope.items.push(newimage);
+          
+            
 
         }, function (err) {
             console.err(err);
@@ -185,11 +191,7 @@ angular.module('starter.controllers', ['ion-gallery'])
 
             $scope.summary = "Although boxplots provide some information abut outliers. they don't tell us what to do with outliers. So what should we do with outliers? We have to understand them in the context of the data, using a histogram. Histograms give an idea of whether the outlier fits or not. Some outliers can be unbelievable, and so you cna be sure it is an error. Outliers can be errors, such as a misplaced decimal point or wrong units. Many outliers are not wrong; they are just different and so it is good to try and understand them. You can learn more from the extraordinary cases than from summaries of the overall data set."
 
-            var newimage = {
-                src:'img/text6.JPG',
-                sub: 'Most recent photos 03/04/2016'
-            }
-            $scope.items.push(newimage);
+           
             //console.log($scope.text);
             return text;
         }
