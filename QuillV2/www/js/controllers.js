@@ -62,7 +62,7 @@ angular.module('starter.controllers', [])
 
          $scope.status = "finish convert to canvas";
          $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
-        var dataURL = canvas.toDataUrl(canvasbanana);
+         var dataURL = canvas.toDataUrl(canvasbanana);
 
 
         // return canvasbanana;
@@ -78,7 +78,7 @@ angular.module('starter.controllers', [])
                     },
                     "features": [
                         {
-                            "type": "LABEL_DETECTION",
+                            "type": "TEXT_DETECTION",
                             "maxResults": "10"
                 }
             ]
