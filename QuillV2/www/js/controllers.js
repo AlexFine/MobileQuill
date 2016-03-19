@@ -115,8 +115,8 @@ angular.module('starter.controllers', ['ion-gallery'])
     }
 
     $scope.picText = function ($http) {
-            var canvas = document.getElementById('canvas2');
-            canvasbanana = canvas.getContext("2d");
+            // var canvas = document.getElementById('canvas2');
+            // canvasbanana = canvas.getContext("2d");
 
             var text;
             // var img = new Image();
@@ -177,8 +177,14 @@ angular.module('starter.controllers', ['ion-gallery'])
             + ", perhaps copying an adjacent value on the original data sheet. If you can identify the correct value, then you should certainly fix it. One important reason to look into outliers is to correct errors in your data."
             + "Many outliers are not wrong, they're just different. Such cases often repay the effort to understand them. You can learn more from the extraordinary cases than from summaries of the overall data set. What about a windy November day? Was it really that windy, or could there have been problem with the anemometers? A quick Internet search for weather on November 21, 1989, finds that there was a severe storm"
             
+
+
             $scope.text = text;
-            console.log($scope.text);
+
+
+            $scope.summary = "Although boxplots provide some information abut outliers. they don't tell us what to do with outliers. So what should we do with outliers? We have to understand them in the context of the data, using a histogram. Histograms give an idea of whether the outlier fits or not. Some outliers can be unbelievable, and so you cna be sure it is an error. Outliers can be errors, such as a misplaced decimal point or wrong units. Many outliers are not wrong; they are just different and so it is good to try and understand them. You can learn more from the extraordinary cases than from summaries of the overall data set."
+
+            //console.log($scope.text);
             return text;
         }
         //=======

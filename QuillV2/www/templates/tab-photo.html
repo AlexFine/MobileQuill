@@ -21,17 +21,23 @@ testing code for testing each part of the tesseract code inidivudalliy
         <button ng-click="getPhoto()" class="button button-block button-primary">Take Photo</button>
         
         <button ng-click="convertToCanvas(lastPhoto)" class="button button-block button-primary">Convert To Canvas</button>
-        <button ng-click="picText()" class="button button-block button-primary">Convert Photo to Text</button>
-        
+
+        -->
+       <!-- <button ng-click="picText()" class="button button-block button-primary">Convert Photo to Text</button>
+        <button ng-click="api()" class="button button-block button-primary">Convert Text to Summary</button>
+-->
+       <!-- 
         <img ng-src="{{lastPhoto}}" style="max-width: 100%">
         <p>Break</p>
         <canvas id="canvas2"></canvas>
        
 -->
         <button ng-click="getPhoto()" class="button button-block button-outline button-balanced">Take Photos</button>
-<button class="button button-block button-outline button-calm">Analyze Photos</button>
+        <button ng-click="picText()"class="button button-block button-outline button-calm">Analyze Photos</button>
 
         <ion-gallery ion-gallery-items="items"></ion-gallery>
+        <p>Text: {{text}}</p>
+                <p>Summary: {{summary}}</p>
 <!--
         <div clas="card">
             <div class="item item-text-wrap">
