@@ -56,18 +56,9 @@ angular.module('starter.controllers', [])
              canvasbanana.drawImage(img, 0, 0);
          }
          $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+         var dataURL = canvasbanana.toDataUrl(encodeBase64);
 
-         return canvasbanana;
-         $scope.picText();
-
-         $scope.status = "finish convert to canvas";
-         $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
-         var dataURL = canvas.toDataUrl(canvasbanana);
-
-
-        // return canvasbanana;
-
-        // $scope.status = "finish convert to canvas";
+         //return canvasbanana;
 
         
     }
