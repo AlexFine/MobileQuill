@@ -52,7 +52,7 @@ angular.module('starter.services', [])
       return null;
     },
     getIBMNotes:function(text) {
-       var words = text.split(" ");
+        var words = text.split(" ");
         var relevance = (Math.log(words.length / 500) / Math.LN10) + 0.6;
         var apikeys = ["4fae7a8b25921ca2646f1bbb121e3185c1a06ad5", "e616d19e7eb129a5ff63b8d7cdf8cb095a1a8a12", "f324c6866929c38be963aa75a915cbf4ff1b2243"];
         var api = apikeys[Math.floor(Math.random()*apikeys.length)];

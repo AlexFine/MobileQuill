@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['starter.services'])
 
 .controller('PhotoCtrl', function ($scope, Camera) {
 
@@ -26,47 +26,69 @@ angular.module('starter.controllers', [])
         });
     };
 
-    $scope.convertToCanvas = function (lastPhoto) {
-        console.log("reached last photo")
-        lastPhoto.src = lastPhoto;
-        console.log("processed last photo")
+    $scope.convertToCanvas = function (lastPhoto, $http) {
+        // console.log("reached last photo")
+        // lastPhoto.src = lastPhoto;
+        // console.log("processed last photo")
 
-        $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
+        // $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
 
-        var canvas2 = document.getElementById("canvas2");
-        $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
+        // var canvas2 = document.getElementById("canvas2");
+        // $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
 
-        canvas2.width = lastPhoto.width;
-        $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
+        // canvas2.width = lastPhoto.width;
+        // $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
 
-        canvas2.height = lastPhoto.height;
-        $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
+        // canvas2.height = lastPhoto.height;
+        // $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
 
-        canvasbanana = canvas2.getContext("2d");
-        $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
+        // canvasbanana = canvas2.getContext("2d");
+        // $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
 
-        var img = new Image();
-        img.src = lastPhoto;
-        img.width = "1000";
-        img.height = "1000";
-        canvas2.width = img.width;
-        canvas2.height = img.height;
-        console.log(img.width + " " + img.height);
-        img.onload = function () {
-            canvasbanana.drawImage(img, 0, 0);
+        // var img = new Image();
+        // img.src = lastPhoto;
+        // img.width = "1000";
+        // img.height = "1000";
+        // canvas2.width = img.width;
+        // canvas2.height = img.height;
+        // console.log(img.width + " " + img.height);
+        // img.onload = function () {
+        //     canvasbanana.drawImage(img, 0, 0);
+        // }
+        // $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+
+        // return canvasbanana;
+        // $scope.picText();
+
+        // $scope.status = "finish convert to canvas";
+        // $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+
+
+
+        // return canvasbanana;
+
+        // $scope.status = "finish convert to canvas";
+
+        var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+        var postReq = {
+            "requests":[
+                {
+                "image":{
+                    "content":
+                },
+                "features":[
+                {
+                    "type":"LABEL_DETECTION",
+                    "maxResults":"10"
+                }
+            ]
         }
-        $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
+    ]
+}
 
-        return canvasbanana;
-        $scope.picText();
-
-        $scope.status = "finish convert to canvas";
-        $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
-
-
-
-        return canvasbanana;
-        $scope.status = "finish convert to canvas";
+    $http.post(url, postReq).then(function(res) {
+        console.log(res.textAnnotations.description);
+    });
     }
 
     $scope.picText = function () {
