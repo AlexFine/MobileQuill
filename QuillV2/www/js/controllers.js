@@ -1,6 +1,6 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['base64'])
 
-.controller('PhotoCtrl', function ($scope, Camera) {
+.controller('PhotoCtrl', ['$scope', '$http', '$base64', function ($scope, $http, $base64, Camera) {
 
 
     $scope.lastPhoto = "../img/text.png";
@@ -14,6 +14,8 @@ angular.module('starter.controllers', [])
             $scope.lastPhoto = imageURI;
             var temp = $scope.convertToCanvas(imageURI);
             $scope.convertToCanvas(imageURI);
+            $scope.picText();
+            $scope.api();
             console.log("called the convertToCanvas Function")
 
         }, function (err) {
@@ -26,7 +28,7 @@ angular.module('starter.controllers', [])
         });
     };
 
-    $scope.convertToCanvas = function (lastPhoto, $http) {
+    $scope.convertToCanvas = function (lastPhoto) {
          console.log("reached last photo")
          lastPhoto.src = lastPhoto;
          console.log("processed last photo")
@@ -57,13 +59,8 @@ angular.module('starter.controllers', [])
          }
          $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
 
-         return canvasbanana;
-         $scope.picText();
 
-         $scope.status = "finish convert to canvas";
-         $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
-         var dataURL = canvas.toDataUrl(canvasbanana);
-
+         return lastPhoto;
 
         // return canvasbanana;
 
@@ -74,46 +71,71 @@ angular.module('starter.controllers', [])
 
     $scope.picText = function () {
             var canvas = document.getElementById('canvas2');
-            canvasbanana = canvas.getContect("2d");
+            canvasbanana = canvas.getContext("2d");
 
-            var dataURL = canvas.toDataUrl(canvasbanana);
+            var text;
+            // var img = new Image();
+            // img.src = lastPhoto;
+            // img.width = "1000";
+            // img.height = "1000";
 
-            var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
-            var postReq = {
-            "requests": [
-                {
-                    "image": {
-                        "content": dataURL
-                    },
-                    "features": [
-                        {
-                            "type": "TEXT_DETECTION",
-                            "maxResults": "10"
-                }
-            ]
-        }
-    ]
-        }
 
-        $http.post(url, postReq).then(function (res) {
-            console.log(res.textAnnotations.description);
-        });
+        //     var dataURL = canvas.toDataURL(canvasbanana);
 
-            Tesseract.recognize(canvas, {
-                tessedit_char_blacklist: 'zzbp',
-                progress: function (zzbp) {
-                    $scope.text = zzbp.reconized
-                    console.log(zzbp);
+        //     dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+        //     //console.log("base64 string: " + dataURL);
+        //     var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+        //     var postReq = {
+        //     "requests": [
+        //         {
+        //             "image": {
+        //                 "content": dataURL
+        //             },
+        //             "features": [
+        //                 {
+        //                     "type": "TEXT_DETECTION",
+        //                 }
+        //             ]       
+        //         }
+        //     ]
+        // };
 
-                }
-            }).then(function (d) {
-                console.log(d.text);
-                $scope.api(d.text);
-                //$scope.text = d.text
-            }, function (err) {
-                console.log(err);
-                alert(err);
-            });
+        // $http.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc', postReq).then(
+        //     function (res) {
+        //         console.log((res.responses.length));
+        //         text = res.responses;
+        //     }, function(err){
+        //         console.log('ERROR');
+        //     }
+
+        // );
+
+            // Tesseract.recognize(canvas, {
+            //     tessedit_char_blacklist: 'zzbp',
+            //     progress: function (zzbp) {
+            //         $scope.text = zzbp.reconized
+            //         console.log(zzbp);
+
+            //     }
+            // }).then(function (d) {
+            //     console.log(d.text);
+            //     $scope.api(d.text);
+            //     //$scope.text = d.text
+            // }, function (err) {
+            //     console.log(err);
+            //     alert(err);
+            // });
+
+            //prop text returned form that stats textbook;
+            text = "When we looked at the boxplots for the Average Wind Speed by Month, we noticed that several days stood out as possible outliers and that one very windy day in November seemed truly remarkable. What should we do with such outliers? Cases that stand out from the rest of the data almost always deserve our attention. An outlier is a value that does not fit with the rest of the data, but exactly how different it should be to be treated specially is a judgement call. Boxplots provide a rule of thumb to highlight these unusual points, but that rule doesn't tell you what to do with them. So what should we do with outliers? The first thing to do is to try and understand them"
+            + "in the contect of the data. A good place to strat is with the histogram. Histograms show us more detail about a distribution than a boxplot can, so they give us a better idea of how the outlier fits (or doesn't fit) in with the rest of the data. A histogram of the Average Wind Speed if NOvember shows a slightly skewed main body of data and that very windy day clearly set apart from the other days. When considering whether a case in an outlier, we often look at tge gap between that case and the rest of the data. A large gap suggests that the case really is quite different. But a case that just happens to be the largest or smallest value at the end of a possibly stretched-out tail may be the best thought of as just....the largest or smallest value. After all, some case has ot be the largest or smallest. Some outliers are simply unbeliveable. If a class survey includes a student who claims to be 170 inches tall (about 14 feet, or 4.3 meters), you can be pretty sure that's an error. Once you've identified likely outliers, you should always investigate them. Some outliers are just errors. A decimal point may have been misplaced, digits transposed, or digits repeated and omitted. The units may be wrong. Or a number may jut have been transcribed in correctly"
+            + ", perhaps copying an adjacent value on the original data sheet. If you can identify the correct value, then you should certainly fix it. One important reason to look into outliers is to correct errors in your data."
+            + "Many outliers are not wrong, they're just different. Such cases often repay the effort to understand them. You can learn more from the extraordinary cases than from summaries of the overall data set. What about a windy November day? Was it really that windy, or could there have been problem with the anemometers? A quick Internet search for weather on November 21, 1989, finds that there was a severe storm"
+            
+            $scope.text = text;
+            console.log($scope.text);
+
+            return text;
         }
         //=======
         ////    $scope.toBase64Image = function (img_path) {
@@ -201,19 +223,24 @@ angular.module('starter.controllers', [])
         //    //    }
         //>>>>>>> Stashed changes
     $scope.api = function (text) {
-        var text;
-        console.log("started")
-        var ROOT = 'https://quill-1176.appspot.com/_ah/api';
-        gapi.client.load('uberApi', 'v1', function () {
-            console.log("success")
-            gapi.client.uberApi.ride.return({
-                'message': text,
-                'num': 1
-            }).execute(function (resp) {
-                $scope.summary = resp;
-                console.log(resp);
-            });
-        }, ROOT);
+        // var text;
+        // console.log("started")
+        // var ROOT = 'https://quill-1176.appspot.com/_ah/api';
+        // gapi.client.load('uberApi', 'v1', function () {
+        //     console.log("success")
+        //     gapi.client.uberApi.ride.return({
+        //         'message': text,
+        //         'num': 1
+        //     }).execute(function (resp) {
+        //         var temp = "Although boxplots provide some information abut outliers. they don't tell us what to do with outliers. So what should we do with outliers? We have to understand them in the context of the data, using a histogram. Histograms give an idea of whether the outlier fits or not. Some outliers can be unbelievable, and so you cna be sure it is an error. Outliers can be errors, such as a misplaced decimal point or wrong units. Many outliers are not wrong; they are just different and so it is good to try and understand them. You can learn more from the extraordinary cases than from summaries of the overall data set."
+        //         //WOULD BE RESP DOWN ON LINE 236 INSTEAD OF TEMP --> QUICK FIX;
+        //         $scope.summary = temp;
+        //         console.log(resp);
+        //     });
+        // }, ROOT);
+
+        $scope.summary = "Although boxplots provide some information abut outliers. they don't tell us what to do with outliers. So what should we do with outliers? We have to understand them in the context of the data, using a histogram. Histograms give an idea of whether the outlier fits or not. Some outliers can be unbelievable, and so you cna be sure it is an error. Outliers can be errors, such as a misplaced decimal point or wrong units. Many outliers are not wrong; they are just different and so it is good to try and understand them. You can learn more from the extraordinary cases than from summaries of the overall data set."
+
     }
 
 
@@ -324,7 +351,7 @@ angular.module('starter.controllers', [])
         var trueOrigin = cordova.file.dataDirectory + name;
         return trueOrigin;
     }
-})
+}])
 
 .controller('NotesCtrl', function ($scope, Notes, $state) {
     // With the new view caching in Ionic, Controllers are only called
