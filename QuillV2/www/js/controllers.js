@@ -36,10 +36,10 @@ angular.module('starter.controllers', [])
         var canvas2 = document.getElementById("canvas2");
         $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
 
-        canvas2.width = lastPhoto.width;
+        canvas2.width = 300;
         $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
 
-        canvas2.height = lastPhoto.height;
+        canvas2.height = 300;
         $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
 
         canvasbanana = canvas2.getContext("2d");
@@ -49,39 +49,36 @@ angular.module('starter.controllers', [])
         img.src = lastPhoto;
         img.width = "1000";
         img.height = "1000";
-        canvas2.width = img.width;
-        canvas2.height = img.height;
+        canvas2.width = 300;
+        canvas2.height = 300;
         console.log(img.width + " " + img.height);
         img.onload = function () {
             canvasbanana.drawImage(img, 0, 0);
         }
         $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
-
-        return canvasbanana;
         $scope.picText();
-
-        $scope.status = "finish convert to canvas";
-        $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
-
-
-
         return canvasbanana;
+        
+
         $scope.status = "finish convert to canvas";
     }
 
     $scope.picText = function () {
-        var canvas = document.getElementById('canvas2');
 
+        var canvas = document.getElementById('canvas2');
+        $scope.status = "reaced picText" ;
 
         Tesseract.recognize(canvas, {
             tessedit_char_blacklist: 'zzbp',
             progress: function (zzbp) {
                 $scope.text = zzbp.reconized
                 console.log(zzbp);
+                $scope.status = zzbp;
 
             }
         }).then(function (d) {
             console.log(d.text);
+            $scope.status = d.text;
             $scope.api(d.text);
             //$scope.text = d.text
         }, function (err) {
@@ -90,6 +87,7 @@ angular.module('starter.controllers', [])
         });
     }
     $scope.api = function (text) {
+        $scope.status = "reached api function"
         var text;
         console.log("started")
         var ROOT = 'https://quill-1176.appspot.com/_ah/api';
@@ -140,79 +138,79 @@ angular.module('starter.controllers', [])
 
     //Select photo testing here 
     // 1
-$scope.images = [];
- 
-$scope.addImage = function() {
-	// 2
-	var options = {
-		destinationType : Camera.DestinationType.FILE_URI,
-		sourceType : Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
-		allowEdit : false,
-		encodingType: Camera.EncodingType.JPEG,
-		popoverOptions: CameraPopoverOptions,
-	};
-	
-	// 3
-	$cordovaCamera.getPicture(options).then(function(imageData) {
- 
-		// 4
-		onImageSuccess(imageData);
- 
-		function onImageSuccess(fileURI) {
-			createFileEntry(fileURI);
-		}
- 
-		function createFileEntry(fileURI) {
-			window.resolveLocalFileSystemURL(fileURI, copyFile, fail);
-		}
- 
-		// 5
-		function copyFile(fileEntry) {
-			var name = fileEntry.fullPath.substr(fileEntry.fullPath.lastIndexOf('/') + 1);
-			var newName = makeid() + name;
- 
-			window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(fileSystem2) {
-				fileEntry.copyTo(
-					fileSystem2,
-					newName,
-					onCopySuccess,
-					fail
-				);
-			},
-			fail);
-		}
-		
-		// 6
-		function onCopySuccess(entry) {
-			$scope.$apply(function () {
-				$scope.images.push(entry.nativeURL);
-			});
-		}
- 
-		function fail(error) {
-			console.log("fail: " + error.code);
-		}
- 
-		function makeid() {
-			var text = "";
-			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
- 
-			for (var i=0; i < 5; i++) {
-				text += possible.charAt(Math.floor(Math.random() * possible.length));
-			}
-			return text;
-		}
- 
-	}, function(err) {
-		console.log(err);
-	});
-}
+    $scope.images = [];
 
-$scope.urlForImage = function(imageName) {
-  var name = imageName.substr(imageName.lastIndexOf('/') + 1);
-  var trueOrigin = cordova.file.dataDirectory + name;
-  return trueOrigin;
-}
+    $scope.addImage = function () {
+        // 2
+        var options = {
+            destinationType: Camera.DestinationType.FILE_URI,
+            sourceType: Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
+            allowEdit: false,
+            encodingType: Camera.EncodingType.JPEG,
+            popoverOptions: CameraPopoverOptions,
+        };
+
+        // 3
+        $cordovaCamera.getPicture(options).then(function (imageData) {
+
+            // 4
+            onImageSuccess(imageData);
+
+            function onImageSuccess(fileURI) {
+                createFileEntry(fileURI);
+            }
+
+            function createFileEntry(fileURI) {
+                window.resolveLocalFileSystemURL(fileURI, copyFile, fail);
+            }
+
+            // 5
+            function copyFile(fileEntry) {
+                var name = fileEntry.fullPath.substr(fileEntry.fullPath.lastIndexOf('/') + 1);
+                var newName = makeid() + name;
+
+                window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (fileSystem2) {
+                        fileEntry.copyTo(
+                            fileSystem2,
+                            newName,
+                            onCopySuccess,
+                            fail
+                        );
+                    },
+                    fail);
+            }
+
+            // 6
+            function onCopySuccess(entry) {
+                $scope.$apply(function () {
+                    $scope.images.push(entry.nativeURL);
+                });
+            }
+
+            function fail(error) {
+                console.log("fail: " + error.code);
+            }
+
+            function makeid() {
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for (var i = 0; i < 5; i++) {
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+                }
+                return text;
+            }
+
+        }, function (err) {
+            console.log(err);
+        });
+    }
+
+    $scope.urlForImage = function (imageName) {
+        var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+        var trueOrigin = cordova.file.dataDirectory + name;
+        return trueOrigin;
+    }
 })
 
 .controller('NotesCtrl', function ($scope, Notes, $state) {
