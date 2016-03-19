@@ -12,21 +12,16 @@
                 Summary
             </div>
             <div class="item item-text-wrap " ng-if="summaryisCollapsed">
-                {{note.lastText}}
+                {{note.summary}}
             </div>
         </div>
         <div class="card">
             <div class="item item-divider item-calm" ng-click="keywordsisCollapsed = !keywordsisCollapsed">
                 Keywords And Motifs
             </div>
-            <div class="item item-text-wrap" ng-if="keywordsisCollapsed">
+            <div class="item item-text-wrap" ng-if="keywordsisCollapsed" ng-repeat="keyword in note.keywords">
                 <ul>
-                    <li>Normandy</li>
-                    <li>Germany</li>
-                    <li>United States</li>
-                    <li>Omaha Beach</li>
-                    <li>Casualities</li>
-                    
+                    <li>{{keyword}}</li>
                 </ul>
             </div>
         </div>
@@ -35,7 +30,7 @@
                 Extra Research
             </div>
             <div class="item item-text-wrap" ng-if="researchisCollapsed">
-                {{note.lastText}}
+                {{note.extraresearch}}
             </div>
         </div>
         <div class="card">
