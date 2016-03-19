@@ -62,7 +62,7 @@ angular.module('starter.controllers', ['starter.services'])
 
         // $scope.status = "finish convert to canvas";
         // $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
-
+canvas.toDataUrl()
 
 
         // return canvasbanana;
