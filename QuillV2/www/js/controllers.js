@@ -69,8 +69,17 @@ angular.module('starter.controllers', [])
 
         // $scope.status = "finish convert to canvas";
 
-        var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
-        var postReq = {
+        
+    }
+
+    $scope.picText = function () {
+            var canvas = document.getElementById('canvas2');
+            canvasbanana = canvas.getContect("2d");
+
+            var dataURL = canvas.toDataUrl(canvasbanana);
+
+            var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+            var postReq = {
             "requests": [
                 {
                     "image": {
@@ -89,11 +98,6 @@ angular.module('starter.controllers', [])
         $http.post(url, postReq).then(function (res) {
             console.log(res.textAnnotations.description);
         });
-    }
-
-    $scope.picText = function () {
-            var canvas = document.getElementById('canvas2');
-
 
             Tesseract.recognize(canvas, {
                 tessedit_char_blacklist: 'zzbp',
