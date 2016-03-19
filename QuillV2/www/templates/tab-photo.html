@@ -1,6 +1,7 @@
 <ion-view view-title="Take Photo">
     <ion-content class="padding">
         <!--
+testing code for testing each part of the tesseract code inidivudalliy 
         <canvas id="c"></canvas>
 
         <div>
@@ -27,13 +28,22 @@
         <canvas id="canvas2"></canvas>
        
 -->
-        <button ng-click="getPhoto()" class="button button-block button-primary">Take Photo</button>
-        <canvas id="canvas2"></canvas>
+        <button ng-click="getPhoto()" class="button button-block button-outline button-balanced">Take Photos</button>
+<button class="button button-block button-outline button-calm">Analyze Photos</button>
+
         <ion-gallery ion-gallery-items="items"></ion-gallery>
-        <p>Status: {{status}}</p>
-        <p>TEXT: {{text}}</p>
-        <p>SUMMARY: {{summary}}</p>
+<!--
+        <div clas="card">
+            <div class="item item-text-wrap">
+                <canvas id="canvas2"></canvas>
+                <p>Status: {{status}}</p>
+                <p>TEXT: {{text}}</p>
+                <p>SUMMARY: {{summary}}</p>
+            </div>
+        </div>
+-->
         <!--
+The javascript for the tesseract api done on the front end
         <script type="text/javascript">
             text = "test4"
             var canvas = document.getElementById('c')
@@ -63,6 +73,8 @@
         </script>
 -->
 
+<!--
+Was the code for adding image from camera roll
         <hr>
         <button class="button button-energized" ng-click="addImage()">
             Add image
@@ -72,5 +84,6 @@
         <ion-scroll>
             <img ng-repeat="image in images" ng-src="{{urlForImage(image)}}" height="200px" />
         </ion-scroll>
+-->
     </ion-content>
 </ion-view>

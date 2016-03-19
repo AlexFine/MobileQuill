@@ -6,6 +6,30 @@ angular.module('starter.controllers', ['ion-gallery'])
     $scope.lastPhoto = "../img/text.png";
     $scope.status = "start status";
     $scope.summary;
+    
+    $scope.items = [
+        {
+            src: 'img/text1.JPG',
+            sub: 'Most recent photos 03/11/2016'
+  },
+        {
+            src: 'img/text2.JPG',
+            sub: 'Most recent photos 03/09/2016'/* Not showed */
+  },
+        {
+            src: 'img/text3.JPG',
+            sub: 'Most recent photos 03/07/2016'/* Not showed */
+  },
+        {
+            src: 'img/text4.JPG',
+            sub: 'Most recent photos 03/05/2016'/* Not showed */
+  },
+        {
+            src: 'img/text5.JPG',
+            sub: 'Most recent photos 03/04/2016'/* Not showed */
+  }    
+        
+]
 
     $scope.getPhoto = function () {
         Camera.getPicture().then(function (imageURI) {
@@ -15,6 +39,8 @@ angular.module('starter.controllers', ['ion-gallery'])
             var temp = $scope.convertToCanvas(imageURI);
             $scope.convertToCanvas(imageURI);
             console.log("called the convertToCanvas Function")
+            $scope.items.push('../img/text.png');
+            $scope.items.push('imageURI', "Most recent photo")
 
         }, function (err) {
             console.err(err);
@@ -317,21 +343,7 @@ angular.module('starter.controllers', ['ion-gallery'])
         return trueOrigin;
     }
 
-    $scope.items = [
-        {
-            src: 'http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg',
-            sub: 'This is a <b>subtitle</b>'
-  },
-        {
-            src: 'http://www.gettyimages.co.uk/CMS/StaticContent/1391099215267_hero2.jpg',
-            sub: '' /* Not showed */
-  },
-        {
-            src: 'http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg',
-            thumb: 'http://www.gettyimages.co.uk/CMS/StaticContent/1391099215267_hero2.jpg'
-  }
-]
-
+    
 
 })
 
