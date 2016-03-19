@@ -1,6 +1,6 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ion-gallery'])
 
-.controller('PhotoCtrl', function ($scope, Camera) {
+.controller('PhotoCtrl', function ($scope, Camera, $http) {
 
 
     $scope.lastPhoto = "../img/text.png";
@@ -27,68 +27,69 @@ angular.module('starter.controllers', [])
     };
 
     $scope.convertToCanvas = function (lastPhoto) {
-         console.log("reached last photo")
-         lastPhoto.src = lastPhoto;
-         console.log("processed last photo")
+        console.log("reached last photo")
+        lastPhoto.src = lastPhoto;
+        console.log("processed last photo")
 
-         $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
+        $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
 
-         var canvas2 = document.getElementById("canvas2");
-         $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
+        var canvas2 = document.getElementById("canvas2");
+        $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
 
-         canvas2.width = lastPhoto.width;
-         $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
+        canvas2.width = lastPhoto.width;
+        $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
 
-         canvas2.height = lastPhoto.height;
-         $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
+        canvas2.height = lastPhoto.height;
+        $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
 
-         canvasbanana = canvas2.getContext("2d");
-         $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
+        canvasbanana = canvas2.getContext("2d");
+        $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
 
-         var img = new Image();
-         img.src = lastPhoto;
-         img.width = "1000";
-         img.height = "1000";
-         canvas2.width = img.width;
-         canvas2.height = img.height;
-         console.log(img.width + " " + img.height);
-         img.onload = function () {
-             canvasbanana.drawImage(img, 0, 0);
-         }
-         $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
-         var dataURL = canvasbanana.toDataUrl(encodeBase64);
+        var img = new Image();
+        img.src = lastPhoto;
+        img.width = "1000";
+        img.height = "1000";
+        canvas2.width = img.width;
+        canvas2.height = img.height;
+        console.log(img.width + " " + img.height);
+        img.onload = function () {
+            canvasbanana.drawImage(img, 0, 0);
+        }
+        var dataURL = canvasbanana.toDataURL(encodeBase64);
         $scope.picText();
-         return canvasbanana;
+        $scope.status = "STARTED REACHED THIS PLACE 6" + lastPhoto;
 
-        
+        return canvasbanana;
+
+
     }
 
     $scope.picText = function ($http) {
             var canvas = document.getElementById('canvas2');
-            canvasbanana = canvas.getContect("2d");
+            canvasbanana = canvas.getContext("2d");
 
             var dataURL = canvas.toDataUrl(canvasbanana);
 
             var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
             var postReq = {
-            "requests": [
-                {
-                    "image": {
-                        "content": dataURL
-                    },
-                    "features": [
-                        {
-                            "type": "TEXT_DETECTION",
-                            "maxResults": "10"
+                "requests": [
+                    {
+                        "image": {
+                            "content": dataURL
+                        },
+                        "features": [
+                            {
+                                "type": "TEXT_DETECTION",
+                                "maxResults": "10"
                 }
             ]
         }
     ]
-        }
+            }
 
-        $http.post(url, postReq).then(function (res) {
-            console.log(res.textAnnotations.description);
-        });
+            $http.post(url, postReq).then(function (res) {
+                console.log(res.textAnnotations.description);
+            });
 
             Tesseract.recognize(canvas, {
                 tessedit_char_blacklist: 'zzbp',
@@ -315,6 +316,23 @@ angular.module('starter.controllers', [])
         var trueOrigin = cordova.file.dataDirectory + name;
         return trueOrigin;
     }
+
+    $scope.items = [
+        {
+            src: 'http://www.wired.com/images_blogs/rawfile/2013/11/offset_WaterHouseMarineImages_62652-2-660x440.jpg',
+            sub: 'This is a <b>subtitle</b>'
+  },
+        {
+            src: 'http://www.gettyimages.co.uk/CMS/StaticContent/1391099215267_hero2.jpg',
+            sub: '' /* Not showed */
+  },
+        {
+            src: 'http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg',
+            thumb: 'http://www.gettyimages.co.uk/CMS/StaticContent/1391099215267_hero2.jpg'
+  }
+]
+
+
 })
 
 .controller('NotesCtrl', function ($scope, Notes, $state) {
