@@ -1,5 +1,6 @@
 <ion-view view-title="Take Photo">
     <ion-content class="padding">
+        <!--
         <canvas id="c"></canvas>
 
         <div>
@@ -7,6 +8,8 @@
                 Take Photo
             </button>
         </div>
+         <p>SUMMARY: {{summary}}</p>
+        <button class="button button-outline button-positive" ng-click="api()">YO summarize BITCH</button>
         <img id="myImage">
         <p>{{text}}</p>
         <button class="button button-outline button-positive" ng-click="picText()">Reconize</button>
@@ -22,6 +25,13 @@
         <img ng-src="{{lastPhoto}}" style="max-width: 100%">
         <p>Break</p>
         <canvas id="canvas2"></canvas>
+       
+-->
+        <button ng-click="getPhoto()" class="button button-block button-primary">Take Photo</button>
+        <canvas id="canvas2"></canvas>
+        <p>{{text}}</p>
+        <p>SUMMARY: {{summary}}</p>
+        <!--
         <script type="text/javascript">
             text = "test4"
             var canvas = document.getElementById('c')
@@ -49,5 +59,16 @@
                 $scope.text = d
             })
         </script>
+-->
+
+        <hr>
+        <button class="button button-energized" ng-click="addImage()">
+            Add image
+        </button>
+        <br>
+        <br>
+        <ion-scroll>
+            <img ng-repeat="image in images" ng-src="{{urlForImage(image)}}" height="200px" />
+        </ion-scroll>
     </ion-content>
 </ion-view>
