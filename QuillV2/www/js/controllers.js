@@ -86,9 +86,15 @@ angular.module('starter.controllers', [])
     ]
         }
 
-        $http.post(url, postReq).then(function (res) {
-            console.log(res.textAnnotations.description);
+      gapi.client.load('vision', 'v1', function () {
+        console.log("success")
+        gapi.client.vision.images.annotate(
+          postReq).execute(function (resp) {
+
+          console.log(resp);
         });
+      }, url);
+
     }
 
     $scope.picText = function () {
@@ -131,26 +137,26 @@ angular.module('starter.controllers', [])
         ////        return q.promise;
         ////    }
         //
-        //    
+        //
         //        $scope.convertToCanvas = function (lastPhoto) {
         //            console.log("reached last photo")
         //            lastPhoto.src = lastPhoto;
         //            console.log("processed last photo")
-        //    
+        //
         //            $scope.status = "STARTED REACHED THIS PLACE 1" + lastPhoto;
-        //    
+        //
         //            var canvas2 = document.getElementById("canvas2");
         //            $scope.status = "STARTED REACHED THIS PLACE 2" + lastPhoto;
-        //    
+        //
         //            canvas2.width = 300;
         //            $scope.status = "STARTED REACHED THIS PLACE 3" + lastPhoto;
-        //    
+        //
         //            canvas2.height = 300;
         //            $scope.status = "STARTED REACHED THIS PLACE 4" + lastPhoto;
-        //    
+        //
         //            canvasbanana = canvas2.getContext("2d");
         //            $scope.status = "STARTED REACHED THIS PLACE 5" + lastPhoto;
-        //    
+        //
         //            var img = new Image();
         //            img.src = lastPhoto;
         //            img.width = "1000";
@@ -167,8 +173,8 @@ angular.module('starter.controllers', [])
         //            $scope.status = dataURL;
         //            //$scope.kushalAPI(dataURL);
         //            return canvasbanana;
-        //            
-        //    
+        //
+        //
         //            $scope.status = "finish convert to canvas";
         //        }
         //    //
@@ -245,7 +251,7 @@ angular.module('starter.controllers', [])
     //    }
 
 
-    //Select photo testing here 
+    //Select photo testing here
     // 1
     $scope.images = [];
 
