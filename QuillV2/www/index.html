@@ -23,15 +23,29 @@ Do not think these two scripts are needed for tesseract.js. I believe only the l
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     <!--GAE APi-->
+  <script>
+  var init = function() {
+    var ROOT = 'https://uberscheduler-1203.appspot.com/_ah/api/';
+    // var ROOT = 'http://localhost:8080/_ah/api'
+    console.log("API Loaded1")
+    gapi.client.load('quillApi', 'v1', function () {
+      console.log("API Loaded")
+    }, ROOT);
+    url ='https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc';
+
+    gapi.client.load('vision', 'v1', function () {}, url);
+  }
+</script>
+
     <script src="https://apis.google.com/js/client.js?onload=init"></script>
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <script src="lib/angular-base64/angular-base64.js"></script>
-    
+
     <script src="lib/ion-gallery/dist/ion-gallery.js"></script>
     <link href="lib/ion-gallery/dist/ion-gallery.css" rel="stylesheet">
-    
+
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 

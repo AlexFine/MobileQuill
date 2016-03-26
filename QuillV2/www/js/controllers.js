@@ -64,16 +64,14 @@ angular.module('starter.controllers', ['ion-gallery'])
 
     $scope.convertToCanvas = function (lastPhoto) {
 
-        url ='https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc';
-
-      gapi.client.load('vision', 'v1', function () {
+        
         console.log("success")
         gapi.client.vision.images.annotate(
           postReq).execute(function (resp) {
 
           console.log(resp);
         });
-      }, url);
+      
 
     }
 
