@@ -68,8 +68,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     $scope.convertToCanvas = function (lastPhoto) {
 
     }
-
-
+    //why do we need this part ^^
 
     $scope.picText = function () {}
 
@@ -101,16 +100,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             console.log("success")
             gapi.client.vision.images.annotate(
                 postReq).execute(function (resp) {
-
                 console.log(resp);
             });
-
-
-
-
         })
     }
-
 
     //Select photo testing here
     // 1
@@ -131,10 +124,24 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                         $scope.imgURI = "data:image/jpeg;base64," + imageData;
                     }, function (err) {
                         // An error occured. Show a message to the user
-                    });
-                }
-})
+                  
+                
 
+
+                return text;
+            
+
+        }, function (err) {
+            console.log(err);
+        });
+    }
+
+    $scope.urlForImage = function (imageName) {
+        var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+        var trueOrigin = cordova.file.dataDirectory + name;
+        return trueOrigin;
+    }
+})
 
 .controller('NotesCtrl', function ($scope, Notes, $state) {
     // With the new view caching in Ionic, Controllers are only called
@@ -153,7 +160,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                 'message': 'If you were a pirate, you know what would be the one thing that would really make you mad? Treasure chests with no handles. How the hell are you supposed to carry it?! The face of a child can say it all, especially the mouth part of the face.',
                 'num': 1
             }).execute(function (resp) {
-
                 console.log(resp);
             });
         }, ROOT);
@@ -162,9 +168,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         $state.go(toState, params) //remember to inject $state to your controller
     }
     $scope.notes = Notes.all();
+
     $scope.remove = function (note) {
         Notes.remove(note);
     };
+    
 })
 
 .controller('NoteDetailCtrl', function ($scope, $stateParams, Notes) {
