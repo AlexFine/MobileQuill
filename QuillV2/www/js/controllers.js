@@ -70,7 +70,29 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     }
     //why do we need this part ^^
 
-    $scope.picText = function () {}
+    $scope.picText = function () {
+      console.log("ran pictest")
+      var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+      var postReq = {
+        "requests": [
+          {
+            "image": {
+              "content": dataURL
+            },
+            "features": [
+              {
+                "type": "LABEL_DETECTION",
+                "maxResults": "10"
+              }
+            ]
+          }
+        ]
+      }
+      $http.post(url, postReq).then(function (res) {
+        console.log(res.textAnnotations.description);
+      });
+
+      }
 
 
     $scope.api = function (lastPhoto) {
