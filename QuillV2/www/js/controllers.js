@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
-.controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera) {
+.controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker) {
 
 
     $scope.status = "start status";
@@ -108,32 +108,43 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     //Select photo testing here
     // 1
     $scope.choosePhoto = function () {
-                  var options = {
-                    quality: 75,
-                    destinationType: Camera.DestinationType.FILE_URL,
-                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                    allowEdit: true,
-                    encodingType: Camera.EncodingType.JPEG,
-                    targetWidth: 300,
-                    targetHeight: 300,
-                    popoverOptions: CameraPopoverOptions,
-                    saveToPhotoAlbum: false
-                };
-   
-                    $cordovaCamera.getPicture(options).then(function (imageData) {
-                        $scope.imgURI = "data:image/jpeg;base64," + imageData;
-                    }, function (err) {
-                        // An error occured. Show a message to the user
-                  
-                
+        //           console.log("choose photo ran")
+        //           var options = {
+        //             quality: 75,
+        //             destinationType: Camera.DestinationType.FILE_URL,
+        //             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        //             allowEdit: true,
+        //             encodingType: Camera.EncodingType.JPEG,
+        //             targetWidth: 300,
+        //             targetHeight: 300,
+        //             popoverOptions: CameraPopoverOptions,
+        //             saveToPhotoAlbum: false
+        //         };
+        //
+        //             $cordovaCamera.getPicture(options).then(function (imageData) {
+        //                 $scope.imgURI = "data:image/jpeg;base64," + imageData;
+        //             }, function (err) {
+        //                 // An error occured. Show a message to the user
+        //
+        //
+        //
+        //
+        //         return text;
+        //
+        //
+        // }, function (err) {
+        //     console.log(err);
+        // });
+      window.imagePicker.getPictures(
+        function(results) {
+          for (var i = 0; i < results.length; i++) {
+            console.log('Image URI: ' + results[i]);
+          }
+        }, function (error) {
+          console.log('Error: ' + error);
+        }
+      );
 
-
-                return text;
-            
-
-        }, function (err) {
-            console.log(err);
-        });
     }
 
     $scope.urlForImage = function (imageName) {
@@ -172,7 +183,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     $scope.remove = function (note) {
         Notes.remove(note);
     };
-    
+
 })
 
 .controller('NoteDetailCtrl', function ($scope, $stateParams, Notes) {
