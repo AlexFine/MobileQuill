@@ -29,6 +29,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
   }
 
 ]
+  console.log($scope.items)
 
     $scope.getPhoto = function () {
         Camera.getPicture().then(function (imageURI) {
@@ -157,16 +158,18 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         // }, function (err) {
         //     console.log(err);
         // });
-      
+      console.log($scope.items)
       window.imagePicker.getPictures(
         function(results) {
           for (var i = 0; i < results.length; i++) {
             console.log('Image URI: ' + results[i]);
-              
+
               var newimage = {
                 src: results[i]
             };
+            console.log($scope.items)
             $scope.items.push(newimage);
+            console.log($scope.items)
               return results[i];
           }
         }, function (error) {
