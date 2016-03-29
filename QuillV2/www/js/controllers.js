@@ -157,10 +157,17 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         // }, function (err) {
         //     console.log(err);
         // });
+      
       window.imagePicker.getPictures(
         function(results) {
           for (var i = 0; i < results.length; i++) {
             console.log('Image URI: ' + results[i]);
+              
+              var newimage = {
+                src: results[i]
+            };
+            $scope.items.push(newimage);
+              return results[i];
           }
         }, function (error) {
           console.log('Error: ' + error);
