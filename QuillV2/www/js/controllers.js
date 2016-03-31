@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
-.controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker) {
+.controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state) {
 
 
     $scope.status = "start status";
@@ -10,26 +10,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         {
             src: 'img/text1.JPG',
             sub: 'Most recent photos 03/11/2016'
-  },
-        {
-            src: 'img/text2.JPG',
-            sub: 'Most recent photos 03/09/2016' /* Not showed */
-  },
-        {
-            src: 'img/text3.JPG',
-            sub: 'Most recent photos 03/07/2016' /* Not showed */
-  },
-        {
-            src: 'img/text4.JPG',
-            sub: 'Most recent photos 03/05/2016' /* Not showed */
-  },
-        {
-            src: 'img/text5.JPG',
-            sub: 'Most recent photos 03/04/2016' /* Not showed */
   }
 
 ]
-  console.log($scope.items)
+    console.log($scope.items)
 
     $scope.getPhoto = function () {
         Camera.getPicture().then(function (imageURI) {
@@ -41,17 +25,12 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             console.log("called the convertToCanvas Function")
 
             var newimage = {
-                src: lastPhoto,
-                sub: 'Most recent photos 03/19/2016'
-            }
-            $scope.items.push(newimage);
-
-            var newimage = {
                 src: imageURI,
-                sub: 'Most recent photos 03/19/2016'
-            }
+                sub: "Most recent photos 03/29/2016"
+            };
+            console.log($scope.items)
             $scope.items.push(newimage);
-
+            console.log($scope.items)
 
         }, function (err) {
             console.err(err);
@@ -68,37 +47,37 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
     $scope.convertToCanvas = function (lastPhoto) {
 
-    }
-    //why do we need this part ^^
+        }
+        //why do we need this part ^^
 
     $scope.picText = function () {
-      console.log("ran pictest")
-      var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
-      var postReq = {
-        "requests": [
-          {
-            "image": {
-              "content": dataURL
-            },
-            "features": [
-              {
-                "type": "LABEL_DETECTION",
-                "maxResults": "10"
+        console.log("ran pictest")
+        var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+        var postReq = {
+            "requests": [
+                {
+                    "image": {
+                        "content": dataURL
+                    },
+                    "features": [
+                        {
+                            "type": "LABEL_DETECTION",
+                            "maxResults": "10"
               }
             ]
           }
         ]
-      }
-      $http.post(url, postReq).then(function (res) {
-        console.log(res.textAnnotations.description);
-      });
+        }
+        $http.post(url, postReq).then(function (res) {
+            console.log(res.textAnnotations.description);
+        });
 
-      }
+    }
 
 
     $scope.api = function (lastPhoto) {
 
-        $scope.testPhoto = "../img/text.png";
+        $scope.testPhoto = items[itmes.length];
         var testPhoto = $scope.testPhoto;
         var dataURL = testPhoto;
         dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
@@ -158,25 +137,33 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         // }, function (err) {
         //     console.log(err);
         // });
-      console.log($scope.items)
-      window.imagePicker.getPictures(
-        function(results) {
-          for (var i = 0; i < results.length; i++) {
-            console.log('Image URI: ' + results[i]);
+        console.log($scope.items)
+        window.imagePicker.getPictures(
+            function (results) {
+                for (var i = 0; i < results.length; i++) {
+                    console.log('Image URI: ' + results[i]);
 
-              var newimage = {
-                src: results[i]
-            };
-            console.log($scope.items)
-            $scope.items.push(newimage);
-            console.log($scope.items)
-              return results[i];
-          }
-        }, function (error) {
-          console.log('Error: ' + error);
-        }
-      );
-
+                    var newimage = {
+                        src: results[i],
+                        sub: "Most recent photos 03/29/2016"
+                    };
+                    console.log($scope.items);
+                    $scope.items.push(newimage);
+                    console.log($scope.items);
+                    $scope.reload();
+                }
+            },
+            function (error) {
+                console.log('Error: ' + error);
+            }
+        );
+       
+    }
+    
+    $scope.reload = function (){
+        $state.go($state.current, {}, {
+            reload: true
+        });
     }
 
     $scope.urlForImage = function (imageName) {
