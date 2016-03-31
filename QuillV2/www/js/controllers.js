@@ -30,7 +30,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             };
             console.log($scope.items)
             $scope.items.push(newimage);
-            console.log($scope.items)
+            console.log($scope.items);
+            $scope.reload();
 
         }, function (err) {
             console.err(err);
