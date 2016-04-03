@@ -7,9 +7,9 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ion-gallery'])
 
-.run(function ($ionicPlatform, $rootScope, $state, auth, store, jwtHelper) {
+.run(function ($ionicPlatform, $rootScope, $state, store, jwtHelper) {
 
-  
+
     //currentuser will be set to something other than null over here when u link to login
 //    currentUser = "hi";
 //    $rootScope.user = null;
@@ -36,7 +36,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
     });
 
-    //I'm not sure if this is where I put this code. I think it might need to go in the controllers section where the login stuff is located. 
+    //I'm not sure if this is where I put this code. I think it might need to go in the controllers section where the login stuff is located.
 //    $rootScope.$on('$locationChangeStart', function () {
 //        var token = store.get('token');
 //        if (token) {
@@ -53,7 +53,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 })
 
 
-.config(function ($stateProvider, $urlRouterProvider, authProvider) {
+.config(function ($stateProvider, $urlRouterProvider) {
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
@@ -144,10 +144,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 
 
-//    authProvider.init({
-//        domain: 'mydomain.auth0.com',
-//        clientID: 'CLIENT ID',
-//        loginUrl: '/login'
-//    });
+
 
 });

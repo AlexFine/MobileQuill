@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'angular-storage', 'angular-jwt'])
+angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-storage', 'angular-jwt'])
     .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
 
         currentUser = null;
@@ -180,7 +180,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
 //                canvas.width = photoTest.width;
 //                canvas.height = photoTest.height;
 //            
-//                canvas.getContext("2d").drawImage(photoTest, 0, 0);
+                canvas.getContext("2d").drawImage(photoTest, 0, 0);
                 var pngUrl = canvas.toDataURL(); // PNG is the default
                 $scope.testPhoto = pngUrl;
             console.log("THE PNG URL IS " + pngUrl)
@@ -196,7 +196,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
             var testPhoto = $scope.testPhoto;
 
 
-            var dataURL = "data:iamge/jpeg;base64," + testPhoto;
+            var dataURL = testPhoto;
             console.log(dataURL);
             //console.log("base64 string: " + dataURL);
             // var url = "https://vision.googleapis.com";
@@ -405,16 +405,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
 
     $scope.api = function () {
         console.log("started")
-        var ROOT = 'https://quill-1176.appspot.com/_ah/api';
-        gapi.client.load('uberApi', 'v1', function () {
-            console.log("success")
-            gapi.client.uberApi.ride.return({
-                'message': 'If you were a pirate, you know what would be the one thing that would really make you mad? Treasure chests with no handles. How the hell are you supposed to carry it?! The face of a child can say it all, especially the mouth part of the face.',
-                'num': 1
-            }).execute(function (resp) {
-                console.log(resp);
-            });
-        }, ROOT);
+        // gapi.client.user.new({}, )
     }
     $scope.goto = function (toState, params) {
         $state.go(toState, params) //remember to inject $state to your controller
@@ -451,7 +442,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     };
 })
 
-.controller('LoginCtrl', function (auth, $location, store, $scope, $ionicPopup, $state) {
+.controller('LoginCtrl', function ($location, store, $scope, $ionicPopup, $state) {
 
     // var apisToLoad;
     //     var loadCallback = function () {
