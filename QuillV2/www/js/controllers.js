@@ -219,4 +219,27 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0'])
     $scope.settings = {
         enableFriends: true
     };
+})
+
+.controller('LoginCtrl', function(auth, $scope){
+    $scope.signin = function(){
+        auth.signin({
+            authParams: {
+                scope: 'openid name email'
+                
+            }
+        }, function(profile,idToken, accessToken, state, refreshToken){
+            $location.path('/user-info')
+        }, function(err){
+            console.log("Error", err)
+        });
+    }
+})
+
+.controller('UserInfoCtrl', function(auth){
+    auth.profilePromise.then(function(profile){
+        $scope.profile = profile;
+        
+    });
+    $scope.profile = auth.profile;
 });
