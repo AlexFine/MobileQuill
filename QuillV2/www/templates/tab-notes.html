@@ -20,17 +20,14 @@
             <input type="search" ng-model="query" value="Search">
         </label>
             </div>
-        <p ng-repeat="i in Newnotes">
-        {{i.text}}
-            {{i.keywords}}
-        </p>
+        
         <div class="list" style="height:5%;">
-            <div ng-repeat="note in notes | filter:query;">
+            <div ng-repeat="entry in Newnotes | filter:query;">
                 <a class="item item-thumbnail-left"  href="#/tab/notes/{{note.id}}">
-                    <img ng-src="{{note.face}}" style="border-radius:4px;">
-                    <h2> {{note.name}}</h2>
-                    <p> {{note.lastText}}</p>
-                    <p style="color:#B0B0B0">{{note.date}}</p>
+                    <img ng-src="{{entry.img}}" style="border-radius:4px;">
+                    <h2> {{entry.keywords}}</h2>
+                    <p> {{entry.text}}</p>
+                    <p style="color:#B0B0B0">{{entry.dates}}</p>
 
                 </a>
             </div>
