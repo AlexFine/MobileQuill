@@ -1,5 +1,65 @@
 angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'angular-storage', 'angular-jwt'])
 
+
+
+.controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading, $cordovaGoogleAnalytics) {
+
+        $scope.checkLogged = function () {
+            $scope.startApp();
+        };
+
+        if ($stateParams.clear) {
+            $ionicHistory.clearHistory();
+            $ionicHistory.clearCache();
+        };
+
+        $scope.login = function () {
+            $state.go('login');
+        };
+
+        if ($rootScope.isLoggedIn) {
+            $state.go('tab.notes');
+        }
+
+        $scope.startApp = function () {
+            if (window.localStorage['rememberme'] == "true") {
+                $state.go('tab.chats');
+            } else {
+                $state.go('intro');
+                window.localStorage['didTutorial'] = true;
+            }
+        };
+
+        if (window.localStorage['didTutorial'] === "true") {
+            console.log('Skip intro');
+            $state.go('intro');
+        }
+
+        $scope.next = function () {
+            $ionicSlideBoxDelegate.next();
+        };
+        $scope.previous = function () {
+            $ionicSlideBoxDelegate.previous();
+        };
+
+        // Called each time the slide changes
+        $scope.slideChanged = function (index) {
+            $scope.slideIndex = index;
+        };
+        $scope.user = {};
+        $scope.error = {};
+        $scope.test = function (n) {
+            //alert(n);
+        }
+        $scope.register = function () {
+            //put register function here
+        };
+        $scope.slideNext = function () {
+            $ionicSlideBoxDelegate.next();
+            $ionicSlideBoxDelegate.next();
+            $ionicSlideBoxDelegate.next();
+        }
+    })
 .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state) {
 
 
@@ -281,7 +341,9 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         enableFriends: true
     };
 })
-
+.controller('SignUpController', function(auth, $location, store, $scope, $ionicPopup, $state) {
+    
+})
 .controller('LoginCtrl', function (auth, $location, store, $scope, $ionicPopup, $state) {
     $scope.signin = function () {
         auth.signin({

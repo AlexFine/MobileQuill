@@ -7,7 +7,21 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ion-gallery'])
 
-.run(function($ionicPlatform, $rootScope, auth, store, jwtHelper) {
+.run(function($ionicPlatform, $rootScope, $state, auth, store, jwtHelper) {
+
+
+        //currentuser will be set to something other than null over here when u link to login
+        currentUser = "hi";
+        $rootScope.user = null;
+        $rootScope.isLoggedIn = false;
+
+        if (currentUser) {
+            $rootScope.user = currentUser;
+            $rootScope.isLoggedIn = true;
+            $state.go('tab.photo');
+
+        }
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -46,6 +60,32 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   // Each state's controller can be found in controllers.js
   $stateProvider
 
+
+  .state('intro', {
+                url: '/intro',
+                templateUrl: 'templates/intro.html',
+                controller: 'IntroCtrl'
+            })
+
+      .state('login', {
+                url: '/login',
+                views: {
+                    '': {
+                        templateUrl: 'templates/login-page.html',
+                        controller: 'LoginCtrl'
+                    }
+                }
+            })
+    .state('signup', {
+                url: '/signup',
+                views: {
+                    '': {
+                        templateUrl: 'templates/signup-page.html',
+                        controller: 'SignUpController'
+                    }
+                }
+            })
+
   // setup an abstract state for the tabs directive
     .state('tab', {
     url: '/tab',
@@ -53,7 +93,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     templateUrl: 'templates/tabs.html'
   })
 
+
   // Each tab has its own nav history stack:
+
+
 
   .state('tab.photo', {
     url: '/photo',
@@ -95,7 +138,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/notes');
+  //$urlRouterProvider.otherwise('/tab/notes');
+  $urlRouterProvider.otherwise('/intro');
+
     
     
     authProvider.init({
