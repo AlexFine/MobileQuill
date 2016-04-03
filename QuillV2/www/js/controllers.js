@@ -171,8 +171,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             $scope.api(lastPhoto);
 
         };
-        
-    
+
+
         $scope.base64 = function (url, callback) {
                 var image = new Image();
 
@@ -197,36 +197,38 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             var dataURL;
             var imgURL = 'img/text1.JPG';
             $scope.base64(imgURL, function(resp){
-                console.log(resp);
+                // console.log(resp);
                 dataURL = resp;
+              var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+              //var testPhoto = $scope.testPhoto;
+
+
+              //var dataURL = testPhoto;
+              //console.log(dataURL);
+              //console.log("base64 string: " + dataURL);
+              // var url = "https://vision.googleapis.com";
+              var postReq = {
+                "requests": [
+                  {
+                    "image": {
+                      "content": dataURL
+                    },
+                    "features": [
+                      {
+                        "type": "TEXT_DETECTION",
+                      }
+                    ]
+                  }
+                ]
+              };
+              console.log(postReq)
+              $http.post(url, postReq).then(function (res) {
+                console.log(res);
+              })
             })
 
                 //
-            var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
-            //var testPhoto = $scope.testPhoto;
 
-
-            //var dataURL = testPhoto;
-            //console.log(dataURL);
-            //console.log("base64 string: " + dataURL);
-            // var url = "https://vision.googleapis.com";
-            var postReq = {
-                "requests": [
-                    {
-                        "image": {
-                            "content": dataURL
-                        },
-                        "features": [
-                            {
-                                "type": "TEXT_DETECTION",
-                  }
-                ]
-              }
-            ]
-            };
-            $http.post(url, postReq).then(function (res) {
-                console.log(res);
-            })
         }
 
 
@@ -398,7 +400,9 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
     $scope.api = function () {
         console.log("started")
-        // gapi.client.user.new({}, )
+        gapi.client.quillApi.user.new({}).execute(function(resp) {
+          console.log(resp);
+        });
     }
     $scope.goto = function (toState, params) {
         $state.go(toState, params) //remember to inject $state to your controller
