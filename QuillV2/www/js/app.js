@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ion-gallery'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, auth, store, jwtHelper) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,7 +21,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       StatusBar.styleDefault();
     }
   });
+    
+     $rootScope.$on('$locationChangeStart', function(){
+        var token = store.get('token');
+        if (token) {
+            if(!jwtHelper.isTokenExpired(token)){
+                if(!auth.isAuthenticated) {
+                    auth.authenticate(store.get('profile'), token);
+                }
+            }
+            //else{ show Login page. This is like if the user is not loged in show login page. I feel like debuggin where clarify where this stuff goes }
+        }
+    })
+    auth.hookEvents();
 })
+
 
 .config(function($stateProvider, $urlRouterProvider, authProvider) {
 
@@ -89,22 +103,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         loginUrl: '/login'
     });
 
-})
+});
 
 
 //I'm not sure if this is where I put this code. I think it might need to go in the controllers section where the login stuff is located. 
 
-.run(function($rootScope, auth, store, jwtHelper){
-    $rootScope.$on('$locationChangeStart', function(){
-        var token = store.get('token');
-        if (token) {
-            if(!jwtHelper.isTokenExpired(token)){
-                if(!auth.isAuthenticated) {
-                    auth.authenticate(store.get('profile'), token);
-                }
-            }
-            //else{ show Login page. This is like if the user is not loged in show login page. I feel like debuggin where clarify where this stuff goes }
-        }
-    })
-    auth.hookEvents();
-});
