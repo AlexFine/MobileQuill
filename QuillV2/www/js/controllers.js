@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'angular-storage', 'angular-jwt'])
     .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
 
-        currentUser = "hi";
+        currentUser = null;
         $rootScope.user = null;
         $rootScope.isLoggedIn = false;
 
@@ -59,7 +59,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         }
 
         $scope.logoutgoogleplus = function () {
-
             window.plugins.googleplus.disconnect(
                 function (msg) {
                     alert(msg); // do something useful instead of alerting
@@ -81,11 +80,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
 
         $scope.login = function () {
 
-            $state.go('tab.notes');
+            $state.go('login');
         };
 
         if ($rootScope.isLoggedIn) {
-            // $state.go('tab.notes');
+             $state.go('tab.notes');
         }
 
         $scope.startApp = function () {
@@ -440,20 +439,82 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
 })
 
 .controller('LoginCtrl', function (auth, $location, store, $scope, $ionicPopup, $state) {
-    $scope.signin = function () {
-        auth.signin({
-            authParams: {
-                scope: 'openid name email'
 
-            }
-        }, function (profile, idToken, accessToken, state, refreshToken) {
-            store.set('profile', profile);
-            store.set('token', id_token);
-            $location.path('/user-info')
-        }, function (err) {
-            console.log("Error", err)
-        });
-    }
+    // var apisToLoad;
+    //     var loadCallback = function () {
+    //         if (--apisToLoad == 0) {
+    //             signin(true, userAuthed);
+    //         }
+    //     };
+
+
+    //     $scope.signin = function (mode, authorizeCallback) {
+    //         console.log("hello");
+    //         gapi.auth.authorize({
+    //                 client_id: '717056452157-5udkhp8gsi6imu2lj684ushiecsrn1qq.apps.googleusercontent.com',
+    //                 scope: 'https://www.googleapis.com/auth/userinfo.email',
+    //                 mode: false
+    //             },
+    //             authorizeCallback);
+    //     }
+
+    //     $scope.userAuthed = function () {
+    //         var request = gapi.client.oauth2.userinfo.get().execute(function (resp) {
+    //             if (!resp.code) {
+    //                 // User is signed in, call my Endpoint
+    //                 $rootScope.user = currentUser;
+    //                 $rootScope.isLoggedIn = true;
+    //                 $state.go('tab.notes');
+    //             }
+    //         });
+    //     }
+        gapi.client.load('plus', 'v1');
+
+
+
+        $scope.deviceReady = function () {
+            //I get called when everything's ready for the plugin to be called!
+            console.log('Device is ready!');
+            window.plugins.googleplus.trySilentLogin();
+        }
+
+        $scope.logingoogleplus = function () {
+
+            window.plugins.googleplus.login({
+                    'scopes': 'https://www.googleapis.com/auth/userinfo.email', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+                    'webClientId': '717056452157-5udkhp8gsi6imu2lj684ushiecsrn1qq.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+                    'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+                },
+                function (obj) {
+                    alert(JSON.stringify(obj)); // do something useful instead of alerting
+                },
+                function (msg) {
+                    alert('error: ' + msg);
+                }
+            );
+        }
+
+        $scope.logoutgoogleplus = function () {
+            window.plugins.googleplus.disconnect(
+                function (msg) {
+                    alert(msg); // do something useful instead of alerting
+                }
+            );
+        }
+    // $scope.signin = function () {
+    //     auth.signin({
+    //         authParams: {
+    //             scope: 'openid name email'
+
+    //         }
+    //     }, function (profile, idToken, accessToken, state, refreshToken) {
+    //         store.set('profile', profile);
+    //         store.set('token', id_token);
+    //         $location.path('/user-info')
+    //     }, function (err) {
+    //         console.log("Error", err)
+    //     });
+    // }
 
     $scope.out = function () {
         var confirmPopup = $ionicPopup.confirm({
@@ -470,6 +531,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
             }
         });
     }
+    
 
     $scope.info = function () {
         var alertPopup = $ionicPopup.alert({
