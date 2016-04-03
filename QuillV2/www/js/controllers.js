@@ -201,9 +201,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
             console.log("ran pictest");
             //$scope.base64(testPhoto);
+            console.log("items length: " + $scope.items.length);
             var dataURL;
-            for (var i = 0; i < items.length; i++) {
-                var imgURL = items[i].src;
+            for (var i = 0; i < $scope.items.length; i++) {
+                var imgURL = $scope.items[i].src;
+
             
             $scope.base64(imgURL, function (resp) {
                 // console.log(resp);
@@ -227,7 +229,9 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                 
                 //console.log(postReq)
                 $http.post(url, postReq).then(function (res) {
-                    text+=res;
+                    //console.log(res);
+                    text+=res.data.responses[0].textAnnotations[0].description;
+                    console.log(text);
                 })
             })
         }
