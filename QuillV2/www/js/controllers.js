@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'angular-storage', 'angular-jwt'])
+angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-storage', 'angular-jwt'])
     .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
 
         currentUser = null;
@@ -180,7 +180,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         $scope.picText = function () {
             console.log("ran pictest")
           $scope.testPhoto = 'img/text1.JPG';
-            var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+          var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
           var testPhoto = $scope.testPhoto;
 
           var dataURL = testPhoto;
@@ -392,16 +392,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
 
     $scope.api = function () {
         console.log("started")
-        var ROOT = 'https://quill-1176.appspot.com/_ah/api';
-        gapi.client.load('uberApi', 'v1', function () {
-            console.log("success")
-            gapi.client.uberApi.ride.return({
-                'message': 'If you were a pirate, you know what would be the one thing that would really make you mad? Treasure chests with no handles. How the hell are you supposed to carry it?! The face of a child can say it all, especially the mouth part of the face.',
-                'num': 1
-            }).execute(function (resp) {
-                console.log(resp);
-            });
-        }, ROOT);
+        // gapi.client.user.new({}, )
     }
     $scope.goto = function (toState, params) {
         $state.go(toState, params) //remember to inject $state to your controller
@@ -438,7 +429,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     };
 })
 
-.controller('LoginCtrl', function (auth, $location, store, $scope, $ionicPopup, $state) {
+.controller('LoginCtrl', function ($location, store, $scope, $ionicPopup, $state) {
 
     // var apisToLoad;
     //     var loadCallback = function () {
@@ -531,7 +522,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
             }
         });
     }
-    
+
 
     $scope.info = function () {
         var alertPopup = $ionicPopup.alert({
