@@ -1,5 +1,9 @@
 angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-storage', 'angular-jwt'])
     .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
+    
+    $scope.pageswitch = function(){
+        $state.go('tab.notes');
+    }
 
         currentUser = null;
         $rootScope.user = null;
@@ -188,6 +192,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             };
             image.src = url;
 
+
             }
             //why do we need this part ^^
 
@@ -202,6 +207,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             })
 
                 //
+
             var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
             //var testPhoto = $scope.testPhoto;
 
@@ -398,7 +404,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
     $scope.api = function () {
         console.log("started")
-        // gapi.client.user.new({}, )
+            // gapi.client.user.new({}, )
     }
     $scope.goto = function (toState, params) {
         $state.go(toState, params) //remember to inject $state to your controller
@@ -411,7 +417,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 })
 
-.controller('NoteDetailCtrl', function ($scope, $stateParams, Notes) {
+.controller('NoteDetailCtrl', function ($scope, $stateParams, Notes, $cordovaEmailComposer) {
     $scope.note = Notes.get($stateParams.noteId);
     $scope.summaryisCollapsed = true;
     $scope.keywordsisCollapsed = true;
@@ -427,6 +433,32 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     var lastChar = currentpage.charAt(currentpage.length - 1);
     $scope.lastChar = lastChar;
 
+$scope.submit = function(){
+    $cordovaEmailComposer.isAvailable().then(function () {
+        // is available
+    }, function () {
+        // not available
+    });
+
+    var email = {
+        to: 'max@mustermann.de',
+        cc: 'erika@mustermann.de',
+        bcc: ['john@doe.com', 'jane@doe.com'],
+        attachments: [
+      'file://img/logo.png',
+      'res://icon.png',
+      'base64:icon.png//iVBORw0KGgoAAAANSUhEUg...',
+      'file://README.pdf'
+    ],
+        subject: 'Cordova Icons',
+        body: 'How are you? Nice greetings from Leipzig',
+        isHtml: true
+    };
+
+    $cordovaEmailComposer.open(email).then(null, function () {
+        // user cancelled email
+    });
+    }
 })
 
 .controller('AccountCtrl', function ($scope) {
