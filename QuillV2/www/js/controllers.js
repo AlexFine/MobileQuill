@@ -197,12 +197,14 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             //why do we need this part ^^
 
         $scope.picText = function () {
+            var text = "";
+            var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
             console.log("ran pictest");
             //$scope.base64(testPhoto);
             var dataURL;
             for (var i = 0; i < items.length; i++) {
                 var imgURL = items[i].src;
-            }
+            
             $scope.base64(imgURL, function (resp) {
                 // console.log(resp);
                 dataURL = resp;
@@ -222,12 +224,13 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                   }
                 ]
                 };
-                var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
-                console.log(postReq)
+                
+                //console.log(postReq)
                 $http.post(url, postReq).then(function (res) {
-                    console.log(res);
+                    text+=res;
                 })
             })
+        }
 
             //
 
