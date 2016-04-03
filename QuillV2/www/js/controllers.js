@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0'])
+angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'angular-storage', 'angular-jwt'])
 
 .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state) {
 
@@ -221,7 +221,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0'])
     };
 })
 
-.controller('LoginCtrl', function(auth, $scope){
+.controller('LoginCtrl', function(auth, $location, store, $scope){
     $scope.signin = function(){
         auth.signin({
             authParams: {
@@ -229,16 +229,23 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0'])
                 
             }
         }, function(profile,idToken, accessToken, state, refreshToken){
+            store.set('profile', profile);
+            store.set('token', id_token);
             $location.path('/user-info')
         }, function(err){
             console.log("Error", err)
         });
     }
+    
+   
+    
 })
 
 .controller('UserInfoCtrl', function(auth){
     auth.profilePromise.then(function(profile){
         $scope.profile = profile;
+        
+        
         
     });
     $scope.profile = auth.profile;
