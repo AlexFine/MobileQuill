@@ -158,10 +158,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
                 console.log('Error: ' + error);
             }
         );
-       
+
     }
-    
-    $scope.reload = function (){
+
+    $scope.reload = function () {
         $state.go($state.current, {}, {
             reload: true
         });
@@ -182,6 +182,16 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     //
     //$scope.$on('$ionicView.enter', function(e) {
     //});
+    
+
+$scope.saveData = function(v){
+     window.localStorage.setItem("data", v);
+}
+$scope.loadData = function(){
+    alert(window.localStorage.getItem("data"));
+}
+
+    
     $scope.api = function () {
         console.log("started")
         var ROOT = 'https://quill-1176.appspot.com/_ah/api';
@@ -221,32 +231,59 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     };
 })
 
-.controller('LoginCtrl', function(auth, $location, store, $scope){
-    $scope.signin = function(){
+.controller('LoginCtrl', function (auth, $location, store, $scope, $ionicPopup, $state) {
+    $scope.signin = function () {
         auth.signin({
             authParams: {
                 scope: 'openid name email'
-                
+
             }
-        }, function(profile,idToken, accessToken, state, refreshToken){
+        }, function (profile, idToken, accessToken, state, refreshToken) {
             store.set('profile', profile);
             store.set('token', id_token);
             $location.path('/user-info')
-        }, function(err){
+        }, function (err) {
             console.log("Error", err)
         });
     }
-    
-   
-    
+
+    $scope.out = function () {
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Logout',
+            template: 'Are you sure you want to logout?'
+        });
+
+        confirmPopup.then(function (res) {
+            if (res) {
+                console.log('You are sure');
+                $state.go('tab.account');
+            } else {
+                console.log('You are not sure');
+            }
+        });
+    }
+
+    $scope.info = function () {
+        var alertPopup = $ionicPopup.alert({
+            title: 'Account Details',
+            template: 'Username: Banana Man <br> Name: Alex Fine <br> Email: alexkfine2@gmail.com '
+        });
+
+        alertPopup.then(function (res) {
+            console.log('Thank you for not eating my delicious ice cream cone');
+        });
+    }
+
+
+
 })
 
-.controller('UserInfoCtrl', function(auth){
-    auth.profilePromise.then(function(profile){
+.controller('UserInfoCtrl', function (auth) {
+    auth.profilePromise.then(function (profile) {
         $scope.profile = profile;
-        
-        
-        
+
+
+
     });
     $scope.profile = auth.profile;
 });

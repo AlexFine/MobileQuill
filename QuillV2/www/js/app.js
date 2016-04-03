@@ -22,6 +22,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   });
     
+    //I'm not sure if this is where I put this code. I think it might need to go in the controllers section where the login stuff is located. 
      $rootScope.$on('$locationChangeStart', function(){
         var token = store.get('token');
         if (token) {
@@ -87,7 +88,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     url: '/account',
     views: {
       'tab-account': {
-        templateUrl: 'templates/tab-account.html',
+        templateUrl: 'templates/account.html',
         controller: 'AccountCtrl'
       }
     }
@@ -106,5 +107,4 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 });
 
 
-//I'm not sure if this is where I put this code. I think it might need to go in the controllers section where the login stuff is located. 
 

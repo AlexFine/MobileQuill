@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-   <!-- <script src="http://tenso.rs/tesseract.js"></script>
+    <!-- <script src="http://tenso.rs/tesseract.js"></script>
 
       <script src="node_modules/tesseract.js/lib/Tesseract.js"></script>
 Do not think these two scripts are needed for tesseract.js. I believe only the link one is neccessary. Will move that javascript code locally soon.
@@ -15,27 +15,27 @@ Do not think these two scripts are needed for tesseract.js. I believe only the l
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
- <script src="cordova.js"></script>
+    <script src="cordova.js"></script>
 
     <script src="lib/angular/angular.js"></script>
-<script src="js/ng-cordova.js"></script>
+    <script src="js/ng-cordova.js"></script>
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     <!--GAE APi-->
-  <script>
-//  var init = function() {
-//    var ROOT = 'https://uberscheduler-1203.appspot.com/_ah/api/';
-//    // var ROOT = 'http://localhost:8080/_ah/api'
-//    console.log("API Loaded1")
-//    gapi.client.load('quillApi', 'v1', function () {
-//      console.log("API Loaded")
-//    }, ROOT);
-//    url ='https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc';
-//
-//    gapi.client.load('vision', 'v1', function () {}, url);
-//  }
-</script>
+    <script>
+        //  var init = function() {
+        //    var ROOT = 'https://uberscheduler-1203.appspot.com/_ah/api/';
+        //    // var ROOT = 'http://localhost:8080/_ah/api'
+        //    console.log("API Loaded1")
+        //    gapi.client.load('quillApi', 'v1', function () {
+        //      console.log("API Loaded")
+        //    }, ROOT);
+        //    url ='https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc';
+        //
+        //    gapi.client.load('vision', 'v1', function () {}, url);
+        //  }
+    </script>
 
     <script src="https://apis.google.com/js/client.js?onload=init"></script>
     <!-- ionic/angularjs js -->
@@ -65,7 +65,13 @@ Do not think these two scripts are needed for tesseract.js. I believe only the l
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
-    <ion-nav-bar class="bar-stable bar-energized">
+    <ion-nav-bar class="bar-stable bar-energized ">
+        <ion-nav-buttons side="right">
+            <a ng-controller="LoginCtrl" ng-click="info()" style="text-decoration:none; color:#FBF2EF; margin-right:6px;"><i style="font-size:35px;" class="ion-ios-information"></i></a>
+            <a ng-controller="LoginCtrl" ng-click="out()" style="text-decoration:none; color:#FBF2EF;"><i style="font-size:35px;" class="ion-ios-close"></i></a>
+            
+        </ion-nav-buttons>
+        
         <ion-nav-back-button>
         </ion-nav-back-button>
     </ion-nav-bar>
