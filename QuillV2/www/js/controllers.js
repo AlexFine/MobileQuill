@@ -1,9 +1,9 @@
 angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-storage', 'angular-jwt'])
     .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
 
-    $scope.pageswitch = function(){
-        $state.go('tab.notes');
-    }
+        $scope.pageswitch = function () {
+            $state.go('tab.notes');
+        }
 
         currentUser = null;
         $rootScope.user = null;
@@ -132,18 +132,17 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     })
     .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state) {
 
-
-        $scope.status = "start status";
-        $scope.summary;
-
         $scope.items = [
             {
                 src: 'img/text1.JPG',
                 sub: 'Most recent photos 03/11/2016'
-  }
+  }]
+        console.log($scope.items);
 
-]
-        console.log($scope.items)
+        $scope.status = "start status";
+        $scope.summary;
+
+
 
         $scope.getPhoto = function () {
             Camera.getPicture().then(function (imageURI) {
@@ -177,20 +176,21 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         };
 
 
+        var canvas = document.createElement('canvas');
         $scope.base64 = function (url, callback) {
                 var image = new Image();
 
                 image.onload = function () {
-                var canvas = document.createElement('canvas');
-                canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
-                canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
 
-                canvas.getContext('2d').drawImage(this, 0, 0);
+                    canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
+                    canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
 
-                // Get raw image data
-                callback(canvas.toDataURL().replace(/^data:image\/(png|jpg);base64,/, ''));
-            };
-            image.src = url;
+                    canvas.getContext('2d').drawImage(this, 0, 0);
+
+                    // Get raw image data
+                    callback(canvas.toDataURL().replace(/^data:image\/(png|jpg);base64,/, ''));
+                };
+                image.src = url;
 
 
             }
@@ -200,38 +200,36 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             console.log("ran pictest");
             //$scope.base64(testPhoto);
             var dataURL;
-            var imgURL = 'img/text1.JPG';
-            $scope.base64(imgURL, function(resp){
+            for (var i = 0; i < items.length; i++) {
+                var imgURL = items[i].src;
+            }
+            $scope.base64(imgURL, function (resp) {
                 // console.log(resp);
                 dataURL = resp;
 
 
-              //var dataURL = testPhoto;
-              //console.log(dataURL);
-              //console.log("base64 string: " + dataURL);
-              // var url = "https://vision.googleapis.com";
-              var postReq = {
-                "requests": [
-                  {
-                    "image": {
-                      "content": dataURL
-                    },
-                    "features": [
-                      {
-                        "type": "TEXT_DETECTION",
+                var postReq = {
+                    "requests": [
+                        {
+                            "image": {
+                                "content": dataURL
+                            },
+                            "features": [
+                                {
+                                    "type": "TEXT_DETECTION",
                       }
                     ]
                   }
                 ]
-              };
-              var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
-              console.log(postReq)
-              $http.post(url, postReq).then(function (res) {
-                console.log(res);
-              })
+                };
+                var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+                console.log(postReq)
+                $http.post(url, postReq).then(function (res) {
+                    console.log(res);
+                })
             })
 
-                //
+            //
 
         }
 
@@ -405,8 +403,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     $scope.api = function () {
         console.log("started")
 
-        gapi.client.quillApi.user.new({}).execute(function(resp) {
-          console.log(resp);
+        gapi.client.quillApi.user.new({}).execute(function (resp) {
+            console.log(resp);
         });
 
     }
@@ -437,31 +435,31 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     var lastChar = currentpage.charAt(currentpage.length - 1);
     $scope.lastChar = lastChar;
 
-$scope.submit = function(){
-    $cordovaEmailComposer.isAvailable().then(function () {
-        // is available
-    }, function () {
-        // not available
-    });
+    $scope.submit = function () {
+        $cordovaEmailComposer.isAvailable().then(function () {
+            // is available
+        }, function () {
+            // not available
+        });
 
-    var email = {
-        to: 'max@mustermann.de',
-        cc: 'erika@mustermann.de',
-        bcc: ['john@doe.com', 'jane@doe.com'],
-        attachments: [
+        var email = {
+            to: 'max@mustermann.de',
+            cc: 'erika@mustermann.de',
+            bcc: ['john@doe.com', 'jane@doe.com'],
+            attachments: [
       'file://img/logo.png',
       'res://icon.png',
       'base64:icon.png//iVBORw0KGgoAAAANSUhEUg...',
       'file://README.pdf'
     ],
-        subject: 'Cordova Icons',
-        body: 'How are you? Nice greetings from Leipzig',
-        isHtml: true
-    };
+            subject: 'Cordova Icons',
+            body: 'How are you? Nice greetings from Leipzig',
+            isHtml: true
+        };
 
-    $cordovaEmailComposer.open(email).then(null, function () {
-        // user cancelled email
-    });
+        $cordovaEmailComposer.open(email).then(null, function () {
+            // user cancelled email
+        });
     }
 })
 
