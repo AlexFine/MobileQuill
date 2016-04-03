@@ -10,11 +10,11 @@
 <ion-view ng-init="checkLogged()">
         <ion-nav-buttons side="left">
           <button class="button button-dark button-clear no-animation"
-                   ng-click="login()" ng-show="!slideIndex">
+                   ng-click="signin(false, authUser)" ng-show="!slideIndex">
             Login
           </button>
           <button class="button button-dark button-clear no-animation"
-                  ng-click="login()" ng-show="slideIndex > 0">
+                  ng-click="signin(false, authUser)" ng-show="slideIndex > 0">
             Login
           </button>
         </ion-nav-buttons>

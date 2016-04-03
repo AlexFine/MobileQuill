@@ -1,5 +1,44 @@
 angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'angular-storage', 'angular-jwt'])
-.controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading, $cordovaGoogleAnalytics) {
+    .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
+
+        currentUser = "hi";
+        $rootScope.user = null;
+        $rootScope.isLoggedIn = false;
+
+        var apisToLoad;
+        var loadCallback = function () {
+            if (--apisToLoad == 0) {
+                signin(true, userAuthed);
+            }
+        };
+
+
+        $scope.signin = function(mode, authorizeCallback) {
+            alert("hello");
+            console.log("hello");
+            gapi.auth.authorize({
+                    client_id: '717056452157-5udkhp8gsi6imu2lj684ushiecsrn1qq.apps.googleusercontent.com',
+                    scope: 'https://www.googleapis.com/auth/userinfo.email',
+                    mode: false
+                },
+                authorizeCallback);
+        }
+
+        function userAuthed() {
+            var request = gapi.client.oauth2.userinfo.get().execute(function (resp) {
+                if (!resp.code) {
+                    // User is signed in, call my Endpoint
+                    $rootScope.user = currentUser;
+                    $rootScope.isLoggedIn = true;
+                    $state.go('tab.notes');
+                }
+            });
+        }
+
+    
+
+
+
 
         $scope.checkLogged = function () {
             $scope.startApp();
@@ -11,17 +50,17 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         };
 
         $scope.login = function () {
-            
+
             $state.go('tab.notes');
         };
-
+    
         if ($rootScope.isLoggedIn) {
-            $state.go('tab.notes');
+           // $state.go('tab.notes');
         }
 
         $scope.startApp = function () {
             if (window.localStorage['rememberme'] == "true") {
-                $state.go('tab.chats');
+                $state.go('tab.notes');
             } else {
                 $state.go('intro');
                 window.localStorage['didTutorial'] = true;
@@ -58,179 +97,179 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
             $ionicSlideBoxDelegate.next();
         }
     })
-.controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state) {
+    .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state) {
 
 
-    $scope.status = "start status";
-    $scope.summary;
+        $scope.status = "start status";
+        $scope.summary;
 
-    $scope.items = [
-        {
-            src: 'img/text1.JPG',
-            sub: 'Most recent photos 03/11/2016'
+        $scope.items = [
+            {
+                src: 'img/text1.JPG',
+                sub: 'Most recent photos 03/11/2016'
   }
 
 ]
-    console.log($scope.items)
+        console.log($scope.items)
 
-    $scope.getPhoto = function () {
-        Camera.getPicture().then(function (imageURI) {
+        $scope.getPhoto = function () {
+            Camera.getPicture().then(function (imageURI) {
 
-            $scope.status = "get picture";
-            $scope.lastPhoto = imageURI;
+                $scope.status = "get picture";
+                $scope.lastPhoto = imageURI;
 
 
-            console.log("called the convertToCanvas Function")
+                console.log("called the convertToCanvas Function")
 
-            var newimage = {
-                src: imageURI,
-                sub: "Most recent photos 03/29/2016"
-            };
-            console.log($scope.items)
-            $scope.items.push(newimage);
-            console.log($scope.items);
-            $scope.reload();
+                var newimage = {
+                    src: imageURI,
+                    sub: "Most recent photos 03/29/2016"
+                };
+                console.log($scope.items)
+                $scope.items.push(newimage);
+                console.log($scope.items);
+                $scope.reload();
 
-        }, function (err) {
-            console.err(err);
-        }, {
-            quality: 100,
-            targetWidth: 320,
-            targetHeight: 320,
-            saveToPhotoAlbum: false
-        });
+            }, function (err) {
+                console.err(err);
+            }, {
+                quality: 100,
+                targetWidth: 320,
+                targetHeight: 320,
+                saveToPhotoAlbum: false
+            });
 
-        $scope.api(lastPhoto);
+            $scope.api(lastPhoto);
 
-    };
+        };
 
-    $scope.convertToCanvas = function (lastPhoto) {
+        $scope.convertToCanvas = function (lastPhoto) {
 
-        }
-        //why do we need this part ^^
+            }
+            //why do we need this part ^^
 
-    $scope.picText = function () {
-        console.log("ran pictest")
-        var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
-        var postReq = {
-            "requests": [
-                {
-                    "image": {
-                        "content": dataURL
-                    },
-                    "features": [
-                        {
-                            "type": "LABEL_DETECTION",
-                            "maxResults": "10"
+        $scope.picText = function () {
+            console.log("ran pictest")
+            var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+            var postReq = {
+                "requests": [
+                    {
+                        "image": {
+                            "content": dataURL
+                        },
+                        "features": [
+                            {
+                                "type": "LABEL_DETECTION",
+                                "maxResults": "10"
               }
             ]
           }
         ]
+            }
+            $http.post(url, postReq).then(function (res) {
+                console.log(res.textAnnotations.description);
+            });
+
         }
-        $http.post(url, postReq).then(function (res) {
-            console.log(res.textAnnotations.description);
-        });
-
-    }
 
 
-    $scope.api = function (lastPhoto) {
+        $scope.api = function (lastPhoto) {
 
-        $scope.testPhoto = 'img/text1.JPG';
-        var testPhoto = $scope.testPhoto;
-        var dataURL = testPhoto;
-        dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-        //console.log("base64 string: " + dataURL);
-        var url = "https://vision.googleapis.com";
-        var postReq = {
-            "requests": [
-                {
-                    "image": {
-                        "content": dataURL
-                    },
-                    "features": [
-                        {
-                            "type": "TEXT_DETECTION",
+            $scope.testPhoto = 'img/text1.JPG';
+            var testPhoto = $scope.testPhoto;
+            var dataURL = testPhoto;
+            dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+            //console.log("base64 string: " + dataURL);
+            var url = "https://vision.googleapis.com";
+            var postReq = {
+                "requests": [
+                    {
+                        "image": {
+                            "content": dataURL
+                        },
+                        "features": [
+                            {
+                                "type": "TEXT_DETECTION",
                          }
                      ]
                  }
              ]
-        };
+            };
 
-        gapi.client.load('vision', 'v1', function () {
-            console.log("success")
-            gapi.client.vision.images.annotate(
-                postReq).execute(function (resp) {
-                console.log(resp);
-            });
-        })
-    }
+            gapi.client.load('vision', 'v1', function () {
+                console.log("success")
+                gapi.client.vision.images.annotate(
+                    postReq).execute(function (resp) {
+                    console.log(resp);
+                });
+            })
+        }
 
-    //Select photo testing here
-    // 1
-    $scope.choosePhoto = function () {
-        //           console.log("choose photo ran")
-        //           var options = {
-        //             quality: 75,
-        //             destinationType: Camera.DestinationType.FILE_URL,
-        //             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-        //             allowEdit: true,
-        //             encodingType: Camera.EncodingType.JPEG,
-        //             targetWidth: 300,
-        //             targetHeight: 300,
-        //             popoverOptions: CameraPopoverOptions,
-        //             saveToPhotoAlbum: false
-        //         };
-        //
-        //             $cordovaCamera.getPicture(options).then(function (imageData) {
-        //                 $scope.imgURI = "data:image/jpeg;base64," + imageData;
-        //             }, function (err) {
-        //                 // An error occured. Show a message to the user
-        //
-        //
-        //
-        //
-        //         return text;
-        //
-        //
-        // }, function (err) {
-        //     console.log(err);
-        // });
-        console.log($scope.items)
-        window.imagePicker.getPictures(
-            function (results) {
-                for (var i = 0; i < results.length; i++) {
-                    console.log('Image URI: ' + results[i]);
+        //Select photo testing here
+        // 1
+        $scope.choosePhoto = function () {
+            //           console.log("choose photo ran")
+            //           var options = {
+            //             quality: 75,
+            //             destinationType: Camera.DestinationType.FILE_URL,
+            //             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            //             allowEdit: true,
+            //             encodingType: Camera.EncodingType.JPEG,
+            //             targetWidth: 300,
+            //             targetHeight: 300,
+            //             popoverOptions: CameraPopoverOptions,
+            //             saveToPhotoAlbum: false
+            //         };
+            //
+            //             $cordovaCamera.getPicture(options).then(function (imageData) {
+            //                 $scope.imgURI = "data:image/jpeg;base64," + imageData;
+            //             }, function (err) {
+            //                 // An error occured. Show a message to the user
+            //
+            //
+            //
+            //
+            //         return text;
+            //
+            //
+            // }, function (err) {
+            //     console.log(err);
+            // });
+            console.log($scope.items)
+            window.imagePicker.getPictures(
+                function (results) {
+                    for (var i = 0; i < results.length; i++) {
+                        console.log('Image URI: ' + results[i]);
 
-                    var newimage = {
-                        src: results[i],
-                        sub: "Most recent photos 03/29/2016"
-                    };
-                    console.log($scope.items);
-                    $scope.items.push(newimage);
-                    console.log($scope.items);
-                    $scope.reload();
+                        var newimage = {
+                            src: results[i],
+                            sub: "Most recent photos 03/29/2016"
+                        };
+                        console.log($scope.items);
+                        $scope.items.push(newimage);
+                        console.log($scope.items);
+                        $scope.reload();
+                    }
+                },
+                function (error) {
+                    console.log('Error: ' + error);
                 }
-            },
-            function (error) {
-                console.log('Error: ' + error);
-            }
-        );
+            );
 
-    }
+        }
 
-    $scope.reload = function () {
-        $state.go($state.current, {}, {
-            reload: true
-        });
-    }
+        $scope.reload = function () {
+            $state.go($state.current, {}, {
+                reload: true
+            });
+        }
 
-    $scope.urlForImage = function (imageName) {
-        var name = imageName.substr(imageName.lastIndexOf('/') + 1);
-        var trueOrigin = cordova.file.dataDirectory + name;
-        return trueOrigin;
-    }
-})
+        $scope.urlForImage = function (imageName) {
+            var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+            var trueOrigin = cordova.file.dataDirectory + name;
+            return trueOrigin;
+        }
+    })
 
 .controller('NotesCtrl', function ($scope, Notes, $state) {
 
@@ -305,14 +344,14 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         $scope.Newnotes = storedNotes;
         //Load dates
 
-       // Stop the ion-refresher from spinning
-       $scope.$broadcast('scroll.refreshComplete');
-     
+        // Stop the ion-refresher from spinning
+        $scope.$broadcast('scroll.refreshComplete');
+
 
     }
-    
-    
-    
+
+
+
     $scope.loadData = function () {
         alert(window.localStorage.getItem("data"));
     }
@@ -349,10 +388,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     $scope.textisCollapsed = false;
     $scope.researchisCollapsed = true;
 
-    
+
     var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
     $scope.Newnotes = storedNotes;
-    
+
     $scope.currentpage = window.location.href;
     var currentpage = window.location.href;
     var lastChar = currentpage.charAt(currentpage.length - 1);

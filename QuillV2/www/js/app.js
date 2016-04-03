@@ -9,47 +9,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 .run(function ($ionicPlatform, $rootScope, $state, auth, store, jwtHelper) {
 
-
-  var apisToLoad;
-  var loadCallback = function() {
-    if (--apisToLoad == 0) {
-      signin(true, userAuthed);
-    }
-  };
-
-  apisToLoad = 2; // must match number of calls to gapi.client.load()
-  apiRoot = '//' + window.location.host + '/_ah/api';
-  gapi.client.load('tictactoe', 'v1', loadCallback, apiRoot);
-  gapi.client.load('oauth2', 'v2', loadCallback);
-
-
-function signin(mode, authorizeCallback) {
-  gapi.auth.authorize({client_id: '717056452157-5udkhp8gsi6imu2lj684ushiecsrn1qq.apps.googleusercontent.com',
-    scope: SCOPES, immediate: mode},
-    authorizeCallback);
-}
-
-function userAuthed() {
-  var request = 
-      gapi.client.oauth2.userinfo.get().execute(function(resp) {
-    if (!resp.code) {
-      // User is signed in, call my Endpoint
-        
-    }
-  });
-}
-    
+  
     //currentuser will be set to something other than null over here when u link to login
-    currentUser = "hi";
-    $rootScope.user = null;
-    $rootScope.isLoggedIn = false;
-
-    if (currentUser) {
-        $rootScope.user = currentUser;
-        $rootScope.isLoggedIn = true;
-        $state.go('tab.photo');
-
-    }
+//    currentUser = "hi";
+//    $rootScope.user = null;
+//    $rootScope.isLoggedIn = false;
+//
+//    if (currentUser) {
+//        $rootScope.user = currentUser;
+//        $rootScope.isLoggedIn = true;
+//        $state.go('tab.photo');
+//
+//    }
 
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -175,7 +146,7 @@ function userAuthed() {
 
     authProvider.init({
         domain: 'mydomain.auth0.com',
-        clientID: '717056452157-5udkhp8gsi6imu2lj684ushiecsrn1qq.apps.googleusercontent.com',
+        clientID: 'CLIENT ID',
         loginUrl: '/login'
     });
 
