@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
+angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0'])
 
 .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state) {
 
