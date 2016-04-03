@@ -175,6 +175,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
 })
 
 .controller('NotesCtrl', function ($scope, Notes, $state) {
+    
+    window.onload = function() {
+  $scope.saveData("a");
+};
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
     // To listen for when this page is active (for example, to refresh data),
@@ -182,22 +186,27 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     //
     //$scope.$on('$ionicView.enter', function(e) {
     //});
-    
-    var notes = ['note one', 'note two', 'note three'];
-    
 
-$scope.saveData = function(v){
-     window.localStorage.setItem("data", v);
-     window.localStorage.setItem("notes", JSON.stringify(notes));
-    var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
-    $scope.Newnotes = storedNotes;
-    console.log(storedNotes);
-}
-$scope.loadData = function(){
-    alert(window.localStorage.getItem("data"));
-}
+    var notes = [
+        'note one',
+        'note two',
+        'note three'
+    ];
 
-    
+
+    $scope.saveData = function (v) {
+        window.localStorage.setItem("data", v);
+        window.localStorage.setItem("notes", JSON.stringify(notes));
+        var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
+        $scope.Newnotes = storedNotes;
+        console.log(storedNotes);
+
+    }
+    $scope.loadData = function () {
+        alert(window.localStorage.getItem("data"));
+    }
+
+
     $scope.api = function () {
         console.log("started")
         var ROOT = 'https://quill-1176.appspot.com/_ah/api';
