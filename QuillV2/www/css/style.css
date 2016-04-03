@@ -68,19 +68,7 @@ input:focus {
     left: 0;
     content: "";
 }
-/*.introsignup{
-  background-color:transparent;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: 300;
-  width: 100%;
-  border-radius: 2px;
-  border: 1px solid #fff;
-  padding-left: 0px;
-  height: 0px;
-  font-size: 14px;
-  margin-top: 10px;
-  margin-bottom: 15px;
-}*/
+
 
 blockquote {
     width: 90% !important;
@@ -91,44 +79,7 @@ blockquote {
     padding: 5px 5px 5px 5px !important;
     /*background-color: #eee !important;*/
 }
-/**
-.smallp{
-        font-size: 1em; 
-        font-family: 'Raleway', 'Hind', sans-serif;
-}
-.bigp{
-        font-size: 1.8em; 
-        font-family: 'Raleway', 'Hind', sans-serif;
-}
-<<<<<<< Updated upstream
-.slider {
-  height: 100%;
-}
-.slider-slide {
-  padding-top: 80px;
-  color: #000;
-  background-color: #fff;
-  text-align: center;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-  font-weight: 300;
-}
-#logo {
-  margin: 30px 0px;
-}
-#list {
-  width: 170px;
-  margin: 30px auto;
-  font-size: 20px;
-}
-#list ol {
-  margin-top: 30px;
-}
-#list ol li {
-  text-align: left;
-  list-style: decimal;
-  margin: 10px 0px;
-}
-*/
+
 
 .slider {
     height: 100%;
@@ -138,25 +89,7 @@ blockquote {
     padding-top: 80px;
     color: white;
     text-align: center;
-    /**background-image: url("http://quillapp.io/step1.png");*/
-    /**
-  background: -webkit-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* Chrome 10+, Saf5.1+ */
-    /**  background:    -moz-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* FF3.6+ */
-    /**  background:     -ms-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* IE10 */
-    /** background:      -o-linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* Opera 11.10+ */
-    /**  background:         linear-gradient(90deg, #EC6F66 10%, #F3A183 90%); /* W3C */
-    /**background: -moz-linear-gradient(45deg, rgba(255,153,51,1) 0%, rgba(0,128,128,1) 100%); /* ff3.6+ */
-    /**background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, rgba(255,153,51,1)), color-stop(100%, rgba(0,128,128,1))); /* safari4+,chrome */
-    /**background: -webkit-linear-gradient(45deg, rgba(255,153,51,1) 0%, rgba(0,128,128,1) 100%); /* safari5.1+,chrome10+ */
-    /**background: -o-linear-gradient(45deg, rgba(255,153,51,1) 0%, rgba(0,128,128,1) 100%); /* opera 11.10+ */
-    /**background: -ms-linear-gradient(45deg, rgba(255,153,51,1) 0%, rgba(0,128,128,1) 100%); /* ie10+ */
-    /**background: -moz-linear-gradient(45deg, rgba(255,153,51,1) 58%, rgba(0,128,128,1) 100%); /* ff3.6+ */
-    /**background: -webkit-gradient(linear, left bottom, right top, color-stop(58%, rgba(255,153,51,1)), color-stop(100%, rgba(0,128,128,1))); /* safari4+,chrome */
-    /**background: -webkit-linear-gradient(45deg, rgba(255,153,51,1) 58%, rgba(0,128,128,1) 100%); /* safari5.1+,chrome10+ */
-    /**background: -o-linear-gradient(45deg, rgba(255,153,51,1) 58%, rgba(0,128,128,1) 100%); /* opera 11.10+ */
-    /**background: -ms-linear-gradient(45deg, rgba(255,153,51,1) 58%, rgba(0,128,128,1) 100%); /* ie10+ */
-    /**background: linear-gradient(45deg, rgba(255,153,51,1) 58%, rgba(0,128,128,1) 100%); /* w3c */
-    
+  
     background: -webkit-linear-gradient(90deg, #FF6600 10%, #FF8533 90%);
     /* Chrome 10+, Saf5.1+ */
     

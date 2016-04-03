@@ -7,41 +7,70 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ion-gallery'])
 
-.run(function($ionicPlatform, $rootScope, $state, auth, store, jwtHelper) {
+.run(function ($ionicPlatform, $rootScope, $state, auth, store, jwtHelper) {
 
 
-        //currentuser will be set to something other than null over here when u link to login
-        currentUser = "hi";
-        $rootScope.user = null;
-        $rootScope.isLoggedIn = false;
-
-        if (currentUser) {
-            $rootScope.user = currentUser;
-            $rootScope.isLoggedIn = true;
-            $state.go('tab.photo');
-
-        }
-
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-
+  var apisToLoad;
+  var loadCallback = function() {
+    if (--apisToLoad == 0) {
+      signin(true, userAuthed);
     }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+  };
+
+  apisToLoad = 2; // must match number of calls to gapi.client.load()
+  apiRoot = '//' + window.location.host + '/_ah/api';
+  gapi.client.load('tictactoe', 'v1', loadCallback, apiRoot);
+  gapi.client.load('oauth2', 'v2', loadCallback);
+
+
+function signin(mode, authorizeCallback) {
+  gapi.auth.authorize({client_id: '717056452157-5udkhp8gsi6imu2lj684ushiecsrn1qq.apps.googleusercontent.com',
+    scope: SCOPES, immediate: mode},
+    authorizeCallback);
+}
+
+function userAuthed() {
+  var request = 
+      gapi.client.oauth2.userinfo.get().execute(function(resp) {
+    if (!resp.code) {
+      // User is signed in, call my Endpoint
+        
     }
   });
+}
     
+    //currentuser will be set to something other than null over here when u link to login
+    currentUser = "hi";
+    $rootScope.user = null;
+    $rootScope.isLoggedIn = false;
+
+    if (currentUser) {
+        $rootScope.user = currentUser;
+        $rootScope.isLoggedIn = true;
+        $state.go('tab.photo');
+
+    }
+
+    $ionicPlatform.ready(function () {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.disableScroll(true);
+
+        }
+        if (window.StatusBar) {
+            // org.apache.cordova.statusbar required
+            StatusBar.styleDefault();
+        }
+    });
+
     //I'm not sure if this is where I put this code. I think it might need to go in the controllers section where the login stuff is located. 
-     $rootScope.$on('$locationChangeStart', function(){
+    $rootScope.$on('$locationChangeStart', function () {
         var token = store.get('token');
         if (token) {
-            if(!jwtHelper.isTokenExpired(token)){
-                if(!auth.isAuthenticated) {
+            if (!jwtHelper.isTokenExpired(token)) {
+                if (!auth.isAuthenticated) {
                     auth.authenticate(store.get('profile'), token);
                 }
             }
@@ -49,107 +78,105 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
     })
     auth.hookEvents();
+
 })
 
 
-.config(function($stateProvider, $urlRouterProvider, authProvider) {
+.config(function ($stateProvider, $urlRouterProvider, authProvider) {
 
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
-  $stateProvider
+    // Ionic uses AngularUI Router which uses the concept of states
+    // Learn more here: https://github.com/angular-ui/ui-router
+    // Set up the various states which the app can be in.
+    // Each state's controller can be found in controllers.js
+    $stateProvider
 
 
-  .state('intro', {
-                url: '/intro',
-                templateUrl: 'templates/intro.html',
-                controller: 'IntroCtrl'
-            })
+        .state('intro', {
+        url: '/intro',
+        templateUrl: 'templates/intro.html',
+        controller: 'IntroCtrl'
+    })
 
-      .state('login', {
-                url: '/login',
-                views: {
-                    '': {
-                        templateUrl: 'templates/login-page.html',
-                        controller: 'LoginCtrl'
-                    }
+    .state('login', {
+            url: '/login',
+            views: {
+                '': {
+                    templateUrl: 'templates/login-page.html',
+                    controller: 'LoginCtrl'
                 }
-            })
-    .state('signup', {
-                url: '/signup',
-                views: {
-                    '': {
-                        templateUrl: 'templates/signup-page.html',
-                        controller: 'SignUpController'
-                    }
+            }
+        })
+        .state('signup', {
+            url: '/signup',
+            views: {
+                '': {
+                    templateUrl: 'templates/signup-page.html',
+                    controller: 'SignUpController'
                 }
-            })
+            }
+        })
 
-  // setup an abstract state for the tabs directive
+    // setup an abstract state for the tabs directive
     .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
-
-
-  // Each tab has its own nav history stack:
-
-
-
-  .state('tab.photo', {
-    url: '/photo',
-    views: {
-      'tab-photo': {
-        templateUrl: 'templates/tab-photo.html',
-        controller: 'PhotoCtrl'
-      }
-    }
-  })
-
-  .state('tab.notes', {
-      url: '/notes',
-      views: {
-        'tab-notes': {
-          templateUrl: 'templates/tab-notes.html',
-          controller: 'NotesCtrl'
-        }
-      }
-    })
-    .state('tab.note-detail', {
-      url: '/notes/:noteId',
-      views: {
-        'tab-notes': {
-          templateUrl: 'templates/note-detail.html',
-          controller: 'NoteDetailCtrl'
-        }
-      }
+        url: '/tab',
+        abstract: true,
+        templateUrl: 'templates/tabs.html'
     })
 
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/account.html',
-        controller: 'AccountCtrl'
-      }
-    }
-  });
 
-  // if none of the above states are matched, use this as the fallback
-  //$urlRouterProvider.otherwise('/tab/notes');
-  $urlRouterProvider.otherwise('/intro');
+    // Each tab has its own nav history stack:
 
-    
-    
+
+
+    .state('tab.photo', {
+        url: '/photo',
+        views: {
+            'tab-photo': {
+                templateUrl: 'templates/tab-photo.html',
+                controller: 'PhotoCtrl'
+            }
+        }
+    })
+
+    .state('tab.notes', {
+            url: '/notes',
+            views: {
+                'tab-notes': {
+                    templateUrl: 'templates/tab-notes.html',
+                    controller: 'NotesCtrl'
+                }
+            }
+        })
+        .state('tab.note-detail', {
+            url: '/notes/:noteId',
+            views: {
+                'tab-notes': {
+                    templateUrl: 'templates/note-detail.html',
+                    controller: 'NoteDetailCtrl'
+                }
+            }
+        })
+
+    .state('tab.account', {
+        url: '/account',
+        views: {
+            'tab-account': {
+                templateUrl: 'templates/account.html',
+                controller: 'AccountCtrl'
+            }
+        }
+    });
+
+    // if none of the above states are matched, use this as the fallback
+    //$urlRouterProvider.otherwise('/tab/notes');
+    $urlRouterProvider.otherwise('/intro');
+
+
+
     authProvider.init({
-        domain:'mydomain.auth0.com',
-        clientID: 'Cliente ID',
+        domain: 'mydomain.auth0.com',
+        clientID: '717056452157-5udkhp8gsi6imu2lj684ushiecsrn1qq.apps.googleusercontent.com',
         loginUrl: '/login'
     });
 
 });
-
-
-
