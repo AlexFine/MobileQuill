@@ -11,7 +11,7 @@
                 Local storage save
             </button>
             <button class="button button-outline button-balanced icon ion-ios-checkmark-outline" style="width:49%;" ng-click="loadData()">
-                Load storage save
+                Load storage save  
             </button>
         </div>
         <div style="margin:1%;">
@@ -20,6 +20,9 @@
             <input type="search" ng-model="query" value="Search">
         </label>
             </div>
+        <p ng-repeat="i in Newnotes">
+        {{i}}
+        </p>
         <div class="list" style="height:5%;">
             <div ng-repeat="note in notes | filter:query;">
                 <a class="item item-thumbnail-left"  href="#/tab/notes/{{note.id}}">

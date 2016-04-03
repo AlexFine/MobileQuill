@@ -78,7 +78,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
 
     $scope.api = function (lastPhoto) {
 
-        $scope.testPhoto = items[itmes.length];
+        $scope.testPhoto = 'img/text1.JPG';
         var testPhoto = $scope.testPhoto;
         var dataURL = testPhoto;
         dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
@@ -183,9 +183,15 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     //$scope.$on('$ionicView.enter', function(e) {
     //});
     
+    var notes = ['note one', 'note two', 'note three'];
+    
 
 $scope.saveData = function(v){
      window.localStorage.setItem("data", v);
+     window.localStorage.setItem("notes", JSON.stringify(notes));
+    var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
+    $scope.Newnotes = storedNotes;
+    console.log(storedNotes);
 }
 $scope.loadData = function(){
     alert(window.localStorage.getItem("data"));

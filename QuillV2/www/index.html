@@ -24,18 +24,49 @@ Do not think these two scripts are needed for tesseract.js. I believe only the l
     <link href="css/ionic.app.css" rel="stylesheet">
     <!--GAE APi-->
     <script>
-        //  var init = function() {
-        //    var ROOT = 'https://uberscheduler-1203.appspot.com/_ah/api/';
-        //    // var ROOT = 'http://localhost:8080/_ah/api'
-        //    console.log("API Loaded1")
-        //    gapi.client.load('quillApi', 'v1', function () {
-        //      console.log("API Loaded")
-        //    }, ROOT);
-        //    url ='https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc';
-        //
-        //    gapi.client.load('vision', 'v1', function () {}, url);
-        //  }
-    </script>
+//          var init = function() {
+//            var ROOT = 'https://uberscheduler-1203.appspot.com/_ah/api/';
+//            // var ROOT = 'http://localhost:8080/_ah/api'
+//            console.log("API Loaded1")
+//            gapi.client.load('quillApi', 'v1', function () {
+//              console.log("API Loaded")
+//            }, ROOT);
+//            url ='https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc';
+//        
+//            gapi.client.load('vision', 'v1', function () {}, url);
+//          }
+        
+           var PROJECT_ID = 'YOUR_PROJECT_ID';
+     var CLIENT_ID = 'YOUR_CLIENT_ID';
+     var API_KEY = 'AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc';
+     var SCOPES = 'https://www.googleapis.com/auth/compute';
+
+     /**
+      * Authorize Google Compute Engine API.
+      */
+     function authorization() {
+       gapi.client.setApiKey(API_KEY);
+       gapi.auth.authorize({
+         client_id: CLIENT_ID,
+         scope: SCOPES,
+         immediate: false
+       }, function(authResult) {
+            if (authResult && !authResult.error) {
+              window.alert('Auth was successful!');
+            } else {
+              window.alert('Auth was not successful');
+            }
+          }
+       );
+     }
+
+     /**
+      * Driver for sample application.
+      */
+     $(window).load(authorization);
+    </script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
 
     <script src="https://apis.google.com/js/client.js?onload=init"></script>
     <!-- ionic/angularjs js -->
