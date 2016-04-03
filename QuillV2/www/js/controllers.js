@@ -11,7 +11,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         };
 
         $scope.login = function () {
-            alert('hi');
+            
             $state.go('tab.notes');
         };
 
@@ -391,7 +391,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         confirmPopup.then(function (res) {
             if (res) {
                 console.log('You are sure');
-                $state.go('tab.account');
+                $state.go('intro');
             } else {
                 console.log('You are not sure');
             }
