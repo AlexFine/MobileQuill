@@ -173,31 +173,41 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         };
         
     
-        $scope.base64 = function () {
-                $scope.photo1 = 'img/text1.JPG';
-            var photoTest = $scope.photo1
-                var canvas = document.createElement("canvas");
-//                canvas.width = photoTest.width;
-//                canvas.height = photoTest.height;
-//            
-                canvas.getContext("2d").drawImage(photoTest, 0, 0);
-                var pngUrl = canvas.toDataURL(); // PNG is the default
-                $scope.testPhoto = pngUrl;
-            console.log("THE PNG URL IS " + pngUrl)
+        $scope.base64 = function (url, callback) {
+                var image = new Image();
+
+                image.onload = function () {
+                var canvas = document.createElement('canvas');
+                canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
+                canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
+
+                canvas.getContext('2d').drawImage(this, 0, 0);
+
+                // Get raw image data
+                callback(canvas.toDataURL().replace(/^data:image\/(png|jpg);base64,/, ''));
+            };
+            image.src = url;
 
             }
             //why do we need this part ^^
 
         $scope.picText = function () {
             console.log("ran pictest");
-            $scope.base64(testPhoto);
+            //$scope.base64(testPhoto);
+            var dataURL;
+            var imgURL = 'img/text1.JPG';
+            $scope.base64(imgURL, function(resp){
+                console.log(resp);
+                dataURL = resp;
+            })
+
                 //
             var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
-            var testPhoto = $scope.testPhoto;
+            //var testPhoto = $scope.testPhoto;
 
 
-            var dataURL = testPhoto;
-            console.log(dataURL);
+            //var dataURL = testPhoto;
+            //console.log(dataURL);
             //console.log("base64 string: " + dataURL);
             // var url = "https://vision.googleapis.com";
             var postReq = {
@@ -214,23 +224,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
               }
             ]
             };
-            //     var postReq = {
-            //         "requests": [
-            //             {
-            //                 "image": {
-            //                     "source": {
-            //                         "gcsImageUri": "gs://test-2343/test.png"
-            //                     }
-            //                 },
-            //
-            //                 "features": [
-            //                     {
-            //                         "type": "TEXT_DETECTION",
-            //       }
-            //     ]
-            //   }
-            // ]
-            //     }
             $http.post(url, postReq).then(function (res) {
                 console.log(res);
             })
