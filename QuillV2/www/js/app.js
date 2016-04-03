@@ -37,18 +37,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     });
 
     //I'm not sure if this is where I put this code. I think it might need to go in the controllers section where the login stuff is located. 
-    $rootScope.$on('$locationChangeStart', function () {
-        var token = store.get('token');
-        if (token) {
-            if (!jwtHelper.isTokenExpired(token)) {
-                if (!auth.isAuthenticated) {
-                    auth.authenticate(store.get('profile'), token);
-                }
-            }
-            //else{ show Login page. This is like if the user is not loged in show login page. I feel like debuggin where clarify where this stuff goes }
-        }
-    })
-    auth.hookEvents();
+//    $rootScope.$on('$locationChangeStart', function () {
+//        var token = store.get('token');
+//        if (token) {
+//            if (!jwtHelper.isTokenExpired(token)) {
+//                if (!auth.isAuthenticated) {
+//                    auth.authenticate(store.get('profile'), token);
+//                }
+//            }
+//            //else{ show Login page. This is like if the user is not loged in show login page. I feel like debuggin where clarify where this stuff goes }
+//        }
+//    })
+//    auth.hookEvents();
 
 })
 
@@ -144,10 +144,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 
 
-    authProvider.init({
-        domain: 'mydomain.auth0.com',
-        clientID: 'CLIENT ID',
-        loginUrl: '/login'
-    });
+//    authProvider.init({
+//        domain: 'mydomain.auth0.com',
+//        clientID: 'CLIENT ID',
+//        loginUrl: '/login'
+//    });
 
 });
