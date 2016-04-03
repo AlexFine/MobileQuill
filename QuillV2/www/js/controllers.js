@@ -14,7 +14,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         };
 
         $scope.login = function () {
-            $state.go('login');
+            alert('hi');
+            $state.go('tab.notes');
         };
 
         if ($rootScope.isLoggedIn) {
