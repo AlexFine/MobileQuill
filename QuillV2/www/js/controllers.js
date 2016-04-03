@@ -1,7 +1,4 @@
 angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'angular-storage', 'angular-jwt'])
-
-
-
 .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading, $cordovaGoogleAnalytics) {
 
         $scope.checkLogged = function () {
@@ -253,44 +250,52 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     var notes = [
         {
             text: 'note one',
-            keywords: 'note two',
-            dates: 'banana'
+            keywords: 'note one',
+            dates: 'here is a date',
+            img: 'img/text1.JPG',
+            id: 0
         },
         {
-            text: 'note one',
+            text: 'note two',
             keywords: 'note two',
-            dates: 'banana'
+            dates: 'more dates',
+            img: 'img/text2.JPG',
+            id: 1
         },
         {
-            text: 'note one',
+            text: 'note three i thinik',
             keywords: 'note two',
-            dates: 'banana'
+            dates: 'banana',
+            img: 'img/text3.JPG',
+            id: 2
         },
         {
-            text: 'note one',
+            text: 'note so many notes',
             keywords: 'note two',
-            dates: 'banana'
+            dates: 'banana',
+            img: 'img/text4.JPG',
+            id: 3
         },
     ];
-   
+
 
     $scope.saveData = function () {
         //CALL DATABASE HERE TO UPDATE LOCAL STORAGE 
-//        window.localStorage.setItem("text", JSON.stringify(text));
-//        var storedText = JSON.parse(window.localStorage.getItem("text"));
-//        $scope.text = storedText;
-//        //Load text
-//
-//        window.localStorage.setItem("keywords", JSON.stringify(keywords));
-//        var storedKeywords = JSON.parse(window.localStorage.getItem("keywords"));
-//        $scope.keywords = storedKeywords;
-//        //Load keywords
-//
-//        window.localStorage.setItem("dates", JSON.stringify(dates));
-//        var storedDates = JSON.parse(window.localStorage.getItem("dates"));
-//        $scope.dates = storedDates;
-//        //Load dates
-//        
+        //        window.localStorage.setItem("text", JSON.stringify(text));
+        //        var storedText = JSON.parse(window.localStorage.getItem("text"));
+        //        $scope.text = storedText;
+        //        //Load text
+        //
+        //        window.localStorage.setItem("keywords", JSON.stringify(keywords));
+        //        var storedKeywords = JSON.parse(window.localStorage.getItem("keywords"));
+        //        $scope.keywords = storedKeywords;
+        //        //Load keywords
+        //
+        //        window.localStorage.setItem("dates", JSON.stringify(dates));
+        //        var storedDates = JSON.parse(window.localStorage.getItem("dates"));
+        //        $scope.dates = storedDates;
+        //        //Load dates
+        //        
         window.localStorage.setItem("notes", JSON.stringify(notes));
         var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
         $scope.Newnotes = storedNotes;
@@ -335,6 +340,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     $scope.textisCollapsed = false;
     $scope.researchisCollapsed = true;
 
+    
+    var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
+    $scope.Newnotes = storedNotes;
+
 })
 
 .controller('AccountCtrl', function ($scope) {
@@ -342,9 +351,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         enableFriends: true
     };
 })
-.controller('SignUpController', function(auth, $location, store, $scope, $ionicPopup, $state) {
-    
-})
+
 .controller('LoginCtrl', function (auth, $location, store, $scope, $ionicPopup, $state) {
     $scope.signin = function () {
         auth.signin({
