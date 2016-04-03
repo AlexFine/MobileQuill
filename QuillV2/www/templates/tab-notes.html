@@ -21,7 +21,8 @@
         </label>
             </div>
         <p ng-repeat="i in Newnotes">
-        {{i}}
+        {{i.text}}
+            {{i.keywords}}
         </p>
         <div class="list" style="height:5%;">
             <div ng-repeat="note in notes | filter:query;">

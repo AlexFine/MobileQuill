@@ -175,10 +175,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
 })
 
 .controller('NotesCtrl', function ($scope, Notes, $state) {
-    
-    window.onload = function() {
-  $scope.saveData("a");
-};
+
+    window.onload = function () {
+        $scope.saveData();
+    };
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
     // To listen for when this page is active (for example, to refresh data),
@@ -187,19 +187,55 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     //$scope.$on('$ionicView.enter', function(e) {
     //});
 
+
+
     var notes = [
-        'note one',
-        'note two',
-        'note three'
+        {
+            text: 'note one',
+            keywords: 'note two',
+            dates: 'banana'
+        },
+        {
+            text: 'note one',
+            keywords: 'note two',
+            dates: 'banana'
+        },
+        {
+            text: 'note one',
+            keywords: 'note two',
+            dates: 'banana'
+        },
+        {
+            text: 'note one',
+            keywords: 'note two',
+            dates: 'banana'
+        },
     ];
+   
 
-
-    $scope.saveData = function (v) {
-        window.localStorage.setItem("data", v);
+    $scope.saveData = function () {
+        //CALL DATABASE HERE TO UPDATE LOCAL STORAGE 
+//        window.localStorage.setItem("text", JSON.stringify(text));
+//        var storedText = JSON.parse(window.localStorage.getItem("text"));
+//        $scope.text = storedText;
+//        //Load text
+//
+//        window.localStorage.setItem("keywords", JSON.stringify(keywords));
+//        var storedKeywords = JSON.parse(window.localStorage.getItem("keywords"));
+//        $scope.keywords = storedKeywords;
+//        //Load keywords
+//
+//        window.localStorage.setItem("dates", JSON.stringify(dates));
+//        var storedDates = JSON.parse(window.localStorage.getItem("dates"));
+//        $scope.dates = storedDates;
+//        //Load dates
+//        
         window.localStorage.setItem("notes", JSON.stringify(notes));
         var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
         $scope.Newnotes = storedNotes;
-        console.log(storedNotes);
+        //Load dates
+
+
 
     }
     $scope.loadData = function () {
