@@ -180,27 +180,47 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
 
         $scope.picText = function () {
             console.log("ran pictest")
+          $scope.testPhoto = 'img/text1.JPG';
             var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+          var testPhoto = $scope.testPhoto;
 
-            var postReq = {
-                "requests": [
-                    {
-                        "image": {
-                            "source": {
-                                "gcsImageUri": "gs://test-2343/test/png"
-                            }
-                        },
-
-                        "features": [
-                            {
-                                "type": "TEXT_DETECTION",
+          var dataURL = testPhoto;
+          dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+          //console.log("base64 string: " + dataURL);
+          // var url = "https://vision.googleapis.com";
+          var postReq = {
+            "requests": [
+              {
+                "image": {
+                  "content": dataURL
+                },
+                "features": [
+                  {
+                    "type": "TEXT_DETECTION",
+                  }
+                ]
               }
             ]
-          }
-        ]
-            }
-            $http.post(url, postReq).then(function(resp){
-                console.log(resp);
+          };
+        //     var postReq = {
+        //         "requests": [
+        //             {
+        //                 "image": {
+        //                     "source": {
+        //                         "gcsImageUri": "gs://test-2343/test.png"
+        //                     }
+        //                 },
+        //
+        //                 "features": [
+        //                     {
+        //                         "type": "TEXT_DETECTION",
+        //       }
+        //     ]
+        //   }
+        // ]
+        //     }
+            $http.post(url, postReq).then(function(res){
+                console.log(res);
             })
         }
 
@@ -208,25 +228,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         $scope.api = function (lastPhoto) {
 
             $scope.testPhoto = 'img/text1.JPG';
-            var testPhoto = $scope.testPhoto;
-            var dataURL = testPhoto;
-            dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-            //console.log("base64 string: " + dataURL);
-            var url = "https://vision.googleapis.com";
-            var postReq = {
-                "requests": [
-                    {
-                        "image": {
-                            "content": dataURL
-                        },
-                        "features": [
-                            {
-                                "type": "TEXT_DETECTION",
-                         }
-                     ]
-                 }
-             ]
-            };
+
 
             gapi.client.load('vision', 'v1', function () {
                 console.log("success")
@@ -355,7 +357,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
 
 
     $scope.saveData = function () {
-        //CALL DATABASE HERE TO UPDATE LOCAL STORAGE 
+        //CALL DATABASE HERE TO UPDATE LOCAL STORAGE
         //        window.localStorage.setItem("text", JSON.stringify(text));
         //        var storedText = JSON.parse(window.localStorage.getItem("text"));
         //        $scope.text = storedText;
@@ -370,7 +372,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         //        var storedDates = JSON.parse(window.localStorage.getItem("dates"));
         //        $scope.dates = storedDates;
         //        //Load dates
-        //        
+        //
         window.localStorage.setItem("notes", JSON.stringify(notes));
         var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
         $scope.Newnotes = storedNotes;
