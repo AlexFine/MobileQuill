@@ -181,25 +181,27 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         $scope.picText = function () {
             console.log("ran pictest")
             var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+
             var postReq = {
                 "requests": [
                     {
                         "image": {
-                            "content": dataURL
+                            "source": {
+                                "gcsImageUri": "gs://test-2343/test/png"
+                            }
                         },
+
                         "features": [
                             {
-                                "type": "LABEL_DETECTION",
-                                "maxResults": "10"
+                                "type": "TEXT_DETECTION",
               }
             ]
           }
         ]
             }
-            $http.post(url, postReq).then(function (res) {
-                console.log(res.textAnnotations.description);
-            });
-
+            $http.post(url, postReq).then(function(resp){
+                console.log(resp);
+            })
         }
 
 
