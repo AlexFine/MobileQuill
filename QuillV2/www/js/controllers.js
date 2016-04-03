@@ -250,7 +250,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     var notes = [
         {
             text: 'note one',
-            keywords: 'note one',
+            keywords: 'Alex, Is, a, cool, bean',
+            summary: 'summar',
             dates: 'here is a date',
             img: 'img/text1.JPG',
             id: 0
@@ -258,6 +259,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         {
             text: 'note two',
             keywords: 'note two',
+            summary: 'summar',
             dates: 'more dates',
             img: 'img/text2.JPG',
             id: 1
@@ -265,6 +267,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         {
             text: 'note three i thinik',
             keywords: 'note two',
+            summary: 'summar',
             dates: 'banana',
             img: 'img/text3.JPG',
             id: 2
@@ -272,10 +275,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         {
             text: 'note so many notes',
             keywords: 'note two',
+            summary: 'summar',
             dates: 'banana',
             img: 'img/text4.JPG',
             id: 3
-        },
+        }
     ];
 
 
@@ -301,9 +305,14 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         $scope.Newnotes = storedNotes;
         //Load dates
 
-
+       // Stop the ion-refresher from spinning
+       $scope.$broadcast('scroll.refreshComplete');
+     
 
     }
+    
+    
+    
     $scope.loadData = function () {
         alert(window.localStorage.getItem("data"));
     }
@@ -343,6 +352,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     
     var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
     $scope.Newnotes = storedNotes;
+    
+    $scope.currentpage = window.location.href;
+    var currentpage = window.location.href;
+    var lastChar = currentpage.charAt(currentpage.length - 1);
+    $scope.lastChar = lastChar;
 
 })
 

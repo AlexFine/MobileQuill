@@ -1,5 +1,7 @@
 <ion-view view-title="Home">
     <ion-content>
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="saveData()">
+        </ion-refresher>
         <div style="margin:1%;">
             <button class="button button-outline button-energized icon ion-ios-camera-outline" style="width:49%;" ng-click="goto('tab.photo')">
                 Take Photo
@@ -7,23 +9,18 @@
             <button class="button button-outline button-balanced icon ion-ios-checkmark-outline" style="width:50%;" ng-click="api()">
                 Save
             </button>
-            <button class="button button-outline button-balanced icon ion-ios-checkmark-outline" style="width:50%;" ng-click="saveData('test')">
-                Local storage save
-            </button>
-            <button class="button button-outline button-balanced icon ion-ios-checkmark-outline" style="width:49%;" ng-click="loadData()">
-                Load storage save  
-            </button>
+            
         </div>
         <div style="margin:1%;">
-        <label class="item item-input" style="height:35px;">
-            <i class="icon ion-search placeholder-icon"></i>
-            <input type="search" ng-model="query" value="Search">
-        </label>
-            </div>
-        
+            <label class="item item-input" style="height:35px;">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="search" ng-model="query" value="Search">
+            </label>
+        </div>
+
         <div class="list" style="height:5%;">
             <div ng-repeat="entry in Newnotes | filter:query;">
-                <a class="item item-thumbnail-left"  href="#/tab/notes/{{note.id}}">
+                <a class="item item-thumbnail-left" href="#/tab/notes/{{entry.id}}">
                     <img ng-src="{{entry.img}}" style="border-radius:4px;">
                     <h2> {{entry.keywords}}</h2>
                     <p> {{entry.text}}</p>
