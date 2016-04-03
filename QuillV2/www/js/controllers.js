@@ -84,7 +84,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
         };
 
         if ($rootScope.isLoggedIn) {
-             $state.go('tab.notes');
+            $state.go('tab.notes');
         }
 
         $scope.startApp = function () {
@@ -171,54 +171,67 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
             $scope.api(lastPhoto);
 
         };
-
-        $scope.convertToCanvas = function (lastPhoto) {
+        
+    
+        $scope.base64 = function () {
+                $scope.photo1 = 'img/text1.JPG';
+            var photoTest = $scope.photo1
+                var canvas = document.createElement("canvas");
+//                canvas.width = photoTest.width;
+//                canvas.height = photoTest.height;
+//            
+//                canvas.getContext("2d").drawImage(photoTest, 0, 0);
+                var pngUrl = canvas.toDataURL(); // PNG is the default
+                $scope.testPhoto = pngUrl;
+            console.log("THE PNG URL IS " + pngUrl)
 
             }
             //why do we need this part ^^
 
         $scope.picText = function () {
-            console.log("ran pictest")
-          $scope.testPhoto = 'img/text1.JPG';
+            console.log("ran pictest");
+            $scope.base64(testPhoto);
+                //
             var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
-          var testPhoto = $scope.testPhoto;
+            var testPhoto = $scope.testPhoto;
 
-          var dataURL = testPhoto;
-          dataURL = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-          //console.log("base64 string: " + dataURL);
-          // var url = "https://vision.googleapis.com";
-          var postReq = {
-            "requests": [
-              {
-                "image": {
-                  "content": dataURL
-                },
-                "features": [
-                  {
-                    "type": "TEXT_DETECTION",
+
+            var dataURL = "data:iamge/jpeg;base64," + testPhoto;
+            console.log(dataURL);
+            //console.log("base64 string: " + dataURL);
+            // var url = "https://vision.googleapis.com";
+            var postReq = {
+                "requests": [
+                    {
+                        "image": {
+                            "content": dataURL
+                        },
+                        "features": [
+                            {
+                                "type": "TEXT_DETECTION",
                   }
                 ]
               }
             ]
-          };
-        //     var postReq = {
-        //         "requests": [
-        //             {
-        //                 "image": {
-        //                     "source": {
-        //                         "gcsImageUri": "gs://test-2343/test.png"
-        //                     }
-        //                 },
-        //
-        //                 "features": [
-        //                     {
-        //                         "type": "TEXT_DETECTION",
-        //       }
-        //     ]
-        //   }
-        // ]
-        //     }
-            $http.post(url, postReq).then(function(res){
+            };
+            //     var postReq = {
+            //         "requests": [
+            //             {
+            //                 "image": {
+            //                     "source": {
+            //                         "gcsImageUri": "gs://test-2343/test.png"
+            //                     }
+            //                 },
+            //
+            //                 "features": [
+            //                     {
+            //                         "type": "TEXT_DETECTION",
+            //       }
+            //     ]
+            //   }
+            // ]
+            //     }
+            $http.post(url, postReq).then(function (res) {
                 console.log(res);
             })
         }
@@ -468,43 +481,43 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
     //             }
     //         });
     //     }
-        gapi.client.load('plus', 'v1');
+    gapi.client.load('plus', 'v1');
 
 
 
-        $scope.deviceReady = function () {
-            //I get called when everything's ready for the plugin to be called!
-            console.log('Device is ready!');
-            window.plugins.googleplus.trySilentLogin();
-        }
+    $scope.deviceReady = function () {
+        //I get called when everything's ready for the plugin to be called!
+        console.log('Device is ready!');
+        window.plugins.googleplus.trySilentLogin();
+    }
 
-        $scope.logingoogleplus = function () {
+    $scope.logingoogleplus = function () {
 
-            window.plugins.googleplus.login({
-                    'scopes': 'https://www.googleapis.com/auth/userinfo.email', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-                    'webClientId': '717056452157-5udkhp8gsi6imu2lj684ushiecsrn1qq.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
-                    'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
-                },
-                function (obj) {
-                    alert(JSON.stringify(obj)); // do something useful instead of alerting
-                },
-                function (msg) {
-                    alert('error: ' + msg);
-                }
-            );
-        }
+        window.plugins.googleplus.login({
+                'scopes': 'https://www.googleapis.com/auth/userinfo.email', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+                'webClientId': '717056452157-5udkhp8gsi6imu2lj684ushiecsrn1qq.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+                'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+            },
+            function (obj) {
+                alert(JSON.stringify(obj)); // do something useful instead of alerting
+            },
+            function (msg) {
+                alert('error: ' + msg);
+            }
+        );
+    }
 
-        $scope.logoutgoogleplus = function () {
+    $scope.logoutgoogleplus = function () {
             window.plugins.googleplus.disconnect(
                 function (msg) {
                     alert(msg); // do something useful instead of alerting
                 }
             );
         }
-    // $scope.signin = function () {
-    //     auth.signin({
-    //         authParams: {
-    //             scope: 'openid name email'
+        // $scope.signin = function () {
+        //     auth.signin({
+        //         authParams: {
+        //             scope: 'openid name email'
 
     //         }
     //     }, function (profile, idToken, accessToken, state, refreshToken) {
@@ -531,7 +544,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'auth0', 'ang
             }
         });
     }
-    
+
 
     $scope.info = function () {
         var alertPopup = $ionicPopup.alert({
