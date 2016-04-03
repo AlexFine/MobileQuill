@@ -224,6 +224,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                   }
                 ]
               };
+              var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
               console.log(postReq)
               $http.post(url, postReq).then(function (res) {
                 console.log(res);
