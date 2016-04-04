@@ -308,7 +308,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                             var newID = window.localStorage.getItem("notes").length;
                             addInfo.id = newID;
 
+
                             console.log(JSON.stringify(addInfo));
+
+                            window.localStorage.getItem("notes").push(addInfo);
 
                         });
                         // gapi.client.quillApi.user.new({
