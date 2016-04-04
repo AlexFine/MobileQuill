@@ -209,80 +209,66 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                 var imgURL = $scope.items[i].src;
 
 
-            $scope.base64(imgURL, function (resp) {
-                // console.log(resp);
-                dataURL = resp;
+                $scope.base64(imgURL, function (resp) {
+                    // console.log(resp);
+                    dataURL = resp;
 
 
-                var postReq = {
-                    "requests": [
-                        {
-                            "image": {
-                                "content": dataURL
-                            },
-                            "features": [
-                                {
-                                    "type": "TEXT_DETECTION",
+                    var postReq = {
+                        "requests": [
+                            {
+                                "image": {
+                                    "content": dataURL
+                                },
+                                "features": [
+                                    {
+                                        "type": "TEXT_DETECTION",
                       }
                     ]
                   }
                 ]
-                };
+                    };
 
-                //console.log(postReq)
-                $http.post(url, postReq).then(function (res) {
-                    //console.log(res);
-                    text+=res.data.responses[0].textAnnotations[0].description;
-                    addInfo.text = text;
-                    //console.log(text);
-                    //now at this point, we have text, we'll run summary, concepts, and bias;
-                    gapi.client.quillApi.text.upload({
-                      "message":"Selector specifying which fields to include in a partial response",
-                        "user":"ad",
-                        "passwrd":"21"
-                    }).execute(function (resp) {
-                      console.log(resp); 
-                    });
-                  // gapi.client.quillApi.user.new({
+                    //console.log(postReq)
+                    $http.post(url, postReq).then(function (res) {
+                        //console.log(res);
+                        text += res.data.responses[0].textAnnotations[0].description;
+                        addInfo.text = text;
+                        //console.log(text);
+                        //now at this point, we have text, we'll run summary, concepts, and bias;
+                        gapi.client.quillApi.text.upload({
+                            "message": "Selector specifying which fields to include in a partial response",
+                            "user": "ad",
+                            "passwrd": "21"
+                        }).execute(function (resp) {
+                            console.log(resp);
+                        });
 
-                  //   "user":"ad",
-                  //   "passwrd":"21"
-                  // }).execute(function (resp) {
-                  //   console.log(resp);
-                  // });
+                        //summary
+                        var summary;
 
-                  // gapi.client.quillApi.user.return.posts({
+                        addInfo.summary = summary;
 
-                  //   "user":"ad",
-                  //   "passwrd":"21"
-                  // }).execute(function (resp) {
-                  //   console.log(resp);
-                  // });
-                    //summary
-                    var summary;
+                        //concepts
+                        var concepts;
 
-                    addInfo.summary = summary;
+                        addInfo.keywords = concepts;
 
-                    //concepts
-                    var concepts;
+                        //bias
 
-                    addInfo.keywords = concepts;
+                        //date
+                        var d = new Date();
+                        var str = d.toString();
+                        str = str.substring(0, 15);
+                        addInfo.dates = str;
 
-                    //bias
+                        var newID = window.localStorage.getItem("notes").length;
+                        addInfo.id = newID;
 
-                    //date
-                    var d = new Date();
-                    var str = d.toString();
-                    str = str.substring(0,15);
-                    addInfo.dates = str;
-
-                    var newID = window.localStorage.getItem("notes").length;
-                    addInfo.id = newID;
-
-                    console.log(JSON.stringify(addInfo));
-                            })
-                        })
-                    }
+                        console.log(JSON.stringify(addInfo));
+                    })
+                })
+            }
 
         }
 
@@ -634,11 +620,36 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 })
 
 .controller('UserInfoCtrl', function (auth) {
-    auth.profilePromise.then(function (profile) {
-        $scope.profile = profile;
+        auth.profilePromise.then(function (profile) {
+            $scope.profile = profile;
 
 
+
+        });
+        $scope.profile = auth.profile;
+    })
+    .controller('SignUpController', function (auth, $scope, $state) {
+
+
+        $scope.register = function (email, password) {
+            $scope.password = password;
+            $scope.username = email;
+
+            gapi.client.quillApi.user.new({
+
+                "user": email,
+                "passwrd": password
+            }).execute(function (resp) {
+                console.log(resp);
+            });
+
+            gapi.client.quillApi.user.return.posts({
+
+                "user": "ad",
+                "passwrd": "21"
+            }).execute(function (resp) {
+                console.log(resp);
+            });
+        }
 
     });
-    $scope.profile = auth.profile;
-});
