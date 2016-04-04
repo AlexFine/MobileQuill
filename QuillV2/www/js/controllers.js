@@ -197,6 +197,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             //why do we need this part ^^
 
         $scope.picText = function () {
+            var addInfo = {};
+
             var text = "";
             var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
             console.log("ran pictest");
@@ -231,12 +233,34 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                 $http.post(url, postReq).then(function (res) {
                     //console.log(res);
                     text+=res.data.responses[0].textAnnotations[0].description;
-                    console.log(text);
-                })
-            })
-        }
+                    addInfo.text = text;
+                    //console.log(text);
+                    //now at this point, we have text, we'll run summary, concepts, and bias;
+                    //summary
+                    var summary;
 
-            //
+                    addInfo.summary = summary;
+
+                    //concepts
+                    var concepts;
+
+                    addInfo.keywords = concepts;
+
+                    //bias
+
+                    //date
+                    var d = new Date();
+                    var str = d.toString();
+                    str = str.substring(0,15);
+                    addInfo.dates = str;
+
+                    var newID = window.localStorage.getItem("notes").length;
+                    addInfo.id = newID;
+
+                    console.log(JSON.stringify(addInfo));
+                            })
+                        }) 
+                    }
 
         }
 
@@ -337,38 +361,39 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 
     var notes = [
-        {
-            text: 'note one',
-            keywords: 'Alex, Is, a, cool, bean',
-            summary: 'summar',
-            dates: 'here is a date',
-            img: 'img/text1.JPG',
-            id: 0
-        },
-        {
-            text: 'note two',
-            keywords: 'note two',
-            summary: 'summar',
-            dates: 'more dates',
-            img: 'img/text2.JPG',
-            id: 1
-        },
-        {
-            text: 'note three i thinik',
-            keywords: 'note two',
-            summary: 'summar',
-            dates: 'banana',
-            img: 'img/text3.JPG',
-            id: 2
-        },
-        {
-            text: 'note so many notes',
-            keywords: 'note two',
-            summary: 'summar',
-            dates: 'banana',
-            img: 'img/text4.JPG',
-            id: 3
-        }
+        // {
+        //     text: 'note one',
+        //     keywords: 'Alex, Is, a, cool, bean',
+        //     summary: 'summar',
+        //     dates: 'here is a date',
+        //     img: 'img/text1.JPG',
+        //     id: 0
+        // },
+        // {
+        //     text: 'note two',
+        //     keywords: 'note two',
+        //     summary: 'summar',
+        //     dates: 'more dates',
+        //     img: 'img/text2.JPG',
+        //     id: 1
+        // },
+        // {
+        //     text: 'note three i thinik',
+        //     keywords: 'note two',
+        //     summary: 'summar',
+        //     dates: 'banana',
+        //     img: 'img/text3.JPG',
+        //     id: 2
+        // },
+        // {
+        //     text: 'note so many notes',
+        //     keywords: 'note two',
+        //     summary: 'summar',
+        //     dates: 'banana',
+        //     img: 'img/text4.JPG',
+        //     id: 3
+        // }
+
     ];
 
 
