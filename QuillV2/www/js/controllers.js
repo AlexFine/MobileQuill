@@ -228,20 +228,45 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                   }
                 ]
                 };
-
+                var summary;
+                var concepts;
                 //console.log(postReq)
                 $http.post(url, postReq).then(function (res) {
                     //console.log(res);
                     text+=res.data.responses[0].textAnnotations[0].description;
+                    text = text.replace(/\n/g, " ");
                     addInfo.text = text;
                     //console.log(text);
                     //now at this point, we have text, we'll run summary, concepts, and bias;
                     gapi.client.quillApi.text.upload({
-                      "message":"Selector specifying which fields to include in a partial response",
+                      "message":text,
                         "user":"ad",
                         "passwrd":"21"
                     }).execute(function (resp) {
-                      console.log(resp); 
+                        console.log(resp);
+                        summary = resp.summary[0].summary;
+                        concepts = resp.keywords;
+                        addInfo.summary = summary;
+
+                        //concepts
+                        //var concepts;
+
+                        //console.log("concepts size: " + concepts.length);
+                        addInfo.keywords = concepts;
+
+                        //bias
+
+                        //date
+                        var d = new Date();
+                        var str = d.toString();
+                        str = str.substring(0,15);
+                        addInfo.dates = str;
+
+                        var newID = window.localStorage.getItem("notes").length;
+                        addInfo.id = newID;
+
+                        console.log(JSON.stringify(addInfo));
+                        
                     });
                   // gapi.client.quillApi.user.new({
 
@@ -259,27 +284,9 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                   //   console.log(resp);
                   // });
                     //summary
-                    var summary;
-
-                    addInfo.summary = summary;
-
-                    //concepts
-                    var concepts;
-
-                    addInfo.keywords = concepts;
-
-                    //bias
-
-                    //date
-                    var d = new Date();
-                    var str = d.toString();
-                    str = str.substring(0,15);
-                    addInfo.dates = str;
-
-                    var newID = window.localStorage.getItem("notes").length;
-                    addInfo.id = newID;
-
-                    console.log(JSON.stringify(addInfo));
+                    //var summary;
+                    //console.log("summary : " + summary);
+                    
                             })
                         })
                     }
