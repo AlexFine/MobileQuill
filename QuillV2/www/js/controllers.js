@@ -1,5 +1,5 @@
 angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-storage', 'angular-jwt'])
-    .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
+    .controller('IntroCtrl', function ($scope, $http,$state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
 
 
 
@@ -141,11 +141,12 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             $scope.username = username;
             $scope.error;
 
-            gapi.client.quillApi.user.new({
+          var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/new"
+          $http.post(url, {
 
-                "user": username,
-                "passwrd": password
-            }).execute(function (resp) {
+            "user": username,
+            "passwrd": password
+          }).then(function (resp) {
                 console.log(resp);
                 $scope.error = resp;
                 window.localStorage.setItem("password", JSON.stringify(password));
@@ -160,13 +161,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                 console.log(storedPassword);
             });
 
-            gapi.client.quillApi.user.return.posts({
-
-                "user": username,
-                "passwrd": password
-            }).execute(function (resp) {
-                console.log(resp);
-            });
         }
 
 
@@ -289,6 +283,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                   }
                 ]
                     };
+                  var storedPassword = JSON.parse(window.localStorage.getItem("password"));
+                  // $scope.storedPassword = storedPassword;
+                  // window.localStorage.setItem("username", JSON.stringify(username));
+                  var storedUsername = JSON.parse(window.localStorage.getItem("username"));
                     var summary;
                     var concepts;
                     //console.log(postReq)
@@ -297,15 +295,20 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                         text += res.data.responses[0].textAnnotations[0].description;
                         text = text.replace(/\n/g, " ");
                         addInfo.text = text;
-                        //console.log(text);
+                        console.log(text);
                         //now at this point, we have text, we'll run summary, concepts, and bias;
-                        gapi.client.quillApi.text.upload({
-                            "message": text,
-                            "user": "ad",
-                            "passwrd": "21"
-                        }).execute(function (resp) {
+                        var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/text/upload"
+                      $http.post(url,{
+                            "message": "Due to gap between meets on our schedule this month and the number of athletes who will not be able to participate in the meet on the 16th (Bearcats Invitational at San Mateo High School), we will hold an intrasquad meet on Wednesday. We hold mostly relays and field events. The coaches will run the field events, but volunteer help would be greatly appreciated. If you can help us on Wednesday for this brief but fun meet, we would appreciate it.",
+                            "user": storedUsername,
+                            "passwrd": storedPassword
+                        }).then(function (resp) {
+                            resp=resp.data
                             console.log(resp);
-                            summary = resp.summary[0].summary;
+                            summary = resp.summary;
+                            console.log(summary)
+                            summary = summary[0].summary
+
                             concepts = resp.keywords;
                             addInfo.summary = summary;
 
@@ -326,7 +329,16 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                             var newID = window.localStorage.getItem("notes").length;
                             addInfo.id = newID;
 
+                        // window.localStorage.setItem("notes", JSON.stringify(notes));
+                        var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
+                        console.log(storedNotes)
+                        storedNotes.push(addInfo)
+                        window.localStorage.setItem("notes", JSON.stringify(storedNotes));
+                        $scope.Newnotes = storedNotes;
+
                             console.log(JSON.stringify(addInfo));
+
+                            window.localStorage.getItem("notes").push(addInfo);
 
                         });
                         // gapi.client.quillApi.user.new({
@@ -355,19 +367,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         }
 
 
-        $scope.api = function (lastPhoto) {
-
-            $scope.testPhoto = 'img/text1.JPG';
-
-
-            gapi.client.load('vision', 'v1', function () {
-                console.log("success")
-                gapi.client.vision.images.annotate(
-                    postReq).execute(function (resp) {
-                    console.log(resp);
-                });
-            })
-        }
 
         //Select photo testing here
         // 1
@@ -542,11 +541,44 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
         $scope.Newnotes = storedNotes;
         //Load dates
+      var storedPassword = JSON.parse(window.localStorage.getItem("password"));
+      // $scope.storedPassword = storedPassword;
+      // window.localStorage.setItem("username", JSON.stringify(username));
+      var storedUsername = JSON.parse(window.localStorage.getItem("username"));
+      var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/new"
+      $http.post(url, {
 
+        "user": storedPassword ,
+        "passwrd": storedUsername
+      }).then(function (resps) {
+        resps = resps.data
+        // for(var x = 0; x<resps.posts.length(); x++;){
+        resp = resps[x].data
+        console.log(resp);
+        summary = resp.summary;
+        console.log(summary)
+        summary = summary[0].summary
+
+        concepts = resp.keywords;
+        addInfo.summary = summary;
+
+        //concepts
+        //var concepts;
+
+        //console.log("concepts size: " + concepts.length);
+        addInfo.keywords = concepts;
+
+        //bias
+
+        //date
+        var d = new Date();
+        var str = d.toString();
+        str = str.substring(0, 15);
+        addInfo.dates = str;
         // Stop the ion-refresher from spinning
         $scope.$broadcast('scroll.refreshComplete');
 
-
+      })
     }
 
 
@@ -625,7 +657,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     };
 })
 
-.controller('LoginCtrl', function ($location, store, $scope, $ionicPopup, $state) {
+.controller('LoginCtrl', function ($location, store, $scope, $ionicPopup, $state,$http) {
 
     $scope.username;
     $scope.password;
@@ -637,7 +669,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         }).execute(function (resp) {
             console.log(resp);
             $scope.username = username
-            
+
             $scope.password = password
              window.localStorage.setItem("password", JSON.stringify(password));
             window.localStorage.setItem("username", JSON.stringify(username));
@@ -647,12 +679,13 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 
         });
+      var url ="https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts";
+      $http.post(url, {
 
-        gapi.client.quillApi.user.return.posts({
-
-            "user": username,
-            "passwrd": password
-        }).execute(function (resp) {
+        "user": username,
+        "passwrd": password
+      })
+        .then(function (resp) {
             console.log(resp);
         });
     }
@@ -706,29 +739,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         });
         $scope.profile = auth.profile;
     })
-    .controller('SignUpController', function ($scope, $state) {
 
 
-        $scope.register = function (email, password) {
-            console.log("hello")
-            console.log(password + email);
-            $scope.password = password;
-            $scope.username = email;
 
-            gapi.client.quillApi.user.new({
-
-                "user": email,
-                "passwrd": password
-            }).execute(function (resp) {
-                console.log(resp);
-            });
-
-            gapi.client.quillApi.user.return.posts({
-
-                "user": "ad",
-                "passwrd": "21"
-            }).execute(function (resp) {
-                console.log(resp);
-            });
-        }
-    });
