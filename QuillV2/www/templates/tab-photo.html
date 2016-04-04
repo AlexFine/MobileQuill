@@ -32,12 +32,15 @@ testing code for testing each part of the tesseract code inidivudalliy
         <p>Break</p>
         <canvas id="canvas2"></canvas>
        
+--><div class="row">
+        <button ng-click="getPhoto()" class="button button-block button-outline button-calm" style="width:100%;">Take Photos</button>
+<!--
+        <button ng-click="choosePhoto()" class="button button-block button-outline button-calm" style="width:50%;">Upload From Camera Roll</button>
+        </div>
+                <button ng-click="picText()"class="button button-block button-outline button-energized">Analyze with Quill</button>
 -->
-        <button ng-click="getPhoto()" class="button button-block button-outline button-balanced">Take Photos</button>
-        <button ng-click="choosePhoto()" class="button button-block button-outline button-balanced">Add Photos</button>
-        <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" style="text-align: center">
-        <button ng-click="picText()"class="button button-block button-outline button-calm">Analyze Photos</button>
-       
+
+        </div>
         <ion-gallery ion-gallery-items="items"></ion-gallery>
         <p ng-if="text.length>1">Text: {{text}}</p>
         <p ng-if="summary.length>1">Summary: {{summary}}</p>

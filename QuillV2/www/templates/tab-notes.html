@@ -1,24 +1,14 @@
 <ion-view view-title="Home">
-     <ion-nav-bar class="bar-stable bar-energized">
-        <ion-nav-buttons side="right">
-            <a ng-controller="LoginCtrl" ng-click="info()" style="text-decoration:none; color:#FBF2EF; margin-right:6px;"><i style="font-size:35px;" class="ion-ios-information"></i></a>
-            <a ng-controller="LoginCtrl" ng-click="out()" style="text-decoration:none; color:#FBF2EF;"><i style="font-size:35px;" class="ion-ios-close"></i></a>
 
-        </ion-nav-buttons>
-    <ion-nav-back-button>
-        </ion-nav-back-button>
-    </ion-nav-bar>
     <ion-content>
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="saveData()">
         </ion-refresher>
         <div style="margin:1%;">
-            <button class="button button-outline button-energized icon ion-ios-camera-outline" style="width:49%;" ng-click="goto('tab.photo')">
+
+            <button class="button button-outline button-energized icon ion-ios-camera-outline" style="width:100%;" ng-click="openModal()">
                 Take Photo
             </button>
-            <button class="button button-outline button-balanced icon ion-ios-checkmark-outline" style="width:50%;" ng-click="api()">
-                Save
-            </button>
-            
+
         </div>
         <div style="margin:1%;">
             <label class="item item-input" style="height:35px;">
@@ -38,9 +28,34 @@
                 </a>
             </div>
 
+        </div>
 
+        <div class="list" style="height:5%;">
+            <div ng-ig="Newnotes.length">
+                <a class="item item-thumbnail-left">
+                    <img ng-src="img/text3.JPG" style="border-radius:4px;">
+                    <h2> Example Photo</h2>
+                    <p> Click 'take photo' to analyze text and get started. </p>
+                    <p style="color:#B0B0B0">01/22/1984</p>
+
+                </a>
+            </div>
 
         </div>
+
+
+
+        <script id="my-modal.html" type="text/ng-template">
+            <ion-modal-view>
+                <ion-header-bar>
+                    <h1 class="title">Take Photos</h1>
+                    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span>
+                </ion-header-bar>
+                <ion-content>
+                    Hello World!
+                </ion-content>
+            </ion-modal-view>
+        </script>
 
     </ion-content>
 </ion-view>

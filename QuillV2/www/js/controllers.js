@@ -173,8 +173,26 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 
     })
-    .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state) {
+.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
 
+  $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+  $scope.ok = function () {
+    $uibModalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+})
+
+    .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal) {
+    
+    
+    
         $scope.items = [
             {
                 src: 'img/text1.JPG',
@@ -417,7 +435,41 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         }
     })
 
-.controller('NotesCtrl', function ($scope, Notes, $state) {
+.controller('NotesCtrl', function ($scope, Notes, $state, $ionicModal) {
+    
+     $ionicModal.fromTemplateUrl('my-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+    $scope.openModal = function () {
+        console.log("modal open")
+        $scope.modal.show();
+    };
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function () {
+        // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function () {
+        // Execute action
+    });
+    
+    
+    
+    $scope.photo = function(){
+        console.log("hello")
+        $state.go('tab.photo');
+        console.log("went")
+    }
 
     window.onload = function () {
         $scope.saveData();
@@ -607,8 +659,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 
 
-
-   
     $scope.out = function () {
         var confirmPopup = $ionicPopup.confirm({
             title: 'Logout',
@@ -627,14 +677,15 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 
                 var storedUsername = JSON.parse(window.localStorage.getItem("username"));
+                    var storedPassword = JSON.parse(window.localStorage.getItem("password"));
 
-    
+
     $scope.info = function () {
         console.log("USRNAME IS" + storedUsername)
 
         var alertPopup = $ionicPopup.alert({
             title: 'Account Details',
-            template: 'Username: ' + storedUsername
+            template: 'Username: ' + storedUsername + '<br>' + 'Password: ' + storedPassword
         });
 
         alertPopup.then(function (res) {
