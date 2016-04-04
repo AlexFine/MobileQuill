@@ -85,7 +85,8 @@ blockquote {
     height: 100%;
 }
 
-.slider-slide {
+/*.slider-slide {*/
+.introslide{
     padding-top: 80px;
     color: white;
     text-align: center;
