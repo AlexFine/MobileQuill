@@ -7,18 +7,20 @@
     </ion-slide-box>
 </ion-view>-->
 
-<ion-view ng-init="checkLogged()">
-        <ion-nav-buttons side="left">
-          <button class="button button-dark button-clear no-animation"
+<ion-view  title="About Quill" ng-init="checkLogged()">
+     <ion-nav-bar class="bar-stable bar-energized">
+         <ion-nav-buttons side="left">
+        <button class="button button-dark button-clear no-animation"
                    ng-click="login()" ng-show="!slideIndex">
             Login
           </button>
+             
           <button class="button button-dark button-clear no-animation"
                   ng-click="login()" ng-show="slideIndex > 0">
             Login
           </button>
         </ion-nav-buttons>
-        <ion-nav-buttons side="right">
+         <ion-nav-buttons side="right">
           <button class="button button-dark button-clear no-animation"
                   ng-click="slideNext()" ng-show="slideIndex != 1">
              Sign Up
@@ -28,6 +30,13 @@
             Sign Up
           </button>
         </ion-nav-buttons>
+
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+        
+          
+        
         <ion-slide-box  class="introslide" on-slide-changed="slideChanged(index)">
           <ion-slide>
               <div style="padding-top:25%;">
@@ -66,14 +75,17 @@
                 <div class="input-wrapper" >
                 <input required type="password" ng-model="user.password" placeholder="Password" style="color:white; font-size:17px; padding-left:10%;" class="introsignup">
                 </div>
-                <div class="input-wrapper">
-                <input type="text" ng-model="user.ref" placeholder="Referal Code" style="color:white; font-size:17px; padding-left:10%;" class="introsignup">
+            <div class="input-wrapper" >
+                <input required type="password" ng-model="user.password2" placeholder="Confirm Password" style="color:white; font-size:17px; padding-left:10%;" class="introsignup">
                 </div>
-
+                
 
         <!--</div>-->
-        <div class="assertive" ng-show="error.message">{{error.message}}</div>
-        <button class="button button-block button-outline button-assertive" style= "border:1px solid white; height:10%; width:80%; margin-right:auto; margin-left:auto; text-align:center; color:white;" ng-click="register()">
+            <div class="assertive" style="color:white;" ng-if="user.password2 !== user.password">
+               Passwords do not match 
+            </div>
+        <div class="assertive" ng-show="error.message">{{error}}</div>
+        <button class="button button-block button-outline button-assertive" style= "border:1px solid white; height:10%; width:80%; margin-right:auto; margin-left:auto; text-align:center; color:white;" ng-click="register(user.username, user.password)">
             CREATE ACCOUNT
         </button>
 

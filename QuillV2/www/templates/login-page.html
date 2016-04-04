@@ -5,7 +5,7 @@
         <!--                <span class="input-label">Email</span>-->
         <br>
         <br>
-
+ 
 
         <div class="input-wrapper" style="padding-top:20%">
             <input ng-model="user.email" type="email" placeholder="Email" style="padding-left:10%; color:white; font-size:18px;"/>
@@ -19,11 +19,9 @@
         <!--            </label>-->
         <!--        </div>-->
         <!--KUSHNOTE ALEX COPY HERE-->
-        <ion-checkbox class="checkbox checkbox-assertive" style="background-color: rgba(0,0,0,.0); border: 0px solid #F37D52 ">
-            <h2 style="font-family: 'Raleway'; font-size:20px; color:white;" ng-checked="rememberMe()">Remember me</h2>
-        </ion-checkbox>
+        
         <!--<div class="assertive" ng-show="error.message">{{error.message}}</div>-->
-        <button class="button button-block button-outline button-assertive" style="height:25%; width:80%; margin-right:auto; margin-left:auto; text-align:center; font-family: 'Raleway'; border:1px solid black; color:black;" ng-click="logingoogleplus()">
+        <button class="button button-block button-outline button-assertive" style="height:25%; width:80%; margin-right:auto; margin-left:auto; text-align:center; font-family: 'Raleway'; border:1px solid white; color:white;" ng-click="login(user.email, user.password)">
             LOG IN
         </button>
         <button class="button button-block button-clear button-calm" ng-click="forgot()">
