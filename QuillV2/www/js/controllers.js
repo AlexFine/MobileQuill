@@ -310,13 +310,17 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
                             var newID = window.localStorage.getItem("notes").length;
                             addInfo.id = newID;
+
                         // window.localStorage.setItem("notes", JSON.stringify(notes));
                         var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
                         console.log(storedNotes)
                         storedNotes.push(addInfo)
                         window.localStorage.setItem("notes", JSON.stringify(storedNotes));
                         $scope.Newnotes = storedNotes;
+
                             console.log(JSON.stringify(addInfo));
+
+                            window.localStorage.getItem("notes").push(addInfo);
 
                         });
                         // gapi.client.quillApi.user.new({
@@ -496,7 +500,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         "passwrd": storedUsername
       }).then(function (resps) {
         resps = resps.data
-        for(x = 0, x<resps.posts.length(), x++){
+        // for(var x = 0; x<resps.posts.length(); x++;){
         resp = resps[x].data
         console.log(resp);
         summary = resp.summary;
@@ -522,7 +526,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         // Stop the ion-refresher from spinning
         $scope.$broadcast('scroll.refreshComplete');
 
-      }})
+      })
     }
 
 
