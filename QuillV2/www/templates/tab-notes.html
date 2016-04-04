@@ -1,4 +1,13 @@
 <ion-view view-title="Home">
+     <ion-nav-bar class="bar-stable bar-energized">
+        <ion-nav-buttons side="right">
+            <a ng-controller="LoginCtrl" ng-click="info()" style="text-decoration:none; color:#FBF2EF; margin-right:6px;"><i style="font-size:35px;" class="ion-ios-information"></i></a>
+            <a ng-controller="LoginCtrl" ng-click="out()" style="text-decoration:none; color:#FBF2EF;"><i style="font-size:35px;" class="ion-ios-close"></i></a>
+
+        </ion-nav-buttons>
+    <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
     <ion-content>
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="saveData()">
         </ion-refresher>

@@ -539,7 +539,9 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     //             }
     //         });
     //     }
-    gapi.client.load('plus', 'v1');
+    
+    
+   // gapi.client.load('plus', 'v1');
 
 
 
@@ -628,10 +630,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         });
         $scope.profile = auth.profile;
     })
-    .controller('SignUpController', function (auth, $scope, $state) {
+    .controller('SignUpController', function ($scope, $state) {
 
 
         $scope.register = function (email, password) {
+            console.log(password + email)
             $scope.password = password;
             $scope.username = email;
 
