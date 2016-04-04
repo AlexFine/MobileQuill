@@ -238,26 +238,26 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                     //now at this point, we have text, we'll run summary, concepts, and bias;
                     gapi.client.quillApi.text.upload({
                       "message":"Selector specifying which fields to include in a partial response",
-                  "user":"ad",
-                  "passwrd":"21"
+                        "user":"ad",
+                        "passwrd":"21"
                     }).execute(function (resp) {
-                      console.log(resp);
+                      console.log(resp); 
                     });
-                  gapi.client.quillApi.user.new({
+                  // gapi.client.quillApi.user.new({
 
-                    "user":"ad",
-                    "passwrd":"21"
-                  }).execute(function (resp) {
-                    console.log(resp);
-                  });
+                  //   "user":"ad",
+                  //   "passwrd":"21"
+                  // }).execute(function (resp) {
+                  //   console.log(resp);
+                  // });
 
-                  gapi.client.quillApi.user.return.posts({
+                  // gapi.client.quillApi.user.return.posts({
 
-                    "user":"ad",
-                    "passwrd":"21"
-                  }).execute(function (resp) {
-                    console.log(resp);
-                  });
+                  //   "user":"ad",
+                  //   "passwrd":"21"
+                  // }).execute(function (resp) {
+                  //   console.log(resp);
+                  // });
                     //summary
                     var summary;
 
