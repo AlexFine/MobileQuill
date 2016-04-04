@@ -208,7 +208,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             for (var i = 0; i < $scope.items.length; i++) {
                 var imgURL = $scope.items[i].src;
 
-            
+
             $scope.base64(imgURL, function (resp) {
                 // console.log(resp);
                 dataURL = resp;
@@ -228,7 +228,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                   }
                 ]
                 };
-                
+
                 //console.log(postReq)
                 $http.post(url, postReq).then(function (res) {
                     //console.log(res);
@@ -236,6 +236,28 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                     addInfo.text = text;
                     //console.log(text);
                     //now at this point, we have text, we'll run summary, concepts, and bias;
+                    gapi.client.quillApi.text.upload({
+                      "message":"Selector specifying which fields to include in a partial response",
+                  "user":"ad",
+                  "passwrd":"21"
+                    }).execute(function (resp) {
+                      console.log(resp);
+                    });
+                  gapi.client.quillApi.user.new({
+
+                    "user":"ad",
+                    "passwrd":"21"
+                  }).execute(function (resp) {
+                    console.log(resp);
+                  });
+
+                  gapi.client.quillApi.user.return.posts({
+
+                    "user":"ad",
+                    "passwrd":"21"
+                  }).execute(function (resp) {
+                    console.log(resp);
+                  });
                     //summary
                     var summary;
 
@@ -259,7 +281,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
                     console.log(JSON.stringify(addInfo));
                             })
-                        }) 
+                        })
                     }
 
         }
