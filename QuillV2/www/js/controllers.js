@@ -686,31 +686,29 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     $scope.username;
     $scope.password;
     $scope.login = function (username, password) {
-        gapi.client.quillApi.user.login({
-
-            "user": username,
-            "passwrd": password
-        }).execute(function (resp) {
-            console.log(resp);
-            $scope.username = username
-
-            $scope.password = password
-             window.localStorage.setItem("password", JSON.stringify(password));
-            window.localStorage.setItem("username", JSON.stringify(username));
 
 
-            $state.go('tab.notes');
 
 
-        });
+
+
+
       var url ="https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts";
+      console.log(username,password)
       $http.post(url, {
 
-        "user": username,
-        "passwrd": password
+        "user": $scope.username,
+        "passwrd": $scope.password
       })
         .then(function (resp) {
             console.log(resp);
+          $scope.username = username
+
+          $scope.password = password
+          // if(resp.message=)
+          window.localStorage.setItem("password", JSON.stringify($scope.password));
+          window.localStorage.setItem("username", JSON.stringify($scope.username));
+          $state.go('tab.notes');
         });
     }
 
