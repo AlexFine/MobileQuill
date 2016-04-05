@@ -1,5 +1,5 @@
 angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-storage', 'angular-jwt'])
-    .controller('IntroCtrl', function ($scope, $http,$state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
+    .controller('IntroCtrl', function ($scope, $http, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
 
 
 
@@ -141,12 +141,12 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             $scope.username = username;
             $scope.error;
 
-          var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/new"
-          $http.post(url, {
+            var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/new"
+            $http.post(url, {
 
-            "user": username,
-            "passwrd": password
-          }).then(function (resp) {
+                "user": username,
+                "passwrd": password
+            }).then(function (resp) {
                 console.log(resp);
                 $scope.error = resp;
                 window.localStorage.setItem("password", JSON.stringify(password));
@@ -167,173 +167,188 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 
     })
-.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
 
-  $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
-
-  $scope.ok = function () {
-    $uibModalInstance.close($scope.selected.item);
-  };
-
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
-})
-
-    .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal) {
+.controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal, $ionicPopup) {
 
 
+    $ionicModal.fromTemplateUrl('my-modal2.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+    $scope.openModal = function () {
+        console.log("modal open")
+        $scope.modal.show();
+    };
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function () {
+        // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function () {
+        // Execute action
+    });
 
-        $scope.items = [
-            {
-                src: 'img/text1.JPG',
-                sub: 'Most recent photos 03/11/2016'
-  }]
-        console.log($scope.items);
+    $scope.items = [
+        {
+            src: 'img/text1.JPG',
+            sub: 'Most recent photos 03/11/2016'
+  },
+        {
+            src: 'img/text2.JPG',
+            sub: 'Most recent photos 03/11/2016'
+  }
+        ]
+    console.log($scope.items);
 
-        $scope.status = "start status";
-        $scope.summary;
-
-
-
-        $scope.getPhoto = function () {
-            Camera.getPicture().then(function (imageURI) {
-
-                $scope.status = "get picture";
-                $scope.lastPhoto = imageURI;
-
-
-                console.log("called the convertToCanvas Function")
-
-                var newimage = {
-                    src: imageURI,
-                    sub: "Most recent photos 03/29/2016"
-                };
-                console.log($scope.items)
-                $scope.items.push(newimage);
-                console.log($scope.items);
-                $scope.reload();
-
-            }, function (err) {
-                console.err(err);
-            }, {
-                quality: 100,
-                targetWidth: 320,
-                targetHeight: 320,
-                saveToPhotoAlbum: false
-            });
-
-            $scope.api(lastPhoto);
-
-        };
+    $scope.status = "start status";
+    $scope.summary;
 
 
-        var canvas = document.createElement('canvas');
-        $scope.base64 = function (url, callback) {
-                var image = new Image();
 
-                image.onload = function () {
+    $scope.getPhoto = function () {
+        Camera.getPicture().then(function (imageURI) {
 
-                    canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
-                    canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
-
-                    canvas.getContext('2d').drawImage(this, 0, 0);
-
-                    // Get raw image data
-                    callback(canvas.toDataURL().replace(/^data:image\/(png|jpg);base64,/, ''));
-                };
-                image.src = url;
+            $scope.status = "get picture";
+            $scope.lastPhoto = imageURI;
 
 
-            }
-            //why do we need this part ^^
+            console.log("called the convertToCanvas Function")
 
-        $scope.picText = function () {
-            var addInfo = {};
+            var newimage = {
+                src: imageURI,
+                sub: "Most recent photos 03/29/2016"
+            };
+            console.log($scope.items)
+            $scope.items.push(newimage);
+            console.log($scope.items);
+            $scope.reload();
 
-            var text = "";
-            var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
-            console.log("ran pictest");
-            //$scope.base64(testPhoto);
-            console.log("items length: " + $scope.items.length);
-            var dataURL;
-            for (var i = 0; i < $scope.items.length; i++) {
-                var imgURL = $scope.items[i].src;
+        }, function (err) {
+            console.err(err);
+        }, {
+            quality: 100,
+            targetWidth: 320,
+            targetHeight: 320,
+            saveToPhotoAlbum: false
+        });
+
+        $scope.api(lastPhoto);
+
+    };
 
 
-                $scope.base64(imgURL, function (resp) {
-                    // console.log(resp);
-                    dataURL = resp;
+    var canvas = document.createElement('canvas');
+    $scope.base64 = function (url, callback) {
+            var image = new Image();
+
+            image.onload = function () {
+
+                canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
+                canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
+
+                canvas.getContext('2d').drawImage(this, 0, 0);
+
+                // Get raw image data
+                callback(canvas.toDataURL().replace(/^data:image\/(png|jpg);base64,/, ''));
+            };
+            image.src = url;
 
 
-                    var postReq = {
-                        "requests": [
-                            {
-                                "image": {
-                                    "content": dataURL
-                                },
-                                "features": [
-                                    {
-                                        "type": "TEXT_DETECTION",
+        }
+        //why do we need this part ^^
+
+    $scope.picText = function () {
+        var addInfo = {};
+
+        var text = "";
+        var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+        console.log("ran pictest");
+        //$scope.base64(testPhoto);
+        console.log("items length: " + $scope.items.length);
+        var dataURL;
+        for (var i = 0; i < $scope.items.length; i++) {
+            var imgURL = $scope.items[i].src;
+
+
+            $scope.base64(imgURL, function (resp) {
+                // console.log(resp);
+                dataURL = resp;
+
+
+                var postReq = {
+                    "requests": [
+                        {
+                            "image": {
+                                "content": dataURL
+                            },
+                            "features": [
+                                {
+                                    "type": "TEXT_DETECTION",
                       }
                     ]
                   }
                 ]
-                    };
-                  var storedPassword = JSON.parse(window.localStorage.getItem("password"));
-                  // $scope.storedPassword = storedPassword;
-                  // window.localStorage.setItem("username", JSON.stringify(username));
-                  var storedUsername = JSON.parse(window.localStorage.getItem("username"));
-                    var summary;
-                    var concepts;
-                    //console.log(postReq)
-                    $http.post(url, postReq).then(function (res) {
-                        //console.log(res);
-                        text += res.data.responses[0].textAnnotations[0].description;
-                        text = text.replace(/\n/g, " ");
-                        addInfo.text = text;
-                        console.log(text);
-                        //now at this point, we have text, we'll run summary, concepts, and bias;
-                        var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/text/upload"
-                      $http.post(url,{
-                            "message": text,
+                };
+                var storedPassword = JSON.parse(window.localStorage.getItem("password"));
+                // $scope.storedPassword = storedPassword;
+                // window.localStorage.setItem("username", JSON.stringify(username));
+                var storedUsername = JSON.parse(window.localStorage.getItem("username"));
+                var summary;
+                var concepts;
+                //console.log(postReq)
+                $http.post(url, postReq).then(function (res) {
+                    //console.log(res);
+                    text += res.data.responses[0].textAnnotations[0].description;
+                    text = text.replace(/\n/g, " ");
+                    addInfo.text = text;
+                    console.log(text);
+                    //now at this point, we have text, we'll run summary, concepts, and bias;
+                    var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/text/upload"
+                    $http.post(url, {
+                        "message": text,
                         "user": storedUsername,
-                            "passwrd": storedPassword
-                        }).then(function (resp) {
-                            resp=resp.data
-                            console.log(resp);
-                            summary = resp.summary;
-                            console.log(summary)
-                            summary = summary[0].summary
+                        "passwrd": storedPassword
+                    }).then(function (resp) {
+                        resp = resp.data
+                        console.log(resp);
+                        summary = resp.summary;
+                        console.log(summary)
+                        summary = summary[0].summary
 
-                            concepts = resp.keywords;
-                            sentiment = resp.sentiment;
-                            keywords = []
-                            for(var x = 0; x<concepts.length; x++){
-                              keywords.push([concepts[x], sentiment[x]])
-                            }
+                        concepts = resp.keywords;
+                        sentiment = resp.sentiment;
+                        keywords = []
+                        for (var x = 0; x < concepts.length; x++) {
+                            keywords.push([concepts[x], sentiment[x]])
+                        }
 
-                            addInfo.summary = summary;
+                        addInfo.summary = summary;
 
-                            //concepts
-                            //var concepts;
+                        //concepts
+                        //var concepts;
 
-                            //console.log("concepts size: " + concepts.length);
-                            addInfo.keywords = keywords;
+                        //console.log("concepts size: " + concepts.length);
+                        addInfo.keywords = keywords;
 
-                            //bias
+                        //bias
 
-                            //date
-                            var d = new Date();
-                            var str = d.toString();
-                            str = str.substring(0, 15);
-                            addInfo.dates = str;
+                        //date
+                        var d = new Date();
+                        var str = d.toString();
+                        str = str.substring(0, 15);
+                        addInfo.dates = str;
 
-                            var newID = window.localStorage.getItem("notes").length;
-                            addInfo.id = newID;
+                        var newID = window.localStorage.getItem("notes").length;
+                        addInfo.id = newID;
 
                         // window.localStorage.setItem("notes", JSON.stringify(notes));
                         var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
@@ -342,107 +357,171 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                         window.localStorage.setItem("notes", JSON.stringify(storedNotes));
                         $scope.Newnotes = storedNotes;
 
-                            console.log(JSON.stringify(addInfo));
+                        console.log(JSON.stringify(addInfo));
 
-                            window.localStorage.getItem("notes").push(addInfo);
+                        window.localStorage.getItem("notes").push(addInfo);
 
-                        });
-                        // gapi.client.quillApi.user.new({
+                    });
+                    // gapi.client.quillApi.user.new({
 
-                        //   "user":"ad",
-                        //   "passwrd":"21"
-                        // }).execute(function (resp) {
-                        //   console.log(resp);
-                        // });
+                    //   "user":"ad",
+                    //   "passwrd":"21"
+                    // }).execute(function (resp) {
+                    //   console.log(resp);
+                    // });
 
-                        // gapi.client.quillApi.user.return.posts({
+                    // gapi.client.quillApi.user.return.posts({
 
-                        //   "user":"ad",
-                        //   "passwrd":"21"
-                        // }).execute(function (resp) {
-                        //   console.log(resp);
-                        // });
-                        //summary
-                        //var summary;
-                        //console.log("summary : " + summary);
+                    //   "user":"ad",
+                    //   "passwrd":"21"
+                    // }).execute(function (resp) {
+                    //   console.log(resp);
+                    // });
+                    //summary
+                    //var summary;
+                    //console.log("summary : " + summary);
 
-                    })
                 })
-            }
-
+            })
         }
 
+    }
 
 
-        //Select photo testing here
-        // 1
-        $scope.choosePhoto = function () {
-            //           console.log("choose photo ran")
-            //           var options = {
-            //             quality: 75,
-            //             destinationType: Camera.DestinationType.FILE_URL,
-            //             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-            //             allowEdit: true,
-            //             encodingType: Camera.EncodingType.JPEG,
-            //             targetWidth: 300,
-            //             targetHeight: 300,
-            //             popoverOptions: CameraPopoverOptions,
-            //             saveToPhotoAlbum: false
-            //         };
-            //
-            //             $cordovaCamera.getPicture(options).then(function (imageData) {
-            //                 $scope.imgURI = "data:image/jpeg;base64," + imageData;
-            //             }, function (err) {
-            //                 // An error occured. Show a message to the user
-            //
-            //
-            //
-            //
-            //         return text;
-            //
-            //
-            // }, function (err) {
-            //     console.log(err);
-            // });
-            console.log($scope.items)
-            window.imagePicker.getPictures(
-                function (results) {
-                    for (var i = 0; i < results.length; i++) {
-                        console.log('Image URI: ' + results[i]);
 
-                        var newimage = {
-                            src: results[i],
-                            sub: "Most recent photos 03/29/2016"
-                        };
-                        console.log($scope.items);
-                        $scope.items.push(newimage);
-                        console.log($scope.items);
-                        $scope.reload();
-                    }
-                },
-                function (error) {
-                    console.log('Error: ' + error);
+    //Select photo testing here
+    // 1
+    $scope.choosePhoto = function () {
+        //           console.log("choose photo ran")
+        //           var options = {
+        //             quality: 75,
+        //             destinationType: Camera.DestinationType.FILE_URL,
+        //             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        //             allowEdit: true,
+        //             encodingType: Camera.EncodingType.JPEG,
+        //             targetWidth: 300,
+        //             targetHeight: 300,
+        //             popoverOptions: CameraPopoverOptions,
+        //             saveToPhotoAlbum: false
+        //         };
+        //
+        //             $cordovaCamera.getPicture(options).then(function (imageData) {
+        //                 $scope.imgURI = "data:image/jpeg;base64," + imageData;
+        //             }, function (err) {
+        //                 // An error occured. Show a message to the user
+        //
+        //
+        //
+        //
+        //         return text;
+        //
+        //
+        // }, function (err) {
+        //     console.log(err);
+        // });
+        console.log($scope.items)
+        window.imagePicker.getPictures(
+            function (results) {
+                for (var i = 0; i < results.length; i++) {
+                    console.log('Image URI: ' + results[i]);
+
+                    var newimage = {
+                        src: results[i],
+                        sub: "Most recent photos 03/29/2016"
+                    };
+                    console.log($scope.items);
+                    $scope.items.push(newimage);
+                    console.log($scope.items);
+                    $scope.reload();
                 }
-            );
+            },
+            function (error) {
+                console.log('Error: ' + error);
+            }
+        );
 
-        }
+    }
 
-        $scope.reload = function () {
-            $state.go($state.current, {}, {
-                reload: true
-            });
-        }
+    $scope.reload = function () {
+        $state.go($state.current, {}, {
+            reload: true
+        });
+    }
 
-        $scope.urlForImage = function (imageName) {
-            var name = imageName.substr(imageName.lastIndexOf('/') + 1);
-            var trueOrigin = cordova.file.dataDirectory + name;
-            return trueOrigin;
+    $scope.urlForImage = function (imageName) {
+        var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+        var trueOrigin = cordova.file.dataDirectory + name;
+        return trueOrigin;
+    }
+
+
+    //            $scope.photoselector = function () {
+    //                var confirmPopup = $ionicPopup.confirm({
+    //                        title: 'Upload or take photo',
+    //                        template: 'Would you like to upload a photo from your camera roll or take a new photo?',
+    //                        buttons: [
+    //                            {
+    //                                text: 'Upload'
+    //                            },
+    //                            {
+    //                                text: 'Take Photo',
+    //                                type: 'button-positive',
+    //                                onTap: function () {
+    //                                    console.log('...')
+    //                                }
+    //   }
+    //                        });
+    //
+    //                    confirmPopup.then(function (res) {
+    //                        if (res) {
+    //                            console.log('You are sure');
+    //                            $scope.getPhoto();
+    //                        } else {
+    //                            $scope.choosePhoto();
+    //                        }
+    //                    });
+    //                }
+    //            })
+
+    $scope.photoselector = function () {
+       var myPopup = $ionicPopup.show({
+            template: "Upload from camera roll or take photo? Or <a ng-click='closepopup();'>Close</a>",
+            title: "Take Photos",
+            scope: $scope,
+            buttons: [
+                {
+                    text: 'Upload',
+                    type: 'button-positive',
+                    onTap: function () {
+                        console.log("hello1");
+                        myPopup.close();
+                        $scope.choosePhoto();
+
+
+                }
+                },
+                {
+                    text: 'Take Photo',
+                    type: 'button-positive',
+                    onTap: function () {
+                        console.log("hello2");
+                        myPopup.close();
+                        $scope.getPhoto();
+
+                    }
+                }
+            ]
+        });
+        $scope.closepopup = function (){
+            myPopup.close();
         }
-    })
+    }
+
+})
 
 .controller('NotesCtrl', function ($scope, Notes, $state, $ionicModal, $http) {
 
-     $ionicModal.fromTemplateUrl('my-modal.html', {
+    $ionicModal.fromTemplateUrl('my-modal2.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
@@ -470,9 +549,9 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 
 
-    $scope.photo = function(){
+    $scope.photo = function () {
         console.log("hello")
-        $state.go('tab.photo');
+        $state.go('photoinfo');
         console.log("went")
     }
 
@@ -548,60 +627,60 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         // notes = storedNotes;
 
         //Load dates
-      var notes = []
-      var storedPassword = JSON.parse(window.localStorage.getItem("password"));
-      // $scope.storedPassword = storedPassword;
-      // window.localStorage.setItem("username", JSON.stringify(username));
-      var storedUsername = JSON.parse(window.localStorage.getItem("username"));
-      var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts"
-      $http.post(url, {
-        "user": storedPassword ,
-        "passwrd": storedUsername
-        // "user": storedPassword ,
-        // "passwrd": storedUsername
-      }).then(function (resps) {
-        console.log(resps)
-        resps = resps.data.posts
-        for(var x = 0; x<resps.length; x++){
-        addInfo={}
-        resp = resps[x]
-        // console.log(resp);
-        summary = resp.summary;
-        // console.log(summary)
-        summary = summary[0].summary
+        var notes = []
+        var storedPassword = JSON.parse(window.localStorage.getItem("password"));
+        // $scope.storedPassword = storedPassword;
+        // window.localStorage.setItem("username", JSON.stringify(username));
+        var storedUsername = JSON.parse(window.localStorage.getItem("username"));
+        var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts"
+        $http.post(url, {
+            "user": storedPassword,
+            "passwrd": storedUsername
+                // "user": storedPassword ,
+                // "passwrd": storedUsername
+        }).then(function (resps) {
+            console.log(resps)
+            resps = resps.data.posts
+            for (var x = 0; x < resps.length; x++) {
+                addInfo = {}
+                resp = resps[x]
+                    // console.log(resp);
+                summary = resp.summary;
+                // console.log(summary)
+                summary = summary[0].summary
 
-        concepts = resp.keywords;
-          sentiment = resp.sentiment;
-          keywords = []
-          console.log(concepts)
-          console.log(sentiment)
-          for(var x = 0; x<concepts.length; x++){
-            keywords.push([concepts[x], sentiment[x]])
-          }
-        addInfo.summary = summary;
+                concepts = resp.keywords;
+                sentiment = resp.sentiment;
+                keywords = []
+                console.log(concepts)
+                console.log(sentiment)
+                for (var x = 0; x < concepts.length; x++) {
+                    keywords.push([concepts[x], sentiment[x]])
+                }
+                addInfo.summary = summary;
 
-        //concepts
-        //var concepts;
+                //concepts
+                //var concepts;
 
-        //console.log("concepts size: " + concepts.length);
-        addInfo.keywords = keywords;
+                //console.log("concepts size: " + concepts.length);
+                addInfo.keywords = keywords;
 
-        //bias
+                //bias
 
-        //date
-        var d = new Date();
-        var str = d.toString();
-        str = str.substring(0, 15);
-        addInfo.dates = str;
-        notes.push(addInfo)
-        // Stop the ion-refresher from spinning
+                //date
+                var d = new Date();
+                var str = d.toString();
+                str = str.substring(0, 15);
+                addInfo.dates = str;
+                notes.push(addInfo)
+                    // Stop the ion-refresher from spinning
 
-        $scope.$broadcast('scroll.refreshComplete');
+                $scope.$broadcast('scroll.refreshComplete');
 
-      }
-        $scope.Newnotes=notes
-          window.localStorage.setItem("notes", JSON.stringify(notes));
-      })
+            }
+            $scope.Newnotes = notes
+            window.localStorage.setItem("notes", JSON.stringify(notes));
+        })
 
     }
 
@@ -681,15 +760,16 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     };
 })
 
-.controller('LoginCtrl', function ($location, store, $scope, $ionicPopup, $state,$http) {
+.controller('LoginCtrl', function ($location, store, $scope, $ionicPopup, $state, $http) {
 
     $scope.username;
     $scope.password;
     $scope.login = function (username, password) {
 
 
-
-
+            $scope.password = password
+            window.localStorage.setItem("password", JSON.stringify(password));
+            window.localStorage.setItem("username", JSON.stringify(username));
 
 
 
@@ -710,6 +790,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
           window.localStorage.setItem("username", JSON.stringify($scope.username));
           $state.go('tab.notes');
         });
+
     }
 
 
@@ -731,8 +812,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     }
 
 
-                var storedUsername = JSON.parse(window.localStorage.getItem("username"));
-                    var storedPassword = JSON.parse(window.localStorage.getItem("password"));
+    var storedUsername = JSON.parse(window.localStorage.getItem("username"));
+    var storedPassword = JSON.parse(window.localStorage.getItem("password"));
 
 
     $scope.info = function () {
@@ -753,14 +834,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 })
 
 .controller('UserInfoCtrl', function (auth) {
-        auth.profilePromise.then(function (profile) {
-            $scope.profile = profile;
+    auth.profilePromise.then(function (profile) {
+        $scope.profile = profile;
 
 
 
-        });
-        $scope.profile = auth.profile;
-    })
-
-
-
+    });
+    $scope.profile = auth.profile;
+})
