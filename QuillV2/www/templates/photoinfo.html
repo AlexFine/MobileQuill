@@ -1,0 +1,15 @@
+<ion-view view-title="Take Photo">
+     
+    <ion-content class="padding" ng-controller="PhotoCtrl">
+      
+<div class="row">
+        <button ng-click="getPhoto()" class="button button-block button-outline button-calm" style="width:100%;">Take Photos</button>
+
+
+        </div>
+        <ion-gallery ion-gallery-items="items"></ion-gallery>
+        <p ng-if="text.length>1">Text: {{text}}</p>
+        <p ng-if="summary.length>1">Summary: {{summary}}</p>
+    
+    </ion-content>
+</ion-view>

@@ -5,8 +5,8 @@
         </ion-refresher>
         <div style="margin:1%;">
 
-            <button class="button button-outline button-energized icon ion-ios-camera-outline" style="width:100%;" ng-click="openModal()">
-                Take Photo
+            <button class="button button-outline button-energized icon ion-ios-camera-outline" style="width:100%;" ng-controller="PhotoCtrl" ng-click="openModal(); photoselector()">
+                Upload Photo
             </button>
 
         </div>
@@ -16,6 +16,7 @@
                 <input type="search" ng-model="query" value="Search">
             </label>
         </div>
+     
 
         <div class="list" style="height:5%;">
             <div ng-repeat="entry in Newnotes | filter:query;">
@@ -44,18 +45,24 @@
         </div>
 
 
-
-        <script id="my-modal.html" type="text/ng-template">
+<div ng-controller="PhotoCtrl">
+        <script id="my-modal2.html" type="text/ng-template">
             <ion-modal-view>
                 <ion-header-bar>
                     <h1 class="title">Take Photos</h1>
-                    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span>
+                    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
                 </ion-header-bar>
-                <ion-content>
-                    Hello World!
+                <ion-content class="padding">
+                    <button ng-click="photoselector()" class="button button-block button-outline button-calm" style="width:98%; margin:1%;">Take More Photos</button>
+                    
+               
+                   
+                            <button ng-click="choosePhoto()" class="button button-block button-outline button-calm" style="width:98%; margin:1%;">Analyze Photos</button>
+
+                         <ion-gallery ion-gallery-items="items"></ion-gallery>
                 </ion-content>
             </ion-modal-view>
         </script>
-
+</div>
     </ion-content>
 </ion-view>

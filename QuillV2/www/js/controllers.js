@@ -183,8 +183,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
   };
 })
 
-    .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal) {
-
+    .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal, $ionicPopup) {
 
 
         $scope.items = [
@@ -438,11 +437,28 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             var trueOrigin = cordova.file.dataDirectory + name;
             return trueOrigin;
         }
+        
+        
+$scope.photoselector = function () {
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Upload or take photo',
+            template: 'Would you like to upload a photo from your camera roll or take a new photo?'
+        });
+
+        confirmPopup.then(function (res) {
+            if (res) {
+                console.log('You are sure');
+                $scope.getPhoto();
+            } else {
+                $scope.choosePhoto();
+            }
+        });
+    }
     })
 
 .controller('NotesCtrl', function ($scope, Notes, $state, $ionicModal, $http) {
 
-     $ionicModal.fromTemplateUrl('my-modal.html', {
+     $ionicModal.fromTemplateUrl('my-modal2.html', {
         scope: $scope,
         animation: 'slide-in-up'
     }).then(function (modal) {
@@ -472,7 +488,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
     $scope.photo = function(){
         console.log("hello")
-        $state.go('tab.photo');
+        $state.go('photoinfo');
         console.log("went")
     }
 
