@@ -299,8 +299,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                         //now at this point, we have text, we'll run summary, concepts, and bias;
                         var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/text/upload"
                       $http.post(url,{
-                            "message": "Due to gap between meets on our schedule this month and the number of athletes who will not be able to participate in the meet on the 16th (Bearcats Invitational at San Mateo High School), we will hold an intrasquad meet on Wednesday. We hold mostly relays and field events. The coaches will run the field events, but volunteer help would be greatly appreciated. If you can help us on Wednesday for this brief but fun meet, we would appreciate it.",
-                            "user": storedUsername,
+                            "message": text,
+                        "user": storedUsername,
                             "passwrd": storedPassword
                         }).then(function (resp) {
                             resp=resp.data
@@ -310,13 +310,19 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                             summary = summary[0].summary
 
                             concepts = resp.keywords;
+                            sentiment = resp.sentiment;
+                            keywords = []
+                            for(var x = 0; x<concepts.length; x++){
+                              keywords.push([concepts[x], sentiment[x]])
+                            }
+
                             addInfo.summary = summary;
 
                             //concepts
                             //var concepts;
 
                             //console.log("concepts size: " + concepts.length);
-                            addInfo.keywords = concepts;
+                            addInfo.keywords = keywords;
 
                             //bias
 
@@ -549,9 +555,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
       var storedUsername = JSON.parse(window.localStorage.getItem("username"));
       var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts"
       $http.post(url, {
-
         "user": storedPassword ,
         "passwrd": storedUsername
+        // "user": storedPassword ,
+        // "passwrd": storedUsername
       }).then(function (resps) {
         console.log(resps)
         resps = resps.data.posts
@@ -564,13 +571,20 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         summary = summary[0].summary
 
         concepts = resp.keywords;
+          sentiment = resp.sentiment;
+          keywords = []
+          console.log(concepts)
+          console.log(sentiment)
+          for(var x = 0; x<concepts.length; x++){
+            keywords.push([concepts[x], sentiment[x]])
+          }
         addInfo.summary = summary;
 
         //concepts
         //var concepts;
 
         //console.log("concepts size: " + concepts.length);
-        addInfo.keywords = concepts;
+        addInfo.keywords = keywords;
 
         //bias
 
