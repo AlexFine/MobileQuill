@@ -53,13 +53,16 @@
                     <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
                 </ion-header-bar>
                 <ion-content class="padding">
-                    <button ng-click="photoselector()" class="button button-block button-outline button-calm" style="width:98%; margin:1%;">Take More Photos</button>
+                    <button ng-click="photoselector()" class="button button-block button-outline button-calm ion-ios-reverse-camera" style="width:98%; margin:1%; font-size:20px;"> Take More Photos </button>
                     
                
                    
-                            <button ng-click="choosePhoto()" class="button button-block button-outline button-calm" style="width:98%; margin:1%;">Analyze Photos</button>
-
-                         <ion-gallery ion-gallery-items="items"></ion-gallery>
+                            <button ng-click="picText()" class="button button-block button-outline button-calm ion-ios-color-wand-outline" style="width:98%; margin:1%; font-size:20px;"> Analyze Photos</button>
+<div class="padding:1%;">
+<!--                         <ion-gallery ion-gallery-items="items"></ion-gallery>-->
+    
+    <img ng-repeat="i in items" src="{{i.src}}" style="width:100%;">
+    </div>
                 </ion-content>
             </ion-modal-view>
         </script>

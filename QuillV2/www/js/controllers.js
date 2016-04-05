@@ -167,30 +167,46 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 
     })
-.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
-
-  $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
-
-  $scope.ok = function () {
-    $uibModalInstance.close($scope.selected.item);
-  };
-
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
-})
 
     .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal, $ionicPopup) {
 
-
+    
+     $ionicModal.fromTemplateUrl('my-modal2.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+    $scope.openModal = function () {
+        console.log("modal open")
+        $scope.modal.show();
+    };
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+    //Cleanup the modal when we're done with it!
+    $scope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
+    // Execute action on hide modal
+    $scope.$on('modal.hidden', function () {
+        // Execute action
+    });
+    // Execute action on remove modal
+    $scope.$on('modal.removed', function () {
+        // Execute action
+    });
+ 
         $scope.items = [
             {
                 src: 'img/text1.JPG',
                 sub: 'Most recent photos 03/11/2016'
-  }]
+  },
+             {
+                src: 'img/text2.JPG',
+                sub: 'Most recent photos 03/11/2016'
+  }
+        ]
         console.log($scope.items);
 
         $scope.status = "start status";
