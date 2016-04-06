@@ -496,8 +496,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                         console.log("hello1");
                         myPopup.close();
                         $scope.choosePhoto();
-
-
+                        
+                        
                 }
                 },
                 {
@@ -507,7 +507,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                         console.log("hello2");
                         myPopup.close();
                         $scope.getPhoto();
-
+                        
                     }
                 }
             ]
@@ -516,7 +516,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             myPopup.close();
         }
     }
-
+    
 })
 
 .controller('NotesCtrl', function ($scope, Notes, $state, $ionicModal, $http) {
@@ -765,39 +765,32 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     $scope.username;
     $scope.password;
     $scope.login = function (username, password) {
+        gapi.client.quillApi.user.login({
 
-
-      if(username==undefined){
-        alert("Invalid Username")
-
-      }
-
-
-      var url ="https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/login";
-      console.log(username,password)
-      $http.post(url, {
-
-        "user": username,
-        "passwrd": password
-      })
-        .then(function (resp) {
+            "user": username,
+            "passwrd": password
+        }).execute(function (resp) {
             console.log(resp);
-          if(resp.data.message != "fail"){
-          $scope.username = username
+            $scope.username = username
 
-          $scope.password = password
-          // if(resp.message=)
-          window.localStorage.setItem("password", JSON.stringify($scope.password));
-          window.localStorage.setItem("username", JSON.stringify($scope.username));
-          $state.go('tab.notes');}
-          else{
-
-              alert("Invalid Username and password combination")
+            $scope.password = password
+            window.localStorage.setItem("password", JSON.stringify(password));
+            window.localStorage.setItem("username", JSON.stringify(username));
 
 
-          }
+            $state.go('tab.notes');
+
+
         });
+        var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts";
+        $http.post(url, {
 
+                "user": username,
+                "passwrd": password
+            })
+            .then(function (resp) {
+                console.log(resp);
+            });
     }
 
 
@@ -811,11 +804,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         confirmPopup.then(function (res) {
             if (res) {
                 console.log('You are sure');
-                $scope.username = ""
-
-                $scope.password = ""
                 $state.go('intro');
-
             } else {
                 console.log('You are not sure');
             }

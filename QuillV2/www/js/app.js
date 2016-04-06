@@ -67,6 +67,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         templateUrl: 'templates/intro.html',
         controller: 'IntroCtrl'
     })
+    
+    
 
     .state('login', {
             url: '/login',
@@ -99,7 +101,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 
 
-    .state('tab.photo', {
+    .state('photo', {
         url: '/photo',
         views: {
             'tab-photo': {
