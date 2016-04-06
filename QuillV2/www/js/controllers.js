@@ -167,7 +167,84 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 
     })
+  .controller('LoginCtrl', function ($location, store, $scope, $ionicPopup, $state, $http) {
 
+    $scope.username;
+    $scope.password;
+    $scope.login = function (username, password) {
+
+
+      if(username==undefined){
+        alert("Invalid Username")
+
+      }
+
+
+      var url ="https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/login";
+      console.log(username,password)
+      $http.post(url, {
+
+          "user": username,
+          "passwrd": password
+        })
+        .then(function (resp) {
+          console.log(resp);
+          if(resp.data.message == "logged in"){
+            $scope.username = username
+
+            $scope.password = password
+            // if(resp.message=)
+            window.localStorage.setItem("password", JSON.stringify($scope.password));
+            window.localStorage.setItem("username", JSON.stringify($scope.username));
+            $state.go('tab.notes');}
+          else{
+
+            alert("Invalid Username and password combination")
+
+
+          }
+        });
+    }
+
+
+
+    $scope.out = function () {
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Logout',
+        template: 'Are you sure you want to logout?'
+      });
+
+      confirmPopup.then(function (res) {
+        if (res) {
+          console.log('You are sure');
+          $state.go('intro');
+        } else {
+          console.log('You are not sure');
+        }
+      });
+    }
+
+
+    var storedUsername = window.localStorage.getItem("username");
+    var storedPassword = window.localStorage.getItem("password");
+
+
+    $scope.info = function () {
+      console.log("USRNAME IS" + storedUsername)
+
+      var alertPopup = $ionicPopup.alert({
+        title: 'Account Details',
+        template: 'Username: ' + storedUsername + '<br>' + 'Password: ' + storedPassword
+      });
+
+      alertPopup.then(function (res) {
+        console.log('Thank you for not eating my delicious ice cream cone');
+      });
+    }
+
+
+
+  })
 .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal, $ionicPopup) {
 
 
@@ -496,8 +573,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                         console.log("hello1");
                         myPopup.close();
                         $scope.choosePhoto();
-                        
-                        
+
+
                 }
                 },
                 {
@@ -507,7 +584,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                         console.log("hello2");
                         myPopup.close();
                         $scope.getPhoto();
-                        
+
                     }
                 }
             ]
@@ -516,7 +593,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             myPopup.close();
         }
     }
-    
+
 })
 
 .controller('NotesCtrl', function ($scope, Notes, $state, $ionicModal, $http) {
@@ -760,78 +837,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     };
 })
 
-.controller('LoginCtrl', function ($location, store, $scope, $ionicPopup, $state, $http) {
 
-    $scope.username;
-    $scope.password;
-    $scope.login = function (username, password) {
-        gapi.client.quillApi.user.login({
-
-            "user": username,
-            "passwrd": password
-        }).execute(function (resp) {
-            console.log(resp);
-            $scope.username = username
-
-            $scope.password = password
-            window.localStorage.setItem("password", JSON.stringify(password));
-            window.localStorage.setItem("username", JSON.stringify(username));
-
-
-            $state.go('tab.notes');
-
-
-        });
-        var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts";
-        $http.post(url, {
-
-                "user": username,
-                "passwrd": password
-            })
-            .then(function (resp) {
-                console.log(resp);
-            });
-    }
-
-
-
-    $scope.out = function () {
-        var confirmPopup = $ionicPopup.confirm({
-            title: 'Logout',
-            template: 'Are you sure you want to logout?'
-        });
-
-        confirmPopup.then(function (res) {
-            if (res) {
-                console.log('You are sure');
-                $state.go('intro');
-            } else {
-                console.log('You are not sure');
-            }
-        });
-    }
-
-
-    var storedUsername = window.localStorage.getItem("username");
-    var storedPassword = window.localStorage.getItem("password");
-
-
-    $scope.info = function () {
-        console.log("USRNAME IS" + storedUsername)
-
-        var alertPopup = $ionicPopup.alert({
-            title: 'Account Details',
-            template: 'Username: ' + storedUsername + '<br>' + 'Password: ' + storedPassword
-        });
-
-        alertPopup.then(function (res) {
-            console.log('Thank you for not eating my delicious ice cream cone');
-        });
-    }
-
-
-
-})
 
 .controller('UserInfoCtrl', function (auth) {
     auth.profilePromise.then(function (profile) {
