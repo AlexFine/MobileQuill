@@ -767,28 +767,35 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     $scope.login = function (username, password) {
 
 
-            $scope.password = password
-            window.localStorage.setItem("password", JSON.stringify(password));
-            window.localStorage.setItem("username", JSON.stringify(username));
+      if(username==undefined){
+        alert("Invalid Username")
+
+      }
 
 
-
-      var url ="https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts";
+      var url ="https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/login";
       console.log(username,password)
       $http.post(url, {
 
-        "user": $scope.username,
-        "passwrd": $scope.password
+        "user": username,
+        "passwrd": password
       })
         .then(function (resp) {
             console.log(resp);
+          if(resp.data.message != "fail"){
           $scope.username = username
 
           $scope.password = password
           // if(resp.message=)
           window.localStorage.setItem("password", JSON.stringify($scope.password));
           window.localStorage.setItem("username", JSON.stringify($scope.username));
-          $state.go('tab.notes');
+          $state.go('tab.notes');}
+          else{
+
+              alert("Invalid Username and password combination")
+
+
+          }
         });
 
     }
@@ -804,7 +811,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         confirmPopup.then(function (res) {
             if (res) {
                 console.log('You are sure');
+                $scope.username = ""
+
+                $scope.password = ""
                 $state.go('intro');
+
             } else {
                 console.log('You are not sure');
             }
