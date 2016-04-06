@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ion-gallery'])
 
-.run(function ($ionicPlatform, $rootScope, $state, store, jwtHelper) {
+.run(function ($ionicPlatform, $rootScope, $state, jwtHelper) {
 
 
     //currentuser will be set to something other than null over here when u link to login

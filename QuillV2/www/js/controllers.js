@@ -631,7 +631,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         var storedPassword = JSON.parse(window.localStorage.getItem("password"));
         // $scope.storedPassword = storedPassword;
         // window.localStorage.setItem("username", JSON.stringify(username));
-        var storedUsername = JSON.parse(window.localStorage.getItem("username"));
+        var storedUsername = window.localStorage.getItem("username");
         var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts"
         $http.post(url, {
             "user": storedPassword,
@@ -812,8 +812,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     }
 
 
-    var storedUsername = JSON.parse(window.localStorage.getItem("username"));
-    var storedPassword = JSON.parse(window.localStorage.getItem("password"));
+    var storedUsername = window.localStorage.getItem("username");
+    var storedPassword = window.localStorage.getItem("password");
 
 
     $scope.info = function () {
