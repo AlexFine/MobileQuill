@@ -375,10 +375,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                   }
                 ]
                 };
-                var storedPassword = JSON.parse(window.localStorage.getItem("password"));
+                var storedPassword = window.localStorage.getItem("password");
                 // $scope.storedPassword = storedPassword;
                 // window.localStorage.setItem("username", JSON.stringify(username));
-                var storedUsername = JSON.parse(window.localStorage.getItem("username"));
+                var storedUsername = window.localStorage.getItem("username");
                 var summary;
                 var concepts;
                 //console.log(postReq)
