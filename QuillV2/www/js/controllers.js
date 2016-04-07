@@ -154,6 +154,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             window.localStorage.setItem("password", $scope.password);
             window.localStorage.setItem("username", $scope.username);
             window.localStorage.setItem("rememberme", "true");
+
             $state.go('tab.notes');}
           else{
 
@@ -176,6 +177,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         if (res) {
           console.log('You are sure');
           window.localStorage.setItem("rememberme", "false");
+          window.localStorage.setItem("notes", JSON.stringify([]));
           $state.go('intro');
         } else {
           console.log('You are not sure');
@@ -407,7 +409,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                 storedNotes.push(addInfo)
                 window.localStorage.setItem("notes", JSON.stringify(storedNotes));
                 $scope.Newnotes = storedNotes;
-                console.log(storedNotes)
+                console.log(Newnotes)
+                $scope.closeModal()
 
                 // console.log(JSON.stringify(addInfo));
 
@@ -676,8 +679,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         //        //Load dates
         //
 
-        // var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
-        // notes = storedNotes;
+        var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
+        $scope.newNotes= storedNotes
 
         //Load dates
         var notes = []
@@ -778,7 +781,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
     $scope.remove = function (note) {
         Notes.remove(note);
     };
-
+  $scope.saveData();
 })
 
 .controller('NoteDetailCtrl', function ($scope, $stateParams, Notes, $cordovaEmailComposer) {
