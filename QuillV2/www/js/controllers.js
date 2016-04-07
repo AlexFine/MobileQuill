@@ -90,37 +90,55 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         $scope.username;
         $scope.password;
         $scope.register = function (username, password) {
-            console.log("hello");
-            console.log(password + username);
+          console.log("hello");
+          console.log(password + username);
+          if (username == undefined) {
+            //alert("Invalid Username")
+            alert("invalid username");
+          }
+          else if (username == password) {
+            //alert("Invalid Username")
+            alert("no password");
+          }
+          console.log(password.length)
+          // else{
+          if (password.length < 7) {
+            //alert("Invalid Username")
+            alert("password not long enough needs to be 8 char or longer");
+          }
+          else {
             $scope.password = password;
+
             $scope.username = username;
+
             $scope.error;
 
             var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/new"
             $http.post(url, {
 
-                "user": username,
-                "passwrd": password
+              "user": username,
+              "passwrd": password
             }).then(function (resp) {
-                console.log(resp);
-                $scope.error = resp;
-              if(resp.message == "key success"){
+              console.log(resp);
+              $scope.error = resp;
+              if (resp.message == "key success") {
                 window.localStorage.setItem("password", password);
                 // var storedPassword = window.localStorage.getItem("password"));
                 $scope.storedPassword = password;
                 window.localStorage.setItem("username", username);
                 // var storedUsername = window.localStorage.getItem("username");
                 $scope.storedUsername = username;
-              window.localStorage.setItem("rememberme", "true");
+                window.localStorage.setItem("rememberme", "true");
                 $state.go('tab.notes');
                 console.log(storedUsername);
-                console.log(storedPassword);}
+                console.log(storedPassword);
+              }
             });
 
+          }
+
+
         }
-
-
-
 
     })
   .controller('LoginCtrl', function ($location, $scope, $ionicPopup, $state, $http) {
@@ -378,8 +396,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                 for (var x = 0; x < concepts.length; x++) {
                   keywords.push([concepts[x], sentiment[x]])
                 }
-                  
-                  
+
+
 
                 addInfo.summary = summary;
                 addInfo.text= resp.text;
