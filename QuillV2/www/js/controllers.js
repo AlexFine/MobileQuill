@@ -76,7 +76,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 
         $scope.checkLogged = function () {
-            $scope.startApp();
+           
+            //Check if logged in here
         };
 
         if ($stateParams.clear) {
