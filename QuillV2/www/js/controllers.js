@@ -378,6 +378,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                 }
 
                 addInfo.summary = summary;
+                addInfo.text= resp.text;
 
                 //concepts
                 //var concepts;
@@ -727,7 +728,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
                 //console.log("concepts size: " + concepts.length);
                 addInfo.keywords = keywords;
-
+              addInfo.text= resp.text;
                 //bias
 
                 //date
