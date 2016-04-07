@@ -5,9 +5,9 @@
   The Friends service returns an array of friend data
 -->
 <ion-view view-title="Further Info">
-    
+
     <ion-content class="padding">
-    
+
         <div class="card">
             <div class="item item-divider item-calm" ng-click="summaryisCollapsed = !summaryisCollapsed">
                 Summary
@@ -20,9 +20,9 @@
             <div class="item item-divider item-calm" ng-click="keywordsisCollapsed = !keywordsisCollapsed">
                 Keywords And Motifs
             </div>
-            <div class="item item-text-wrap" ng-if="keywordsisCollapsed" ng-repeat="keyword in {{Newnotes[lastChar].keywords}}">
+            <div class="item item-text-wrap" ng-if="keywordsisCollapsed" ng-repeat="keyword in Newnotes[lastChar].keywords">
                 <ul>
-                    <li>{{Newnotes[lastChar].keywords}}</li>
+                    <li>{{keyword}}</li>
                 </ul>
             </div>
         </div>
@@ -49,7 +49,7 @@
 -->
             </div>
         </div>
-        
+
         <hr>
         <button class="button button-block button-assertive">
             Delete Note
