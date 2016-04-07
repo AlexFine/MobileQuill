@@ -19,64 +19,18 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         };
 
 
-        $scope.signin = function (mode, authorizeCallback) {
-            console.log("hello");
-            gapi.auth.authorize({
-                    client_id: '717056452157-5udkhp8gsi6imu2lj684ushiecsrn1qq.apps.googleusercontent.com',
-                    scope: 'https://www.googleapis.com/auth/userinfo.email',
-                    mode: false
-                },
-                authorizeCallback);
-        }
-
-        $scope.userAuthed = function () {
-            var request = gapi.client.oauth2.userinfo.get().execute(function (resp) {
-                if (!resp.code) {
-                    // User is signed in, call my Endpoint
-                    $rootScope.user = currentUser;
-                    $rootScope.isLoggedIn = true;
-                    $state.go('tab.notes');
-                }
-            });
-        }
 
 
 
-        $scope.deviceReady = function () {
-            //I get called when everything's ready for the plugin to be called!
-            console.log('Device is ready!');
-            window.plugins.googleplus.trySilentLogin();
-        }
 
-        $scope.logingoogleplus = function () {
 
-            window.plugins.googleplus.login({
-                    'scopes': 'https://www.googleapis.com/auth/userinfo.email', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
-                    'webClientId': '717056452157-5udkhp8gsi6imu2lj684ushiecsrn1qq.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
-                    'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
-                },
-                function (obj) {
-                    alert(JSON.stringify(obj)); // do something useful instead of alerting
-                },
-                function (msg) {
-                    alert('error: ' + msg);
-                }
-            );
-        }
 
-        $scope.logoutgoogleplus = function () {
-            window.plugins.googleplus.disconnect(
-                function (msg) {
-                    alert(msg); // do something useful instead of alerting
-                }
-            );
-        }
 
 
 
 
         $scope.checkLogged = function () {
-           
+
             //Check if logged in here
         };
 
@@ -95,10 +49,12 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         }
 
         $scope.startApp = function () {
-            if (window.localStorage['rememberme'] == "true") {
+            console.log(window.localStorage.getItem('rememberme'))
+            if (window.localStorage.getItem('rememberme') == "true") {
                 $state.go('tab.notes');
             } else {
                 $state.go('intro');
+                console.log("test")
                 window.localStorage['didTutorial'] = true;
             }
         };
@@ -156,7 +112,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                 window.localStorage.setItem("username", username);
                 // var storedUsername = window.localStorage.getItem("username");
                 $scope.storedUsername = username;
-
+              window.localStorage.setItem("rememberme", "true");
                 $state.go('tab.notes');
                 console.log(storedUsername);
                 console.log(storedPassword);
@@ -195,8 +151,9 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
             $scope.password = password
             // if(resp.message=)
-            window.localStorage.setItem("password", JSON.stringify($scope.password));
-            window.localStorage.setItem("username", JSON.stringify($scope.username));
+            window.localStorage.setItem("password", $scope.password);
+            window.localStorage.setItem("username", $scope.username);
+            window.localStorage.setItem("rememberme", "true");
             $state.go('tab.notes');}
           else{
 
@@ -218,6 +175,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
       confirmPopup.then(function (res) {
         if (res) {
           console.log('You are sure');
+          window.localStorage.setItem("rememberme", "false");
           $state.go('intro');
         } else {
           console.log('You are not sure');
@@ -353,117 +311,129 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         //$scope.base64(testPhoto);
         console.log("items length: " + $scope.items.length);
         var dataURL;
+
         for (var i = 0; i < $scope.items.length; i++) {
-            var imgURL = $scope.items[i].src;
+          var imgURL = $scope.items[i].src;
 
 
-            $scope.base64(imgURL, function (resp) {
-                // console.log(resp);
-                dataURL = resp;
+          $scope.base64(imgURL, function (resp) {
+            // console.log(resp);
+            dataURL = resp;
 
 
-                var postReq = {
-                    "requests": [
-                        {
-                            "image": {
-                                "content": dataURL
-                            },
-                            "features": [
-                                {
-                                    "type": "TEXT_DETECTION",
-                      }
-                    ]
-                  }
-                ]
-                };
-                var storedPassword = window.localStorage.getItem("password");
-                // $scope.storedPassword = storedPassword;
-                // window.localStorage.setItem("username", JSON.stringify(username));
-                var storedUsername = window.localStorage.getItem("username");
-                var summary;
-                var concepts;
-                //console.log(postReq)
-                $http.post(url, postReq).then(function (res) {
-                    //console.log(res);
-                    text += res.data.responses[0].textAnnotations[0].description;
-                    text = text.replace(/\n/g, " ");
-                    addInfo.text = text;
-                    console.log(text);
-                    //now at this point, we have text, we'll run summary, concepts, and bias;
-                    var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/text/upload"
-                    $http.post(url, {
-                        "message": text,
-                        "user": storedUsername,
-                        "passwrd": storedPassword
-                    }).then(function (resp) {
-                        resp = resp.data
-                        console.log(resp);
-                        summary = resp.summary;
-                        console.log(summary)
-                        summary = summary[0].summary
+            var postReq = {
+              "requests": [
+                {
+                  "image": {
+                    "content": dataURL
+                  },
+                  "features": [
+                    {
+                      "type": "TEXT_DETECTION",
+                    }
+                  ]
+                }
+              ]
+            };
+            var storedPassword = window.localStorage.getItem("password");
+            // $scope.storedPassword = storedPassword;
+            // window.localStorage.setItem("username", JSON.stringify(username));
+            var storedUsername = window.localStorage.getItem("username");
+            var summary;
+            var concepts;
+            console.log(postReq)
+            $http.post(url, postReq).then(function (res) {
+              console.log(res);
 
-                        concepts = resp.keywords;
-                        sentiment = resp.sentiment;
-                        keywords = []
-                        for (var x = 0; x < concepts.length; x++) {
-                            keywords.push([concepts[x], sentiment[x]])
-                        }
+              text += res.data.responses[0].textAnnotations[0].description;
+              text = text.replace(/\n/g, " ");
+              console.log(text);
 
-                        addInfo.summary = summary;
+              //now at this point, we have text, we'll run summary, concepts, and bias;
+              console.log(i)
+              if($scope.items.length == i){
+                var d = new Date();
+                var str = d.toString();
+                str = str.substring(0, 15);
+              addInfo.text = text;
+              console.log(text);
+              var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/text/upload"
+              $http.post(url, {
+                "message": text,
+                "user": storedUsername,
+                "passwrd": storedPassword,
+                "date":str
+              }).then(function (resp) {
+                resp = resp.data
+                console.log(resp);
+                summary = resp.summary;
+                console.log(summary)
+                summary = summary[0].summary
 
-                        //concepts
-                        //var concepts;
+                concepts = resp.keywords;
+                sentiment = resp.sentiment;
+                keywords = []
+                for (var x = 0; x < concepts.length; x++) {
+                  keywords.push([concepts[x], sentiment[x]])
+                }
 
-                        //console.log("concepts size: " + concepts.length);
-                        addInfo.keywords = keywords;
+                addInfo.summary = summary;
 
-                        //bias
+                //concepts
+                //var concepts;
 
-                        //date
-                        var d = new Date();
-                        var str = d.toString();
-                        str = str.substring(0, 15);
-                        addInfo.dates = str;
+                //console.log("concepts size: " + concepts.length);
+                addInfo.keywords = keywords;
 
-                        // var newID = window.localStorage.getItem("notes").length;
-                        addInfo.id = newID;
+                //bias
 
-                        // window.localStorage.setItem("notes", JSON.stringify(notes));
-                        var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
-                        addInfo.id = storedNotes.length;
-                        console.log(storedNotes)
-                        storedNotes.push(addInfo)
-                        window.localStorage.setItem("notes", JSON.stringify(storedNotes));
-                        $scope.Newnotes = storedNotes;
+                //date
+                var d = new Date();
+                var str = d.toString();
+                str = str.substring(0, 15);
+                addInfo.dates = str;
 
-                        // console.log(JSON.stringify(addInfo));
+                // var newID = window.localStorage.getItem("notes").length;
+                // addInfo.id = newID;
 
-                        // window.localStorage.getItem("notes").push(addInfo);
+                // window.localStorage.setItem("notes", JSON.stringify(notes));
+                var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
+                if(storedNotes==null){storedNotes=[]}
+                addInfo.id = storedNotes.length;
+                console.log(storedNotes)
+                storedNotes.push(addInfo)
+                window.localStorage.setItem("notes", JSON.stringify(storedNotes));
+                $scope.Newnotes = storedNotes;
 
-                    });
-                    // gapi.client.quillApi.user.new({
+                // console.log(JSON.stringify(addInfo));
 
-                    //   "user":"ad",
-                    //   "passwrd":"21"
-                    // }).execute(function (resp) {
-                    //   console.log(resp);
-                    // });
+                // window.localStorage.getItem("notes").push(addInfo);
 
-                    // gapi.client.quillApi.user.return.posts({
+              });
+            }
+              // gapi.client.quillApi.user.new({
 
-                    //   "user":"ad",
-                    //   "passwrd":"21"
-                    // }).execute(function (resp) {
-                    //   console.log(resp);
-                    // });
-                    //summary
-                    //var summary;
-                    //console.log("summary : " + summary);
+              //   "user":"ad",
+              //   "passwrd":"21"
+              // }).execute(function (resp) {
+              //   console.log(resp);
+              // });
 
-                })
+              // gapi.client.quillApi.user.return.posts({
+
+              //   "user":"ad",
+              //   "passwrd":"21"
+              // }).execute(function (resp) {
+              //   console.log(resp);
+              // });
+              //summary
+              //var summary;
+              //console.log("summary : " + summary);
+
             })
-        }
+          })
 
+        }
     }
 
 
@@ -747,10 +717,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                 //bias
 
                 //date
-                var d = new Date();
-                var str = d.toString();
-                str = str.substring(0, 15);
-                addInfo.dates = str;
+                // var d = new Date();
+                // var str = d.toString();
+                // str = str.substring(0, 15);
+                addInfo.dates = resp.date;
                 notes.push(addInfo)
                     // Stop the ion-refresher from spinning
 
