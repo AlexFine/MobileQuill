@@ -788,7 +788,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     $scope.note = Notes.get($stateParams.noteId);
     $scope.summaryisCollapsed = true;
     $scope.keywordsisCollapsed = true;
-    $scope.textisCollapsed = false;
+    $scope.textisCollapsed = true;
     $scope.researchisCollapsed = true;
 
 

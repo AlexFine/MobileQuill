@@ -27,7 +27,7 @@
             <div ng-repeat="entry in Newnotes | filter:query;">
                 <a class="item item-thumbnail-left" href="#/tab/notes/{{entry.id}}">
                     <img ng-src="../img/text1.JPG" style="border-radius:4px;">
-                  <div ng-repeat="keyword in entry.keywords| filter:query;"><p> {{keyword}}</p></div>
+                  <div ng-repeat="keyword in entry.keywords| filter:query | limitTo:3"><p> {{keyword}}</p></div>
                     <p> {{entry.text}}</p>
                     <p style="color:#B0B0B0">{{entry.dates}}</p>
 

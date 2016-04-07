@@ -10,7 +10,7 @@
 
         <div class="card">
             <div class="item item-divider item-calm" ng-click="summaryisCollapsed = !summaryisCollapsed">
-                Summary
+                Summary - {{Newnotes[lastChar].dates}}
             </div>
             <div class="item item-text-wrap " ng-if="summaryisCollapsed">
                 {{Newnotes[lastChar].summary}}
@@ -26,14 +26,7 @@
                 </ul>
             </div>
         </div>
-        <div class="card">
-            <div class="item item-divider item-calm" ng-click="researchisCollapsed = !researchisCollapsed">
-                Extra Research
-            </div>
-            <div class="item item-text-wrap" ng-if="researchisCollapsed">
-                {{Newnotes[lastChar].dates}}
-            </div>
-        </div>
+        
         <div class="card">
             <div class="item item-divider item-light" ng-click="textisCollapsed = !textisCollapsed">
                 Text (click to<span ng-if="!textisCollapsed"> view</span><span ng-if="textisCollapsed"> minimize</span>)
