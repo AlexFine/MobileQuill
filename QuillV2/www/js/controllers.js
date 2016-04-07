@@ -80,9 +80,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         $scope.test = function (n) {
             //alert(n);
         }
-        $scope.register = function () {
-            //put register function here
-        };
+
         $scope.slideNext = function () {
             $ionicSlideBoxDelegate.next();
             $ionicSlideBoxDelegate.next();
@@ -106,6 +104,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             }).then(function (resp) {
                 console.log(resp);
                 $scope.error = resp;
+              if(resp.message == "key success"){
                 window.localStorage.setItem("password", password);
                 // var storedPassword = window.localStorage.getItem("password"));
                 $scope.storedPassword = password;
@@ -115,7 +114,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
               window.localStorage.setItem("rememberme", "true");
                 $state.go('tab.notes');
                 console.log(storedUsername);
-                console.log(storedPassword);
+                console.log(storedPassword);}
             });
 
         }
@@ -399,12 +398,15 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
                 // window.localStorage.setItem("notes", JSON.stringify(notes));
                 var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
-                if(storedNotes==null){storedNotes=[]}
-                addInfo.id = storedNotes.length;
+                if(storedNotes==null){storedNotes=[];
+                addInfo.id=0}
+                else{
+                addInfo.id = storedNotes.length;}
                 console.log(storedNotes)
                 storedNotes.push(addInfo)
                 window.localStorage.setItem("notes", JSON.stringify(storedNotes));
                 $scope.Newnotes = storedNotes;
+                console.log(storedNotes)
 
                 // console.log(JSON.stringify(addInfo));
 
@@ -685,16 +687,26 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts"
       // var url = "http://localhost:8080/_ah/api/quillApi/v1/user/return/posts"
         $http.post(url, {
-            "user": storedPassword,
-            "passwrd": storedUsername
+            "user": storedUsername,
+            "passwrd": storedPassword
                 // "user": storedPassword ,
                 // "passwrd": storedUsername
         }).then(function (resps) {
-            console.log(resps)
+            // console.log(resps)
+            console.log(notes)
             resps = resps.data.posts
+
+            if (resps == undefined){
+              return $scope.$broadcast('scroll.refreshComplete');
+            }
             for (var x = 0; x < resps.length; x++) {
+
                 addInfo = {}
                 resp = resps[x]
+              if(resp.text =="User Fail"){
+                alert("please log in again")
+                return $scope.$broadcast('scroll.refreshComplete');
+              }
                     // console.log(resp);
                 summary = resp.summary;
                 // console.log(summary)
@@ -703,10 +715,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                 concepts = resp.keywords;
                 sentiment = resp.sentiment;
                 keywords = []
-                console.log(concepts)
-                console.log(sentiment)
-                for (var x = 0; x < concepts.length; x++) {
-                    keywords.push([concepts[x], sentiment[x]])
+                // console.log(concepts)
+                // console.log(sentiment)
+                for (var y = 0; y < concepts.length; y++) {
+                    keywords.push([concepts[y], sentiment[y]])
                 }
                 addInfo.summary = summary;
 
@@ -723,14 +735,21 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                 // var str = d.toString();
                 // str = str.substring(0, 15);
                 addInfo.dates = resp.date;
+              addInfo.id = x
+              console.log(notes)
+              console.log(x)
                 notes.push(addInfo)
+                console.log(notes)
+              // $scope.Newnotes = notes
                     // Stop the ion-refresher from spinning
 
-                $scope.$broadcast('scroll.refreshComplete');
 
             }
-            $scope.Newnotes = notes
-            window.localStorage.setItem("notes", JSON.stringify(notes));
+          $scope.$broadcast('scroll.refreshComplete');
+          $scope.Newnotes = notes
+          console.log($scope.Newnotes)
+          window.localStorage.setItem("notes", JSON.stringify(notes));
+
         })
 
     }
