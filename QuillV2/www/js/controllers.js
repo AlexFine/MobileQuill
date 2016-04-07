@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-storage', 'angular-jwt'])
+angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     .controller('IntroCtrl', function ($scope, $http, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
 
 
@@ -123,7 +123,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 
     })
-  .controller('LoginCtrl', function ($location, store, $scope, $ionicPopup, $state, $http) {
+  .controller('LoginCtrl', function ($location, $scope, $ionicPopup, $state, $http) {
 
     $scope.username;
     $scope.password;
