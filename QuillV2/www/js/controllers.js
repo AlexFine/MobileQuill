@@ -2,7 +2,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     .controller('IntroCtrl', function ($scope, $http, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
 
 
-
+    $scope.status;
         $scope.pageswitch = function () {
             $state.go('tab.notes');
         }
@@ -131,8 +131,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
 
       if(username==undefined){
-        alert("Invalid Username")
-
+        //alert("Invalid Username")
+        $scope.status = "Invalid Username";
       }
 
 
@@ -158,8 +158,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             $state.go('tab.notes');}
           else{
 
-            alert("Invalid Username and password combination")
-
+            alert("Invalid Username and Password combination")
+            $scope.status = "Invalid Username and Password combination."
 
           }
         });
@@ -247,7 +247,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         ]
     console.log($scope.items);
 
-    $scope.status = "start status";
+    $scope.status = "Sending Image";
     $scope.summary;
 
 
@@ -378,6 +378,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                 for (var x = 0; x < concepts.length; x++) {
                   keywords.push([concepts[x], sentiment[x]])
                 }
+                  
+                  
 
                 addInfo.summary = summary;
                 addInfo.text= resp.text;
