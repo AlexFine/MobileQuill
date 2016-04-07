@@ -149,12 +149,12 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
             }).then(function (resp) {
                 console.log(resp);
                 $scope.error = resp;
-                window.localStorage.setItem("password", JSON.stringify(password));
-                var storedPassword = JSON.parse(window.localStorage.getItem("password"));
-                $scope.storedPassword = storedPassword;
-                window.localStorage.setItem("username", JSON.stringify(username));
-                var storedUsername = JSON.parse(window.localStorage.getItem("username"));
-                $scope.storedUsername = storedUsername;
+                window.localStorage.setItem("password", password);
+                // var storedPassword = window.localStorage.getItem("password"));
+                $scope.storedPassword = password;
+                window.localStorage.setItem("username", username);
+                // var storedUsername = window.localStorage.getItem("username");
+                $scope.storedUsername = username;
 
                 $state.go('tab.notes');
                 console.log(storedUsername);
@@ -424,19 +424,20 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
                         str = str.substring(0, 15);
                         addInfo.dates = str;
 
-                        var newID = window.localStorage.getItem("notes").length;
+                        // var newID = window.localStorage.getItem("notes").length;
                         addInfo.id = newID;
 
                         // window.localStorage.setItem("notes", JSON.stringify(notes));
                         var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
+                        addInfo.id = storedNotes.length;
                         console.log(storedNotes)
                         storedNotes.push(addInfo)
                         window.localStorage.setItem("notes", JSON.stringify(storedNotes));
                         $scope.Newnotes = storedNotes;
 
-                        console.log(JSON.stringify(addInfo));
+                        // console.log(JSON.stringify(addInfo));
 
-                        window.localStorage.getItem("notes").push(addInfo);
+                        // window.localStorage.getItem("notes").push(addInfo);
 
                     });
                     // gapi.client.quillApi.user.new({
@@ -705,7 +706,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
         //Load dates
         var notes = []
-        var storedPassword = JSON.parse(window.localStorage.getItem("password"));
+        var storedPassword = window.localStorage.getItem("password");
         // $scope.storedPassword = storedPassword;
         // window.localStorage.setItem("username", JSON.stringify(username));
         var storedUsername = window.localStorage.getItem("username");
