@@ -91,6 +91,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         $scope.password;
         $scope.register = function (username, password) {
           console.log("hello");
+          console.log(password.length)
           console.log(password + username);
           if (username == undefined) {
             //alert("Invalid Username")
@@ -100,8 +101,9 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             //alert("Invalid Username")
             alert("no password");
           }
-          console.log(password.length)
-          // else{
+
+          else{
+
           if (password.length < 7) {
             //alert("Invalid Username")
             alert("password not long enough needs to be 8 char or longer");
@@ -138,7 +140,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
           }
 
 
-        }
+        }}
 
     })
   .controller('LoginCtrl', function ($location, $scope, $ionicPopup, $state, $http) {
