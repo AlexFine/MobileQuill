@@ -138,6 +138,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
 
 
       var url ="https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/login";
+      // var url ="http://localhost:8080/_ah/api/quillApi/v1/user/login";
       console.log(username,password)
       $http.post(url, {
 
@@ -682,6 +683,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'angular-stor
         // window.localStorage.setItem("username", JSON.stringify(username));
         var storedUsername = window.localStorage.getItem("username");
         var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts"
+      // var url = "http://localhost:8080/_ah/api/quillApi/v1/user/return/posts"
         $http.post(url, {
             "user": storedPassword,
             "passwrd": storedUsername
