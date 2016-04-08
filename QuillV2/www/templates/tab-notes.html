@@ -24,7 +24,7 @@
      
 
         <div class="list" style="height:5%;">
-            <div ng-repeat="entry in Newnotes | filter:query;">
+            <div ng-repeat="entry in Newnotes.slice().reverse() | filter:query; ">
 
                 <a class="item item-thumbnail-left" href="#/tab/notes/{{entry.id}}">
                     <img ng-src="img/text1.JPG" style="border-radius:4px;">
@@ -70,7 +70,7 @@
                     
                
                    
-                            <button ng-click="picText()" class="button button-block button-outline button-calm ion-ios-color-wand-outline" style="width:98%; margin:1%; font-size:20px;"> Analyze Photos</button>
+                            <button ng-click="picText();" class="button button-block button-outline button-calm ion-ios-color-wand-outline" style="width:98%; margin:1%; font-size:20px;"> Analyze Photos</button>
 <div class="padding:1%;">
 <!--                         <ion-gallery ion-gallery-items="items"></ion-gallery>-->
     
