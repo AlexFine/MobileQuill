@@ -521,7 +521,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
              "http://cdn2.crushable.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-05-at-10.49.48-AM.png",
              "http://big.assets.huffingtonpost.com/ronswansononbacon4-17.400x226.gif",
              "http://memesvault.com/wp-content/uploads/Funny-Pictures-With-Captions-About-Women-14.jpg",
-             "http://www.manageprojectsonsharepoint.com/wp-content/uploads/2013/12/Project-management1.png"
+             "http://www.manageprojectsonsharepoint.com/wp-content/uploads/2013/12/Project-management1.png",
+             "http://www.twitquotes.com/uploads/1/162.jpg"
         ]
     //code goes here that will be run every 5 seconds.    
              var meme = memes[Math.floor(Math.random()*memes.length)];
@@ -536,7 +537,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                 template: $scope.status + "<br> Depending on how many images you've <br>submitted it may take a minute to load.<br> <br> <img src='" + meme + "' style='width:100%;'>"
             });
          
-         setTimeout(loadingbar, 2000);
         }
         $scope.endloadingbar = function(){
             console.log("hi")
