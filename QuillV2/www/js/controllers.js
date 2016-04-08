@@ -749,10 +749,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             alert("no post in database please reload")
           }
           if(resp.data.message == "success"){
-            alert("success")
+            alert("Deleted")
             $scope.newNotes.splice(id, 1)
             window.localStorage.setItem("notes", JSON.stringify($scope.newNotes));
-              $state.go('tab-notes')
+              $state.go('tab.notes');
           }
 
         });
