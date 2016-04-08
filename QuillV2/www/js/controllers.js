@@ -640,7 +640,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
     })
 
-.controller('NotesCtrl', function ($scope, Notes, $state, $ionicModal, $http) {
+.controller('NotesCtrl', function ($scope, Notes, $state, $ionicModal, $http, $ionicPopup) {
 
     $ionicModal.fromTemplateUrl('my-modal2.html', {
         scope: $scope,
@@ -724,7 +724,42 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         // }
 
     ];
-    $scope.deletePost = function(postid, id){
+    
+    
+        $scope.deletePost = function (postid, id) {
+                var myPopup = $ionicPopup.show({
+                template: "Are you sure you want to delete this note?",
+                title: "Delete Note",
+                scope: $scope,
+                buttons: [
+                    
+                    {
+                        text: 'Cancel',
+                        type: 'button-light',
+                        onTap: function () {
+                            console.log("hello2");
+                            myPopup.close();
+
+                        }
+                },
+                    {
+                        text: 'Delete',
+                        type: 'button-assertive',
+                        onTap: function () {
+                            console.log("hello1");
+                            myPopup.close();
+                            $scope.deletePost2(postid, id);
+                        }
+                }
+            ]
+            }) 
+            
+        }
+        
+        
+        
+    $scope.deletePost2 = function(postid, id){
+    
       var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/post/delete";
 
       // var url ="http://localhost:8080/_ah/api/quillApi/v1/user/login";
