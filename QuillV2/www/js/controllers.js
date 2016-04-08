@@ -822,7 +822,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     $scope.textisCollapsed = true;
     $scope.researchisCollapsed = true;
 
-
     var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
     $scope.Newnotes = storedNotes;
 

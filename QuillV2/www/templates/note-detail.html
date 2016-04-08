@@ -16,13 +16,21 @@
                 {{Newnotes[lastChar].summary}}
             </div>
         </div>
-        <div class="card">
+        <div class="card" >
             <div class="item item-divider item-calm" ng-click="keywordsisCollapsed = !keywordsisCollapsed">
                 Keywords And Motifs
             </div>
             <div class="item item-text-wrap" ng-if="keywordsisCollapsed" ng-repeat="keyword in Newnotes[lastChar].keywords">
                 <ul>
-                    <li>{{keyword}}</li>
+                    <div ng-if='keyword[1] == "negative"' ng-style="{'color':'#e74c3c'}">
+                        <li ng-style="myStyle">{{keyword[0]}}</li>
+                    </div>
+                    <div ng-if='keyword[1] == "positive"' ng-style="{'color':'#27ae60'}">
+                        <li ng-style="myStyle">{{keyword[0]}}</li>
+                    </div>
+                    <div ng-if='keyword[1] == "neutral"' ng-style="{'color':'#f39c12'}">
+                        <li ng-style="myStyle">{{keyword[0]}}</li>
+                    </div>
                 </ul>
             </div>
         </div>
