@@ -516,19 +516,27 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             "http://3.bp.blogspot.com/-m7kV0Qf2ZMM/UYU8Pu4Ft3I/AAAAAAAAB88/yPrk29Hv87s/s1600/superstitious.jpg",
             "https://s-media-cache-ak0.pinimg.com/736x/d2/1c/51/d21c517cd10e209038c42a66661251b4.jpg",
             "http://memesvault.com/wp-content/uploads/Happy-Friday-Office-Meme-10.jpg",
-            "http://s.quickmeme.com/img/c9/c9c9573e46b3fb7bd6003c62958f4e9bbe9b305801c1e14dff0ab955172c0f74.jpg",
-            "http://memesvault.com/wp-content/uploads/Funny-Meme-8.jpg"
+            "http://memesvault.com/wp-content/uploads/Funny-Meme-8.jpg",
+             "http://i3.kym-cdn.com/photos/images/newsfeed/000/611/250/de9.gif",
+             "http://cdn2.crushable.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-05-at-10.49.48-AM.png",
+             "http://big.assets.huffingtonpost.com/ronswansononbacon4-17.400x226.gif",
+             "http://memesvault.com/wp-content/uploads/Funny-Pictures-With-Captions-About-Women-14.jpg",
+             "http://www.manageprojectsonsharepoint.com/wp-content/uploads/2013/12/Project-management1.png"
         ]
-        var meme = memes[Math.floor(Math.random()*memes.length)];
+    //code goes here that will be run every 5 seconds.    
+             var meme = memes[Math.floor(Math.random()*memes.length)];
+
+        
+         
             $scope.meme = meme;
              
             console.log("made it")
             console.log("THE MEME IS " + meme);
             $ionicLoading.show({
-                template: $scope.status + "<br> Depending on how many images you submitted,<br> it may take up to one minute to load <br> In the meantime enjoy some classic memes below ... <br> <img src='" + meme + "' style='width:100%;'>"
+                template: $scope.status + "<br> Depending on how many images you've <br>submitted it may take a minute to load.<br> <br> <img src='" + meme + "' style='width:100%;'>"
             });
          
-         
+         setTimeout(loadingbar, 2000);
         }
         $scope.endloadingbar = function(){
             console.log("hi")
