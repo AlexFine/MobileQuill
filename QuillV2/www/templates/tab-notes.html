@@ -13,7 +13,7 @@
             <button class="button button-outline button-energized icon ion-ios-camera-outline" style="width:100%;" ng-controller="PhotoCtrl" ng-click="openModal(); photoselector()">
                 Upload Photo
             </button>
-
+ 
         </div>
         <div style="margin:1%;">
             <label class="item item-input" style="height:35px;">
@@ -27,7 +27,13 @@
             <div ng-repeat="entry in Newnotes | filter:query;">
                 <a class="item item-thumbnail-left" href="#/tab/notes/{{entry.id}}">
                     <img ng-src="img/text1.JPG" style="border-radius:4px;">
-                  <div ng-repeat="keyword in entry.keywords| filter:query | limitTo:3"><p> {{keyword}}</p></div>
+                  <div ng-repeat="keyword in entry.keywords| filter:query | limitTo:3">
+                      
+                      <p ng-if='keyword[1] == "negative"' ng-style="{'color':'#e74c3c'}"><span ng-style="myStyle"> {{keyword[0]}}</span></p>
+                      <p ng-if='keyword[1] == "positive"' ng-style="{'color':'#27ae60'}"><span ng-style="myStyle"> {{keyword[0]}}</span></p>
+                      <p ng-if='keyword[1] == "neutral"' ng-style="{'color':'#f39c12'}"><span ng-style="myStyle"> {{keyword[0]}}</span></p>
+                    
+                    </div>
                     <p> {{entry.text}}</p>
                     <p style="color:#B0B0B0">{{entry.dates}}</p>
 
