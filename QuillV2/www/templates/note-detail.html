@@ -52,7 +52,7 @@
             Save
         </button>
 
-        <button class="button button-block button-assertive" ng-click="delete(lastChar)">
+        <button ng-controller="NotesCtrl" class="button button-block button-assertive" ng-click="deletePost(Newnotes[lastChar].postid, lastChar)">
             Delete Note
         </button>
 
