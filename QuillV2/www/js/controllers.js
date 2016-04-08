@@ -785,9 +785,9 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     }
     $scope.notes = Notes.all();
 
-    $scope.remove = function (note) {
-        Notes.remove(note);
-    };
+   
+    
+    
   $scope.saveData();
 })
 
@@ -832,6 +832,13 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             // user cancelled email
         });
     }
+    
+    
+     $scope.delete = function (id) {
+        console.log(id);
+        window.localStorage.removeItem(id);
+        console.log("removed");
+    };
 })
 
 .controller('AccountCtrl', function ($scope) {
