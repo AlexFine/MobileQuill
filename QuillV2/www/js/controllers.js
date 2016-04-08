@@ -327,7 +327,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         
 
         $scope.picText = function () {
-            
+            $scope.status = "Sending Images ... ";
+            $scope.loadingbar();
             var addInfo = {};
 
             var text = "";
@@ -340,7 +341,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             var num = 0;
             items = $scope.items
             for (var i = 0; i < $scope.items.length; i++) {
-                $scope.loadingbar();
+                
+                $scope.status = "Sending Image Number " + i;
                 console.log("why did you not show?");
                 var imgURL = $scope.items[i].src;
 
@@ -370,6 +372,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                     var storedUsername = window.localStorage.getItem("username");
                     var summary;
                     var concepts;
+                    
                     // console.log(postReq)
                     $http.post(url, postReq).then(function (res) {
                         // console.log(res);
@@ -381,6 +384,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                             //now at this point, we have text, we'll run summary, concepts, and bias;
                         console.log(i)
                         if (items.length == num) {
+                            $scope.status = "Gathering image dates ..."
                             console.log("True")
                             var d = new Date();
                             var str = d.toString();
@@ -417,7 +421,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
                                 //console.log("concepts size: " + concepts.length);
                                 addInfo.keywords = keywords;
-
+                                
                                 //bias
 
                                 //date
@@ -431,6 +435,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
                                 // window.localStorage.setItem("notes", JSON.stringify(notes));
                                 var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
+                                $scope.status = "Storing notes..."
                                 if (storedNotes == null) {
                                     storedNotes = [];
                                     addInfo.id = 0
@@ -476,12 +481,52 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             }
             //$scope.endloadingbar();
         }
+//        $scope.meme;
+//        $scope.getmemes = function(){
+//        var memes = [
+//            "http://25.media.tumblr.com/20463acf0cd7032c1047b03526bc80c4/tumblr_mm6typKnQB1qeak1oo1_500.gif", 
+//            "https://40.media.tumblr.com/358994cd528efde9d75e2088deeec8f4/tumblr_ne9stytIE81tpri36o1_500.jpg",
+//            "http://a.fod4.com/misc/Creed%20taliban.gif",
+//            "http://www.relatably.com/m/img/office-appropriate-memes/the-office-meme-jim.jpg",
+//            "http://4.bp.blogspot.com/-4sEseI_hyC4/VRujMvF8ptI/AAAAAAAAD4A/oyTvQbvktr8/s1600/inside%2Bjokes.jpg",
+//            "http://2.bp.blogspot.com/-MmEzOgZi2XQ/UYc94KwI7mI/AAAAAAAAB9c/rrpJt9gw4e0/s1600/MICHAELSFLAWS.jpg",
+//            "http://3.bp.blogspot.com/-m7kV0Qf2ZMM/UYU8Pu4Ft3I/AAAAAAAAB88/yPrk29Hv87s/s1600/superstitious.jpg",
+//            "https://s-media-cache-ak0.pinimg.com/736x/d2/1c/51/d21c517cd10e209038c42a66661251b4.jpg",
+//            "http://memesvault.com/wp-content/uploads/Happy-Friday-Office-Meme-10.jpg",
+//            "http://s.quickmeme.com/img/c9/c9c9573e46b3fb7bd6003c62958f4e9bbe9b305801c1e14dff0ab955172c0f74.jpg",
+//            "http://memesvault.com/wp-content/uploads/Funny-Meme-8.jpg"
+//        ]
+//        var meme = memes[Math.floor(Math.random()*memes.length)];
+//            $scope.meme = meme;
+//        }
 
      $scope.loadingbar = function(){
+         //$scope.getmemes();
+         
+         
+         var memes = [
+            "http://25.media.tumblr.com/20463acf0cd7032c1047b03526bc80c4/tumblr_mm6typKnQB1qeak1oo1_500.gif", 
+            "https://40.media.tumblr.com/358994cd528efde9d75e2088deeec8f4/tumblr_ne9stytIE81tpri36o1_500.jpg",
+            "http://a.fod4.com/misc/Creed%20taliban.gif",
+            "http://www.relatably.com/m/img/office-appropriate-memes/the-office-meme-jim.jpg",
+            "http://4.bp.blogspot.com/-4sEseI_hyC4/VRujMvF8ptI/AAAAAAAAD4A/oyTvQbvktr8/s1600/inside%2Bjokes.jpg",
+            "http://2.bp.blogspot.com/-MmEzOgZi2XQ/UYc94KwI7mI/AAAAAAAAB9c/rrpJt9gw4e0/s1600/MICHAELSFLAWS.jpg",
+            "http://3.bp.blogspot.com/-m7kV0Qf2ZMM/UYU8Pu4Ft3I/AAAAAAAAB88/yPrk29Hv87s/s1600/superstitious.jpg",
+            "https://s-media-cache-ak0.pinimg.com/736x/d2/1c/51/d21c517cd10e209038c42a66661251b4.jpg",
+            "http://memesvault.com/wp-content/uploads/Happy-Friday-Office-Meme-10.jpg",
+            "http://s.quickmeme.com/img/c9/c9c9573e46b3fb7bd6003c62958f4e9bbe9b305801c1e14dff0ab955172c0f74.jpg",
+            "http://memesvault.com/wp-content/uploads/Funny-Meme-8.jpg"
+        ]
+        var meme = memes[Math.floor(Math.random()*memes.length)];
+            $scope.meme = meme;
+             
             console.log("made it")
+            console.log("THE MEME IS " + meme);
             $ionicLoading.show({
-                template: 'Loading, enjoy some images below ... <br> <img src="">'
+                template: $scope.status + "<br> Depending on how many images you submitted,<br> it may take up to one minute to load <br> In the meantime enjoy some classic memes below ... <br> <img src='" + meme + "' style='width:100%;'>"
             });
+         
+         
         }
         $scope.endloadingbar = function(){
             console.log("hi")
@@ -796,8 +841,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         $state.go(toState, params) //remember to inject $state to your controller
     }
     $scope.notes = Notes.all();
-
-
 
 
     $scope.saveData();
