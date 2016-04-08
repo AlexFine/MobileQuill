@@ -119,7 +119,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                         "passwrd": password
                     }).then(function (resp) {
                         console.log(resp);
-                        $scope.status = "Login Successful. If this persists please contact us at alexkfine2@gmail.com";
+                        $scope.status = "Email has already been used or entered email is not a vlid email.";
                         console.log(resp.data.message);
                         if (resp.data.message == "key success") {
                             $scope.status = "Successful Login Credentials. Internal Server Error";
