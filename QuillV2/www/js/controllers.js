@@ -90,23 +90,27 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         $scope.username;
         $scope.password;
         $scope.register = function (username, password) {
+            $scope.status = "";
           console.log("hello");
           console.log(password.length)
           console.log(password + username);
           if (username == undefined) {
             //alert("Invalid Username")
-            alert("invalid username");
+            alert("No username entered");
+              $scope.status="No username entered";
           }
           else if (username == password) {
             //alert("Invalid Username")
-            alert("no password");
+            alert("Username can't be your password");
+              $scope.status="Username can't be your password";
           }
 
           else{
 
           if (password.length < 7) {
             //alert("Invalid Username")
-            alert("password not long enough needs to be 8 char or longer");
+            alert("Password not long enough. Needs to be 8 characters or longer.");
+            $scope.status = "Password not long enough. Needs to be 8 characters or longer."
           }
           else {
             $scope.password = password;
@@ -122,8 +126,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
               "passwrd": password
             }).then(function (resp) {
               console.log(resp);
-              $scope.error = resp;
-              if (resp.message == "key success") {
+              $scope.status = "Login Successful. If this persists please contact us at alexkfine2@gmail.com";
+                console.log(resp.data.message);
+              if (resp.data.message == "key success") {
+                  $scope.status = "Successful Login Credentials. Internal Server Error";
                 window.localStorage.setItem("password", password);
                 // var storedPassword = window.localStorage.getItem("password"));
                 $scope.storedPassword = password;
@@ -215,7 +221,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
       var alertPopup = $ionicPopup.alert({
         title: 'Account Details',
-        template: 'Username: ' + storedUsername + '<br>' + 'Password: ' + storedPassword
+        template: 'Username: ' + storedUsername + '<br>' + 'Password: ' + storedPassword + '<br><hr class="normalhr"> Interested in Quill? Check out our website at quillapp.io'
       });
 
       alertPopup.then(function (res) {

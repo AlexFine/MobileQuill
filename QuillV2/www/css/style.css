@@ -5,7 +5,9 @@ body{
 hr{
     height:0px;
     border:1px dashed red;
-
+}
+.normalhr{
+    border:1px dashed #DCDCDC;
 }
 p{
     font-size:14px;
