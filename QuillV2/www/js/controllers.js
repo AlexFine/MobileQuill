@@ -619,6 +619,9 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             window.imagePicker.getPictures(
                 function (results) {
                     for (var i = 0; i < results.length; i++) {
+                        if (i < 8){
+                            
+                        
                         console.log('Image URI: ' + results[i]);
 
                         var newimage = {
@@ -629,6 +632,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                         $scope.items.push(newimage);
                         console.log($scope.items);
                         $scope.reload();
+                            }
+                        else {
+                            alert("You can't upload more than 10 images, sorry!")
+                        }
                     }
                 },
                 function (error) {
