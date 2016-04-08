@@ -267,6 +267,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         ]
         console.log($scope.items);
 
+
         $scope.status = "Sending Image";
         $scope.summary;
 
@@ -323,12 +324,13 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
             }
             //why do we need this part ^^
-           
-        
+
+
 
         $scope.picText = function () {
             $scope.status = "Sending Images ... ";
             $scope.loadingbar();
+
             var addInfo = {};
 
             var text = "";
