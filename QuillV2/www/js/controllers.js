@@ -48,6 +48,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         $scope.startApp = function () {
             console.log(window.localStorage.getItem('rememberme'))
             if (window.localStorage.getItem('rememberme') == "true") {
+                console.log("Go")
                 $state.go('tab.notes');
             } else {
                 $state.go('intro');
