@@ -238,6 +238,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         $scope.openModal = function () {
             console.log("modal open")
             $scope.modal.show();
+            $scope.items = []
         };
         $scope.closeModal = function () {
             $scope.modal.hide();
@@ -255,17 +256,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             // Execute action
         });
 
-        $scope.items = [
-            {
-                src: 'img/text1.JPG',
-                sub: 'Most recent photos 03/11/2016'
-  },
-            {
-                src: 'img/text2.JPG',
-                sub: 'Most recent photos 03/11/2016'
-  }
-        ]
-        console.log($scope.items);
+
 
 
         $scope.status = "Sending Image";
@@ -343,7 +334,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             var num = 0;
             items = $scope.items
             for (var i = 0; i < $scope.items.length; i++) {
-                
+
                 $scope.status = "Sending Image Number " + i;
                 console.log("why did you not show?");
                 var imgURL = $scope.items[i].src;
@@ -374,7 +365,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                     var storedUsername = window.localStorage.getItem("username");
                     var summary;
                     var concepts;
-                    
+
                     // console.log(postReq)
                     $http.post(url, postReq).then(function (res) {
                         // console.log(res);
@@ -423,7 +414,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
                                 //console.log("concepts size: " + concepts.length);
                                 addInfo.keywords = keywords;
-                                
+
                                 //bias
 
                                 //date
@@ -486,7 +477,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 //        $scope.meme;
 //        $scope.getmemes = function(){
 //        var memes = [
-//            "http://25.media.tumblr.com/20463acf0cd7032c1047b03526bc80c4/tumblr_mm6typKnQB1qeak1oo1_500.gif", 
+//            "http://25.media.tumblr.com/20463acf0cd7032c1047b03526bc80c4/tumblr_mm6typKnQB1qeak1oo1_500.gif",
 //            "https://40.media.tumblr.com/358994cd528efde9d75e2088deeec8f4/tumblr_ne9stytIE81tpri36o1_500.jpg",
 //            "http://a.fod4.com/misc/Creed%20taliban.gif",
 //            "http://www.relatably.com/m/img/office-appropriate-memes/the-office-meme-jim.jpg",
@@ -504,10 +495,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
      $scope.loadingbar = function(){
          //$scope.getmemes();
-         
-         
+
+
          var memes = [
-            "http://25.media.tumblr.com/20463acf0cd7032c1047b03526bc80c4/tumblr_mm6typKnQB1qeak1oo1_500.gif", 
+            "http://25.media.tumblr.com/20463acf0cd7032c1047b03526bc80c4/tumblr_mm6typKnQB1qeak1oo1_500.gif",
             "https://40.media.tumblr.com/358994cd528efde9d75e2088deeec8f4/tumblr_ne9stytIE81tpri36o1_500.jpg",
             "http://a.fod4.com/misc/Creed%20taliban.gif",
             "http://www.relatably.com/m/img/office-appropriate-memes/the-office-meme-jim.jpg",
@@ -524,19 +515,19 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
              "http://www.manageprojectsonsharepoint.com/wp-content/uploads/2013/12/Project-management1.png",
              "http://www.twitquotes.com/uploads/1/162.jpg"
         ]
-    //code goes here that will be run every 5 seconds.    
+    //code goes here that will be run every 5 seconds.
              var meme = memes[Math.floor(Math.random()*memes.length)];
 
-        
-         
+
+
             $scope.meme = meme;
-             
+
             console.log("made it")
             console.log("THE MEME IS " + meme);
             $ionicLoading.show({
                 template: $scope.status + "<br> Depending on how many images you've <br>submitted it may take a minute to load.<br> <br> <img src='" + meme + "' style='width:100%;'>"
             });
-         
+
         }
         $scope.endloadingbar = function(){
             console.log("hi")
