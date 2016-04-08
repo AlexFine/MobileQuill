@@ -470,7 +470,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
             })
           })
-
+          $scope.items.splice(i, 1);
         }
     }
 
@@ -478,57 +478,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
     //Select photo testing here
     // 1
-    $scope.choosePhoto = function () {
-        //           console.log("choose photo ran")
-        //           var options = {
-        //             quality: 75,
-        //             destinationType: Camera.DestinationType.FILE_URL,
-        //             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-        //             allowEdit: true,
-        //             encodingType: Camera.EncodingType.JPEG,
-        //             targetWidth: 300,
-        //             targetHeight: 300,
-        //             popoverOptions: CameraPopoverOptions,
-        //             saveToPhotoAlbum: false
-        //         };
-        //
-        //             $cordovaCamera.getPicture(options).then(function (imageData) {
-        //                 $scope.imgURI = "data:image/jpeg;base64," + imageData;
-        //             }, function (err) {
-        //                 // An error occured. Show a message to the user
-        //
-        //
-        //
-        //
-        //         return text;
-        //
-        //
-        // }, function (err) {
-        //     console.log(err);
-        // });
-        console.log($scope.items)
-        window.imagePicker.getPictures(
-            function (results) {
-                for (var i = 0; i < results.length; i++) {
-                    console.log('Image URI: ' + results[i]);
-
-                    var newimage = {
-                        src: results[i],
-                        sub: "Most recent photos 03/29/2016"
-                    };
-                    console.log($scope.items);
-                    $scope.items.push(newimage);
-                    console.log($scope.items);
-                    $scope.reload();
-                }
-            },
-            function (error) {
-                console.log('Error: ' + error);
-            }
-        );
-
-    }
-
+   
     $scope.reload = function () {
         $state.go($state.current, {}, {
             reload: true
@@ -603,6 +553,32 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             myPopup.close();
         }
     }
+    
+     $scope.choosePhoto = function () {
+
+        console.log($scope.items)
+        window.imagePicker.getPictures(
+            function (results) {
+                for (var i = 0; i < results.length; i++) {
+                    console.log('Image URI: ' + results[i]);
+
+                    var newimage = {
+                        src: results[i],
+                        sub: "Most recent photos 03/29/2016"
+                    };
+                    console.log($scope.items);
+                    $scope.items.push(newimage);
+                    console.log($scope.items);
+                    $scope.reload();
+                }
+            },
+            function (error) {
+                console.log('Error: ' + error);
+            }
+        );
+
+    }
+
 
 })
 
