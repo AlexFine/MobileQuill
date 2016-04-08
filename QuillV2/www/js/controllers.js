@@ -417,7 +417,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
                                 addInfo.summary = summary;
                                 addInfo.text = resp.text;
-
+                                addInfo.postID = resp.id;
                                 //concepts
                                 //var concepts;
 
@@ -733,7 +733,38 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         // }
 
     ];
+    $scope.deletePost = function(postid, id){
+      var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/post/delete";
 
+      // var url ="http://localhost:8080/_ah/api/quillApi/v1/user/login";
+      var storedPassword = window.localStorage.getItem("password");
+      // $scope.storedPassword = storedPassword;
+      // window.localStorage.setItem("username", JSON.stringify(username));
+      var storedUsername = window.localStorage.getItem("username");
+      // console.log(username, password)
+
+
+      $http.post(url, {
+          "id": postid,
+          "user": storedUsername,
+          "passwrd": storedPassword
+        })
+        .then(function (resp) {
+          console.log(resp);
+          if(resp.data.message=="user fail"){
+            alert("please try logging in again")
+          }
+          if(resp.data.message == "Post Not in database"){
+            alert("no post in database please reload")
+          }
+          if(resp.data.message == "success"){
+            alert("success")
+            $scope.newNotes.splice(id, 1)
+            window.localStorage.setItem("notes", JSON.stringify($scope.newNotes));
+          }
+
+        });
+    }
 
     $scope.saveData = function () {
         //CALL DATABASE HERE TO UPDATE LOCAL STORAGE
@@ -807,7 +838,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                 addInfo.keywords = keywords;
                 addInfo.text = resp.text;
                 //bias
-
+              addInfo.postID = resp.id;
                 //date
                 // var d = new Date();
                 // var str = d.toString();
