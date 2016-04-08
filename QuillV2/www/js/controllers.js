@@ -333,7 +333,9 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         //$scope.base64(testPhoto);
         console.log("items length: " + $scope.items.length);
         var dataURL;
-
+        console.log($scope.items.length)
+      var num = 0;
+        items=$scope.items
         for (var i = 0; i < $scope.items.length; i++) {
           var imgURL = $scope.items[i].src;
 
@@ -363,22 +365,23 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             var storedUsername = window.localStorage.getItem("username");
             var summary;
             var concepts;
-            console.log(postReq)
+            // console.log(postReq)
             $http.post(url, postReq).then(function (res) {
-              console.log(res);
+              // console.log(res);
 
               text += res.data.responses[0].textAnnotations[0].description;
               text = text.replace(/\n/g, " ");
-              console.log(text);
-
+              // console.log(text);
+              num += 1
               //now at this point, we have text, we'll run summary, concepts, and bias;
               console.log(i)
-              if($scope.items.length == i){
+              if(items.length == num){
+                console.log("True")
                 var d = new Date();
                 var str = d.toString();
                 str = str.substring(0, 15);
               addInfo.text = text;
-              console.log(text);
+              // console.log(text);
               var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/text/upload"
               $http.post(url, {
                 "message": text,
@@ -389,7 +392,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                 resp = resp.data
                 console.log(resp);
                 summary = resp.summary;
-                console.log(summary)
+                // console.log(summary)
                 summary = summary[0].summary
 
                 concepts = resp.keywords;
@@ -427,11 +430,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                 addInfo.id=0}
                 else{
                 addInfo.id = storedNotes.length;}
-                console.log(storedNotes)
+                // console.log(storedNotes)
                 storedNotes.push(addInfo)
                 window.localStorage.setItem("notes", JSON.stringify(storedNotes));
                 $scope.Newnotes = storedNotes;
-                console.log(Newnotes)
+                // console.log(Newnotes)
                 $scope.closeModal()
 
                 // console.log(JSON.stringify(addInfo));
