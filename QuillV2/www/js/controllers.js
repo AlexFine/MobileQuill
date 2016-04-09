@@ -230,275 +230,291 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal, $ionicPopup, $ionicLoading) {
 
 
-        $ionicModal.fromTemplateUrl('my-modal2.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function (modal) {
-            $scope.modal = modal;
-        });
-        $scope.openModal = function () {
-            console.log("modal open")
-            $scope.modal.show();
-            $scope.items = []
-        };
-        $scope.closeModal = function () {
-            $scope.modal.hide();
-        };
-        //Cleanup the modal when we're done with it!
-        $scope.$on('$destroy', function () {
-            $scope.modal.remove();
-        });
-        // Execute action on hide modal
-        $scope.$on('modal.hidden', function () {
-            // Execute action
-        });
-        // Execute action on remove modal
-        $scope.$on('modal.removed', function () {
-            // Execute action
-        });
-
-
-
-
-        $scope.status = "Sending Image";
-        $scope.summary;
-
-
-
-        $scope.getPhoto = function () {
-            Camera.getPicture().then(function (imageURI) {
-
-                $scope.status = "get picture";
-                $scope.lastPhoto = imageURI;
-
-
-                console.log("called the convertToCanvas Function")
-
-                var newimage = {
-                    src: imageURI,
-                    sub: "Most recent photos 03/29/2016"
-                };
-                console.log($scope.items)
-                $scope.items.push(newimage);
-                console.log($scope.items);
-                $scope.reload();
-
-            }, function (err) {
-                console.err(err);
-            }, {
-                quality: 100,
-                targetWidth: 320,
-                targetHeight: 320,
-                saveToPhotoAlbum: false
+            $ionicModal.fromTemplateUrl('my-modal2.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.modal = modal;
+            });
+            $scope.openModal = function () {
+                console.log("modal open")
+                $scope.modal.show();
+                $scope.items = []
+            };
+            $scope.closeModal = function () {
+                $scope.modal.hide();
+            };
+            //Cleanup the modal when we're done with it!
+            $scope.$on('$destroy', function () {
+                $scope.modal.remove();
+            });
+            // Execute action on hide modal
+            $scope.$on('modal.hidden', function () {
+                // Execute action
+            });
+            // Execute action on remove modal
+            $scope.$on('modal.removed', function () {
+                // Execute action
             });
 
-            $scope.api(lastPhoto);
-
-        };
-
-
-        var canvas = document.createElement('canvas');
-        $scope.base64 = function (url, callback) {
-                var image = new Image();
-
-                image.onload = function () {
-
-                    canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
-                    canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
-
-                    canvas.getContext('2d').drawImage(this, 0, 0);
-
-                    // Get raw image data
-                    callback(canvas.toDataURL().replace(/^data:image\/(png|jpg);base64,/, ''));
-                };
-                image.src = url;
-
-
-            }
-            //why do we need this part ^^
 
 
 
-        $scope.picText = function () {
-            $scope.status = "Sending Images ... ";
-            $scope.loadingbar();
-
-            var addInfo = {};
-
-            var text = "";
-            var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
-            console.log("ran pictest");
-            //$scope.base64(testPhoto);
-            console.log("items length: " + $scope.items.length);
-            var dataURL;
-            console.log($scope.items.length)
-            var num = 0;
-            items = $scope.items
-            for (var i = 0; i < $scope.items.length; i++) {
-
-                $scope.status = "Sending Image Number " + i;
-                console.log("why did you not show?");
-                var imgURL = $scope.items[i].src;
+            $scope.status = "Sending Image";
+            $scope.summary;
 
 
-                $scope.base64(imgURL, function (resp) {
-                    // console.log(resp);
-                    dataURL = resp;
+
+            $scope.getPhoto = function () {
+                Camera.getPicture().then(function (imageURI) {
+
+                    $scope.status = "get picture";
+                    $scope.lastPhoto = imageURI;
 
 
-                    var postReq = {
-                        "requests": [
-                            {
-                                "image": {
-                                    "content": dataURL
-                                },
-                                "features": [
-                                    {
-                                        "type": "TEXT_DETECTION",
+                    console.log("called the convertToCanvas Function")
+
+                    var newimage = {
+                        src: imageURI,
+                        sub: "Most recent photos 03/29/2016"
+                    };
+                    console.log($scope.items)
+                    $scope.items.push(newimage);
+                    console.log($scope.items);
+                    $scope.reload();
+
+                }, function (err) {
+                    console.err(err);
+                }, {
+                    quality: 100,
+                    targetWidth: 320,
+                    targetHeight: 320,
+                    saveToPhotoAlbum: false
+                });
+
+                $scope.api(lastPhoto);
+
+            };
+
+
+            var canvas = document.createElement('canvas');
+            $scope.base64 = function (url, callback) {
+                    var image = new Image();
+
+                    image.onload = function () {
+
+                        canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
+                        canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
+
+                        canvas.getContext('2d').drawImage(this, 0, 0);
+
+                        // Get raw image data
+                        callback(canvas.toDataURL().replace(/^data:image\/(png|jpg);base64,/, ''));
+                    };
+                    image.src = url;
+
+
+                }
+                //why do we need this part ^^
+
+
+
+            $scope.picText = function () {
+                    $scope.loadingbar();
+                    $scope.status = "Sending Images ... ";
+
+
+                    var addInfo = {};
+
+                    var text = "";
+                    var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+                    console.log("ran pictest");
+                    //$scope.base64(testPhoto);
+                    console.log("items length: " + $scope.items.length);
+                    var dataURL;
+                    console.log($scope.items.length)
+                    var num = 0;
+                    items = $scope.items
+                    for (var i = 0; i < $scope.items.length; i++) {
+
+                        $scope.status = "Sending Image Number " + i;
+                        console.log("why did you not show?");
+                        var imgURL = $scope.items[i].src;
+
+
+                        $scope.base64(imgURL, function (resp) {
+                                // console.log(resp);
+                                dataURL = resp;
+
+
+                                var postReq = {
+                                    "requests": [
+                                        {
+                                            "image": {
+                                                "content": dataURL
+                                            },
+                                            "features": [
+                                                {
+                                                    "type": "TEXT_DETECTION",
                     }
                   ]
                 }
               ]
-                    };
-                    var storedPassword = window.localStorage.getItem("password");
-                    // $scope.storedPassword = storedPassword;
-                    // window.localStorage.setItem("username", JSON.stringify(username));
-                    var storedUsername = window.localStorage.getItem("username");
-                    var summary;
-                    var concepts;
+                                };
+                                var storedPassword = window.localStorage.getItem("password");
+                                // $scope.storedPassword = storedPassword;
+                                // window.localStorage.setItem("username", JSON.stringify(username));
+                                var storedUsername = window.localStorage.getItem("username");
+                                var summary;
+                                var concepts;
 
-                    // console.log(postReq)
-                    $http.post(url, postReq).then(function (res) {
-                        // console.log(res);
+                                // console.log(postReq)
+                                $http.post(url, postReq).then(function (res) {
+                                        // console.log(res);
+                                        if (res.data.responses[0].textAnnotations[0].description.length < 5) {
+                                            alert("Your image has no text!");
+                                            $scope.endloadingbar();
+                                        }
+                                        console.log(res.data.responses[0].textAnnotations[0].description)
+                                        console.log(res.data.responses[0].textAnnotations[0])
+                                        console.log(res.data.responses[0])
+                                        console.log(res.data)
+                                        console.log(res)
+                                        text += res.data.responses[0].textAnnotations[0].description;
+                                        text = text.replace(/\n/g, " ");
+                                        // console.log(text);
+                                        num += 1
+                                            //now at this point, we have text, we'll run summary, concepts, and bias;
+                                        console.log(i)
+                                        if (items.length == num) {
+                                            $scope.status = "Gathering image dates ..."
+                                            console.log("True")
+                                            var d = new Date();
+                                            var str = d.toString();
+                                            str = str.substring(0, 15);
+                                            addInfo.text = text;
+                                            // console.log(text);
 
-                        text += res.data.responses[0].textAnnotations[0].description;
-                        text = text.replace(/\n/g, " ");
-                        // console.log(text);
-                        num += 1
-                            //now at this point, we have text, we'll run summary, concepts, and bias;
-                        console.log(i)
-                        if (items.length == num) {
-                            $scope.status = "Gathering image dates ..."
-                            console.log("True")
-                            var d = new Date();
-                            var str = d.toString();
-                            str = str.substring(0, 15);
-                            addInfo.text = text;
-                            // console.log(text);
-                            var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/text/upload"
-                            $http.post(url, {
-                                "message": text,
-                                "user": storedUsername,
-                                "passwrd": storedPassword,
-                                "date": str
-                            }).then(function (resp) {
-                                resp = resp.data
-                                console.log(resp);
-                                summary = resp.summary;
-                                // console.log(summary)
-                                summary = summary[0].summary
+                                            var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/text/upload"
+                                            $http.post(url, {
+                                                "message": text,
+                                                "user": storedUsername,
+                                                "passwrd": storedPassword,
+                                                "date": str
+                                            }).then(function (resp) {
+                                                resp = resp.data
+                                                console.log(resp);
 
-                                concepts = resp.keywords;
-                                sentiment = resp.sentiment;
-                                keywords = []
-                                for (var x = 0; x < concepts.length; x++) {
-                                    keywords.push([concepts[x], sentiment[x]])
-                                }
+                                                summary = resp.summary;
+                                                // console.log(summary)
+                                                summary = summary[0].summary
+
+                                                concepts = resp.keywords;
+                                                sentiment = resp.sentiment;
+                                                keywords = []
+                                                for (var x = 0; x < concepts.length; x++) {
+                                                    keywords.push([concepts[x], sentiment[x]])
+                                                }
 
 
 
-                                addInfo.summary = summary;
-                                addInfo.text = resp.text;
-                                addInfo.postID = resp.id;
-                                //concepts
-                                //var concepts;
+                                                addInfo.summary = summary;
+                                                addInfo.text = resp.text;
+                                                addInfo.postID = resp.id;
+                                                //concepts
+                                                //var concepts;
 
-                                //console.log("concepts size: " + concepts.length);
-                                addInfo.keywords = keywords;
+                                                //console.log("concepts size: " + concepts.length);
+                                                addInfo.keywords = keywords;
 
-                                //bias
+                                                //bias
 
-                                //date
-                                var d = new Date();
-                                var str = d.toString();
-                                str = str.substring(0, 15);
-                                addInfo.dates = str;
+                                                //date
+                                                var d = new Date();
+                                                var str = d.toString();
+                                                str = str.substring(0, 15);
+                                                addInfo.dates = str;
 
-                                // var newID = window.localStorage.getItem("notes").length;
-                                // addInfo.id = newID;
+                                                // var newID = window.localStorage.getItem("notes").length;
+                                                // addInfo.id = newID;
 
-                                // window.localStorage.setItem("notes", JSON.stringify(notes));
-                                var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
-                                $scope.status = "Storing notes..."
-                                if (storedNotes == null) {
-                                    storedNotes = [];
-                                    addInfo.id = 0
-                                } else {
-                                    addInfo.id = storedNotes.length;
-                                }
-                                // console.log(storedNotes)
-                                storedNotes.push(addInfo)
-                                window.localStorage.setItem("notes", JSON.stringify(storedNotes));
-                                $scope.Newnotes = storedNotes;
-                                // console.log(Newnotes)
-                                $scope.endloadingbar();
-                                $scope.closeModal();
+                                                // window.localStorage.setItem("notes", JSON.stringify(notes));
+                                                var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
+                                                $scope.status = "Storing notes..."
+                                                if (storedNotes == null) {
+                                                    storedNotes = [];
+                                                    addInfo.id = 0
+                                                } else {
+                                                    addInfo.id = storedNotes.length;
+                                                }
+                                                // console.log(storedNotes)
+                                                storedNotes.push(addInfo)
+                                                window.localStorage.setItem("notes", JSON.stringify(storedNotes));
+                                                $scope.Newnotes = storedNotes;
+                                                // console.log(Newnotes)
+                                                $scope.endloadingbar();
+                                                $scope.closeModal();
 
-                                // console.log(JSON.stringify(addInfo));
+                                                // console.log(JSON.stringify(addInfo));
 
-                                // window.localStorage.getItem("notes").push(addInfo);
+                                                // window.localStorage.getItem("notes").push(addInfo);
 
-                            });
-                        }
-                        // gapi.client.quillApi.user.new({
+                                            });
+                                        }
+                                        // gapi.client.quillApi.user.new({
 
-                        //   "user":"ad",
-                        //   "passwrd":"21"
-                        // }).execute(function (resp) {
-                        //   console.log(resp);
-                        // });
+                                        //   "user":"ad",
+                                        //   "passwrd":"21"
+                                        // }).execute(function (resp) {
+                                        //   console.log(resp);
+                                        // });
 
-                        // gapi.client.quillApi.user.return.posts({
+                                        // gapi.client.quillApi.user.return.posts({
 
-                        //   "user":"ad",
-                        //   "passwrd":"21"
-                        // }).execute(function (resp) {
-                        //   console.log(resp);
-                        // });
-                        //summary
-                        //var summary;
-                        //console.log("summary : " + summary);
+                                        //   "user":"ad",
+                                        //   "passwrd":"21"
+                                        // }).execute(function (resp) {
+                                        //   console.log(resp);
+                                        // });
+                                        //summary
+                                        //var summary;
+                                        //console.log("summary : " + summary);
 
-                    })
-                })
+                                    },
+                                    function (res) {
+                                        alert("Your image does not contain readable text!");
+                                        $scope.endloadingbar();
+                                    })
+                            
+                        })
 
-            }
-            //$scope.endloadingbar();
+                }
+                //$scope.endloadingbar();
         }
-//        $scope.meme;
-//        $scope.getmemes = function(){
-//        var memes = [
-//            "http://25.media.tumblr.com/20463acf0cd7032c1047b03526bc80c4/tumblr_mm6typKnQB1qeak1oo1_500.gif",
-//            "https://40.media.tumblr.com/358994cd528efde9d75e2088deeec8f4/tumblr_ne9stytIE81tpri36o1_500.jpg",
-//            "http://a.fod4.com/misc/Creed%20taliban.gif",
-//            "http://www.relatably.com/m/img/office-appropriate-memes/the-office-meme-jim.jpg",
-//            "http://4.bp.blogspot.com/-4sEseI_hyC4/VRujMvF8ptI/AAAAAAAAD4A/oyTvQbvktr8/s1600/inside%2Bjokes.jpg",
-//            "http://2.bp.blogspot.com/-MmEzOgZi2XQ/UYc94KwI7mI/AAAAAAAAB9c/rrpJt9gw4e0/s1600/MICHAELSFLAWS.jpg",
-//            "http://3.bp.blogspot.com/-m7kV0Qf2ZMM/UYU8Pu4Ft3I/AAAAAAAAB88/yPrk29Hv87s/s1600/superstitious.jpg",
-//            "https://s-media-cache-ak0.pinimg.com/736x/d2/1c/51/d21c517cd10e209038c42a66661251b4.jpg",
-//            "http://memesvault.com/wp-content/uploads/Happy-Friday-Office-Meme-10.jpg",
-//            "http://s.quickmeme.com/img/c9/c9c9573e46b3fb7bd6003c62958f4e9bbe9b305801c1e14dff0ab955172c0f74.jpg",
-//            "http://memesvault.com/wp-content/uploads/Funny-Meme-8.jpg"
-//        ]
-//        var meme = memes[Math.floor(Math.random()*memes.length)];
-//            $scope.meme = meme;
-//        }
+        //        $scope.meme;
+        //        $scope.getmemes = function(){
+        //        var memes = [
+        //            "http://25.media.tumblr.com/20463acf0cd7032c1047b03526bc80c4/tumblr_mm6typKnQB1qeak1oo1_500.gif",
+        //            "https://40.media.tumblr.com/358994cd528efde9d75e2088deeec8f4/tumblr_ne9stytIE81tpri36o1_500.jpg",
+        //            "http://a.fod4.com/misc/Creed%20taliban.gif",
+        //            "http://www.relatably.com/m/img/office-appropriate-memes/the-office-meme-jim.jpg",
+        //            "http://4.bp.blogspot.com/-4sEseI_hyC4/VRujMvF8ptI/AAAAAAAAD4A/oyTvQbvktr8/s1600/inside%2Bjokes.jpg",
+        //            "http://2.bp.blogspot.com/-MmEzOgZi2XQ/UYc94KwI7mI/AAAAAAAAB9c/rrpJt9gw4e0/s1600/MICHAELSFLAWS.jpg",
+        //            "http://3.bp.blogspot.com/-m7kV0Qf2ZMM/UYU8Pu4Ft3I/AAAAAAAAB88/yPrk29Hv87s/s1600/superstitious.jpg",
+        //            "https://s-media-cache-ak0.pinimg.com/736x/d2/1c/51/d21c517cd10e209038c42a66661251b4.jpg",
+        //            "http://memesvault.com/wp-content/uploads/Happy-Friday-Office-Meme-10.jpg",
+        //            "http://s.quickmeme.com/img/c9/c9c9573e46b3fb7bd6003c62958f4e9bbe9b305801c1e14dff0ab955172c0f74.jpg",
+        //            "http://memesvault.com/wp-content/uploads/Funny-Meme-8.jpg"
+        //        ]
+        //        var meme = memes[Math.floor(Math.random()*memes.length)];
+        //            $scope.meme = meme;
+        //        }
 
-     $scope.loadingbar = function(){
-         //$scope.getmemes();
+        $scope.loadingbar = function () {
+            //$scope.getmemes();
 
 
-         var memes = [
+            var memes = [
             "http://25.media.tumblr.com/20463acf0cd7032c1047b03526bc80c4/tumblr_mm6typKnQB1qeak1oo1_500.gif",
             "https://40.media.tumblr.com/358994cd528efde9d75e2088deeec8f4/tumblr_ne9stytIE81tpri36o1_500.jpg",
             "http://a.fod4.com/misc/Creed%20taliban.gif",
@@ -515,8 +531,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
              "http://memesvault.com/wp-content/uploads/Funny-Pictures-With-Captions-About-Women-14.jpg",
              "http://www.twitquotes.com/uploads/1/162.jpg"
         ]
-    //code goes here that will be run every 5 seconds.
-             var meme = memes[Math.floor(Math.random()*memes.length)];
+                //code goes here that will be run every 5 seconds.
+            var meme = memes[Math.floor(Math.random() * memes.length)];
 
 
 
@@ -528,9 +544,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                 template: $scope.status + "<br> Depending on how many images you've <br>submitted it may take a minute to load.<br> <br> <img src='" + meme + "' style='width:100%;'>"
             });
 
+            //setTimeout($scope.endloadingbar(),60000);
+
         }
-        $scope.endloadingbar = function(){
-            console.log("hi")
+        $scope.endloadingbar = function () {
+            console.log("Images Finished Loading")
             $ionicLoading.hide();
         }
 
@@ -618,21 +636,20 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             window.imagePicker.getPictures(
                 function (results) {
                     for (var i = 0; i < results.length; i++) {
-                        if (i < 4){
-                            
-                        
-                        console.log('Image URI: ' + results[i]);
+                        if (i < 4) {
 
-                        var newimage = {
-                            src: results[i],
-                            sub: "Most recent photos 03/29/2016"
-                        };
-                        console.log($scope.items);
-                        $scope.items.push(newimage);
-                        console.log($scope.items);
-                        $scope.reload();
-                            }
-                        else {
+
+                            console.log('Image URI: ' + results[i]);
+
+                            var newimage = {
+                                src: results[i],
+                                sub: "Most recent photos 03/29/2016"
+                            };
+                            console.log($scope.items);
+                            $scope.items.push(newimage);
+                            console.log($scope.items);
+                            $scope.reload();
+                        } else {
                             alert("You can't upload more than 3 images, sorry!")
                         }
                     }
@@ -731,73 +748,73 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         // }
 
     ];
-    
-    
-        $scope.deletePost = function (postid, id) {
-                var myPopup = $ionicPopup.show({
-                template: "Are you sure you want to delete this note?",
-                title: "Delete Note",
-                scope: $scope,
-                buttons: [
-                    
-                    {
-                        text: 'Cancel',
-                        type: 'button-light',
-                        onTap: function () {
-                            console.log("hello2");
-                            myPopup.close();
 
-                        }
+
+    $scope.deletePost = function (postid, id) {
+        var myPopup = $ionicPopup.show({
+            template: "Are you sure you want to delete this note?",
+            title: "Delete Note",
+            scope: $scope,
+            buttons: [
+
+                {
+                    text: 'Cancel',
+                    type: 'button-light',
+                    onTap: function () {
+                        console.log("hello2");
+                        myPopup.close();
+
+                    }
                 },
-                    {
-                        text: 'Delete',
-                        type: 'button-assertive',
-                        onTap: function () {
-                            console.log("hello1");
-                            myPopup.close();
-                            $scope.deletePost2(postid, id);
-                        }
+                {
+                    text: 'Delete',
+                    type: 'button-assertive',
+                    onTap: function () {
+                        console.log("hello1");
+                        myPopup.close();
+                        $scope.deletePost2(postid, id);
+                    }
                 }
             ]
-            }) 
-            
-        }
-        
-        
-        
-    $scope.deletePost2 = function(postid, id){
-    
-      var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/post/delete";
-
-      // var url ="http://localhost:8080/_ah/api/quillApi/v1/user/login";
-      var storedPassword = window.localStorage.getItem("password");
-      // $scope.storedPassword = storedPassword;
-      // window.localStorage.setItem("username", JSON.stringify(username));
-      var storedUsername = window.localStorage.getItem("username");
-      // console.log(username, password)
-
-
-      $http.post(url, {
-          "id": postid,
-          "user": storedUsername,
-          "passwrd": storedPassword
         })
-        .then(function (resp) {
-          console.log(resp);
-          if(resp.data.message=="user fail"){
-            alert("please try logging in again")
-          }
-          if(resp.data.message == "Post Not in database"){
-            alert("no post in database please reload")
-          }
-          if(resp.data.message == "success"){
-            alert("Deleted")
-            $scope.newNotes.splice(id, 1)
-            window.localStorage.setItem("notes", JSON.stringify($scope.newNotes));
-              $state.go('tab.notes');
-          }
 
-        });
+    }
+
+
+
+    $scope.deletePost2 = function (postid, id) {
+
+        var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/post/delete";
+
+        // var url ="http://localhost:8080/_ah/api/quillApi/v1/user/login";
+        var storedPassword = window.localStorage.getItem("password");
+        // $scope.storedPassword = storedPassword;
+        // window.localStorage.setItem("username", JSON.stringify(username));
+        var storedUsername = window.localStorage.getItem("username");
+        // console.log(username, password)
+
+
+        $http.post(url, {
+                "id": postid,
+                "user": storedUsername,
+                "passwrd": storedPassword
+            })
+            .then(function (resp) {
+                console.log(resp);
+                if (resp.data.message == "user fail") {
+                    alert("please try logging in again")
+                }
+                if (resp.data.message == "Post Not in database") {
+                    alert("no post in database please reload")
+                }
+                if (resp.data.message == "success") {
+                    alert("Deleted")
+                    $scope.newNotes.splice(id, 1)
+                    window.localStorage.setItem("notes", JSON.stringify($scope.newNotes));
+                    $state.go('tab.notes');
+                }
+
+            });
     }
 
     $scope.saveData = function () {
@@ -872,7 +889,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                 addInfo.keywords = keywords;
                 addInfo.text = resp.text;
                 //bias
-              addInfo.postID = resp.id;
+                addInfo.postID = resp.id;
                 //date
                 // var d = new Date();
                 // var str = d.toString();
@@ -938,25 +955,25 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
     $scope.submit = function () {
         var comments = "Keywords: " + $scope.Newnotes[lastChar].keywords[0] + "<br> Summary: " + $scope.Newnotes[lastChar].summary + "<br> Text: " + $scope.Newnotes[lastChar].text;
-        
+
         var config = {
-            'subject':"Saved Notes from Quill",
-            'comments':"Keywords: " + $scope.Newnotes[lastChar].keywords[0] + "<br> Summary: " + $scope.Newnotes[lastChar].summary + "<br> Text: " + $scope.Newnotes[lastChar].text
+            'subject': "Saved Notes from Quill",
+            'comments': "Keywords: " + $scope.Newnotes[lastChar].keywords[0] + "<br> Summary: " + $scope.Newnotes[lastChar].summary + "<br> Text: " + $scope.Newnotes[lastChar].text
         }
-        
+
         var emails = {
             subject: "Saved Notes from Quill",
             body: comments,
             isHtml: false
         };
-        window.plugin.email.open(emails, function(){
+        window.plugin.email.open(emails, function () {
             console.log("email view dismissed")
         });
-        }
-    
-    
-        
-    
+    }
+
+
+
+
 
 
     $scope.delete = function (id) {
