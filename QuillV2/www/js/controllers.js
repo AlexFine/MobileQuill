@@ -513,7 +513,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
              "http://cdn2.crushable.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-05-at-10.49.48-AM.png",
              "http://big.assets.huffingtonpost.com/ronswansononbacon4-17.400x226.gif",
              "http://memesvault.com/wp-content/uploads/Funny-Pictures-With-Captions-About-Women-14.jpg",
-             "http://www.manageprojectsonsharepoint.com/wp-content/uploads/2013/12/Project-management1.png",
              "http://www.twitquotes.com/uploads/1/162.jpg"
         ]
     //code goes here that will be run every 5 seconds.
@@ -938,31 +937,24 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     $scope.lastChar = lastChar;
 
     $scope.submit = function () {
-        $cordovaEmailComposer.isAvailable().then(function () {
-            // is available
-        }, function () {
-            // not available
-        });
-
-        var email = {
-            to: 'max@mustermann.de',
-            cc: 'erika@mustermann.de',
-            bcc: ['john@doe.com', 'jane@doe.com'],
-            attachments: [
-      'file://img/logo.png',
-      'res://icon.png',
-      'base64:icon.png//iVBORw0KGgoAAAANSUhEUg...',
-      'file://README.pdf'
-    ],
-            subject: 'Cordova Icons',
-            body: 'How are you? Nice greetings from Leipzig',
-            isHtml: true
+        var config = {
+            'subject':"Saved Notes from Quill",
+            'comments':"Keywords: " + $scope.Newnotes[lastChar].keywords[0] + "<br> Summary: " + $scope.Newnotes[lastChar].summary + "<br> Text: " + $scope.Newnotes[lastChar].text
+        }
+        
+        var emails = {
+            subject: "Saved Notes from Quill",
+            body: comments,
+            isHtml: false
         };
-
-        $cordovaEmailComposer.open(email).then(null, function () {
-            // user cancelled email
+        window.plugin.email.open(emails, function(){
+            console.log("email view dismissed")
         });
-    }
+        }
+    
+    
+        
+    
 
 
     $scope.delete = function (id) {
