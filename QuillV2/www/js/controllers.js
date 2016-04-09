@@ -937,6 +937,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     $scope.lastChar = lastChar;
 
     $scope.submit = function () {
+        var comments = "Keywords: " + $scope.Newnotes[lastChar].keywords[0] + "<br> Summary: " + $scope.Newnotes[lastChar].summary + "<br> Text: " + $scope.Newnotes[lastChar].text;
+        
         var config = {
             'subject':"Saved Notes from Quill",
             'comments':"Keywords: " + $scope.Newnotes[lastChar].keywords[0] + "<br> Summary: " + $scope.Newnotes[lastChar].summary + "<br> Text: " + $scope.Newnotes[lastChar].text
