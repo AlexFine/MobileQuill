@@ -1,0 +1,36 @@
+{
+    "cordova-plugin-image-picker": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-image-picker"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-camera": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-camera"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-email-composer": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-email-composer"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-googleplus": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-googleplus"
+        },
+        "is_top_level": true,
+        "variables": {
+            "REVERSED_CLIENT_ID": "com.googleusercontent.apps.717056452157-ar5jsh5v2so0qiqa2sh1cbekhi4fhm6a"
+        }
+    }
+}

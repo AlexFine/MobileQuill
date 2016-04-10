@@ -87,104 +87,56 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
         $scope.username;
         $scope.password;
-        $scope.register = function (username, password) {
+        $scope.register = function () {
             $scope.status = "";
-            console.log("hello");
-            console.log(password.length)
-            console.log(password + username);
-            if (username == undefined) {
-                //alert("Invalid Username")
-                alert("No username entered");
-                $scope.status = "No username entered";
-            } else if (username == password) {
-                //alert("Invalid Username")
-                alert("Username can't be your password");
-                $scope.status = "Username can't be your password";
-            } else {
+          window.plugins.googleplus.login(
+            {
+              // 'scopes': ' ', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+              // 'webClientId': 'client id of the web app/server side', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+              // 'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+            },
+            function (obj) {
+              alert(JSON.stringify(obj));
+              $scope.error;
 
-                if (password.length < 7) {
-                    //alert("Invalid Username")
-                    alert("Password not long enough. Needs to be 8 characters or longer.");
-                    $scope.status = "Password not long enough. Needs to be 8 characters or longer."
-                } else {
-                    $scope.password = password;
+              var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/new"
+              $http.post(url, {
+                "message": obj.idToken,
+              }).then(function (resp) {
+                console.log(resp);
+                alert("hi")
+                $scope.status = "Email has already been used or entered email is not a vlid email.";
+                console.log(resp.data.message);
+                if (resp.data.message == "key success") {
+                  $scope.status = "Successful Login Credentials. Internal Server Error";
 
-                    $scope.username = username;
+                  window.localStorage.setItem("rememberme", "true");
+                  $state.go('tab.notes');
+                  console.log(storedUsername);
+                  console.log(storedPassword);
+                }
+              });// do something useful instead of alerting
+            },
+            function (msg) {
+              alert('error: ' + msg);
+            }
+          );
 
-                    $scope.error;
 
-                    var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/new"
-                    $http.post(url, {
 
-                        "user": username,
-                        "passwrd": password
-                    }).then(function (resp) {
-                        console.log(resp);
-                        $scope.status = "Email has already been used or entered email is not a vlid email.";
-                        console.log(resp.data.message);
-                        if (resp.data.message == "key success") {
-                            $scope.status = "Successful Login Credentials. Internal Server Error";
-                            window.localStorage.setItem("password", password);
-                            // var storedPassword = window.localStorage.getItem("password"));
-                            $scope.storedPassword = password;
-                            window.localStorage.setItem("username", username);
-                            // var storedUsername = window.localStorage.getItem("username");
-                            $scope.storedUsername = username;
-                            window.localStorage.setItem("rememberme", "true");
-                            $state.go('tab.notes');
-                            console.log(storedUsername);
-                            console.log(storedPassword);
-                        }
-                    });
 
                 }
 
 
-            }
-        }
+
 
     })
     .controller('LoginCtrl', function ($location, $scope, $ionicPopup, $state, $http) {
 
         $scope.username;
         $scope.password;
-        $scope.login = function (username, password) {
 
 
-            if (username == undefined) {
-                //alert("Invalid Username")
-                $scope.status = "Invalid Username";
-            }
-
-
-            var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/login";
-            // var url ="http://localhost:8080/_ah/api/quillApi/v1/user/login";
-            console.log(username, password)
-            $http.post(url, {
-
-                    "user": username,
-                    "passwrd": password
-                })
-                .then(function (resp) {
-                    console.log(resp);
-                    if (resp.data.message == "logged in") {
-                        $scope.username = username
-
-                        $scope.password = password
-                            // if(resp.message=)
-                        window.localStorage.setItem("password", $scope.password);
-                        window.localStorage.setItem("username", $scope.username);
-                        window.localStorage.setItem("rememberme", "true");
-
-                        $state.go('tab.notes');
-                    } else {
-
-                        alert("Invalid Username and Password combination")
-                        $scope.status = "Invalid Username and Password combination."
-
-                    }
-                });
-        }
 
 
 
@@ -199,6 +151,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                     console.log('You are sure');
                     window.localStorage.setItem("rememberme", "false");
                     window.localStorage.setItem("notes", JSON.stringify([]));
+                  window.plugins.googleplus.logout(
+                    function (msg) {
+                      alert(msg); // do something useful instead of alerting
+                    }
+                  );
                     $state.go('intro');
                 } else {
                     console.log('You are not sure');
@@ -378,6 +335,14 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                             //now at this point, we have text, we'll run summary, concepts, and bias;
                         console.log(i)
                         if (items.length == num) {
+                          window.plugins.googleplus.login(
+                            {
+                              // 'scopes': ' ', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+                              // 'webClientId': 'client id of the web app/server side', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+                              // 'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+                            },
+                            function (obj) {
+                              alert(JSON.stringify(obj));
                             $scope.status = "Gathering image dates ..."
                             console.log("True")
                             var d = new Date();
@@ -449,7 +414,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                                 // window.localStorage.getItem("notes").push(addInfo);
 
                             });
-                        }
+                        },
+                      function (msg) {
+                        alert('error: ' + msg);
+                      }
+                      );}
                         // gapi.client.quillApi.user.new({
 
                         //   "user":"ad",
@@ -619,8 +588,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                 function (results) {
                     for (var i = 0; i < results.length; i++) {
                         if (i < 4){
-                            
-                        
+
+
                         console.log('Image URI: ' + results[i]);
 
                         var newimage = {
@@ -731,15 +700,15 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         // }
 
     ];
-    
-    
+
+
         $scope.deletePost = function (postid, id) {
                 var myPopup = $ionicPopup.show({
                 template: "Are you sure you want to delete this note?",
                 title: "Delete Note",
                 scope: $scope,
                 buttons: [
-                    
+
                     {
                         text: 'Cancel',
                         type: 'button-light',
@@ -759,28 +728,29 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                         }
                 }
             ]
-            }) 
-            
+            })
+
         }
-        
-        
-        
+
+
+
     $scope.deletePost2 = function(postid, id){
-    
+
       var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/post/delete";
 
-      // var url ="http://localhost:8080/_ah/api/quillApi/v1/user/login";
-      var storedPassword = window.localStorage.getItem("password");
-      // $scope.storedPassword = storedPassword;
-      // window.localStorage.setItem("username", JSON.stringify(username));
-      var storedUsername = window.localStorage.getItem("username");
-      // console.log(username, password)
-
+      window.plugins.googleplus.login(
+        {
+          // 'scopes': ' ', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+          // 'webClientId': 'client id of the web app/server side', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+          // 'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+        },
+        function (obj) {
+          alert(JSON.stringify(obj));
+          $scope.error;
 
       $http.post(url, {
           "id": postid,
-          "user": storedUsername,
-          "passwrd": storedPassword
+          "message":obj.idToken
         })
         .then(function (resp) {
           console.log(resp);
@@ -798,6 +768,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
           }
 
         });
+    },
+      function (msg) {
+        alert('error: ' + msg);
+      }
+  );
     }
 
     $scope.saveData = function () {
@@ -823,16 +798,18 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
         //Load dates
         var notes = []
-        var storedPassword = window.localStorage.getItem("password");
-        // $scope.storedPassword = storedPassword;
-        // window.localStorage.setItem("username", JSON.stringify(username));
-        var storedUsername = window.localStorage.getItem("username");
-        var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts"
+      window.plugins.googleplus.login(
+        {
+          // 'scopes': ' ', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+          // 'webClientId': 'client id of the web app/server side', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+          // 'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
+        },
+        function (obj) {
+          alert(JSON.stringify(obj));
+          $scope.error;
             // var url = "http://localhost:8080/_ah/api/quillApi/v1/user/return/posts"
         $http.post(url, {
-            "user": storedUsername,
-            "passwrd": storedPassword
-                // "user": storedPassword ,
+          "message":obj.idToken
                 // "passwrd": storedUsername
         }).then(function (resps) {
             // console.log(resps)
@@ -894,6 +871,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             window.localStorage.setItem("notes", JSON.stringify(notes));
 
         })
+        },
+        function (msg) {
+          alert('error: ' + msg);
+        }
+      );
 
     }
 
@@ -938,12 +920,12 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
     $scope.submit = function () {
         var comments = "Keywords: " + $scope.Newnotes[lastChar].keywords[0] + "<br> Summary: " + $scope.Newnotes[lastChar].summary + "<br> Text: " + $scope.Newnotes[lastChar].text;
-        
+
         var config = {
             'subject':"Saved Notes from Quill",
             'comments':"Keywords: " + $scope.Newnotes[lastChar].keywords[0] + "<br> Summary: " + $scope.Newnotes[lastChar].summary + "<br> Text: " + $scope.Newnotes[lastChar].text
         }
-        
+
         var emails = {
             subject: "Saved Notes from Quill",
             body: comments,
@@ -953,10 +935,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             console.log("email view dismissed")
         });
         }
-    
-    
-        
-    
+
+
+
+
 
 
     $scope.delete = function (id) {

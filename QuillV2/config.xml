@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.quillv2320419" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="quill.quill" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Quill</name>
   <description>
         An Ionic Framework and Cordova project.
@@ -19,9 +19,6 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
-  <gap:plugin name="cordova-plugin-googleplus" source="npm">
-    <param name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.717056452157-ar5jsh5v2so0qiqa2sh1cbekhi4fhm6a"/>
-  </gap:plugin>
   <platform name="ios">
     <icon src="resources/ios/icon/icon.png" width="57" height="57"/>
     <icon src="resources/ios/icon/icon@2x.png" width="114" height="114"/>
