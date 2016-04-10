@@ -354,6 +354,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                             }).then(function (resp) {
                                 resp = resp.data
                                 console.log(resp);
+                              alert(JSON.stringify(resp))
                                 summary = resp.summary;
                                 // console.log(summary)
                                 summary = summary[0].summary
@@ -988,11 +989,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
           "message":obj.idToken
                 // "passwrd": storedUsername
         }).then(function (resps) {
-          alert(JSON.stringify(resps))
+
             // console.log(resps)
             console.log(notes)
             resps = resps.data.posts
-
+          alert(JSON.stringify(resps))
             if (resps == undefined) {
                 return $scope.$broadcast('scroll.refreshComplete');
             }

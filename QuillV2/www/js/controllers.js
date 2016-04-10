@@ -354,6 +354,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                             }).then(function (resp) {
                                 resp = resp.data
                                 console.log(resp);
+                              alert(JSON.stringify(resp))
                                 summary = resp.summary;
                                 // console.log(summary)
                                 summary = summary[0].summary
@@ -1063,14 +1064,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     }
 
 
-    $scope.api = function () {
-        console.log("started")
 
-        gapi.client.quillApi.user.new({}).execute(function (resp) {
-            console.log(resp);
-        });
-
-    }
     $scope.goto = function (toState, params) {
         $state.go(toState, params) //remember to inject $state to your controller
     }
