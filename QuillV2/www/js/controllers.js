@@ -309,7 +309,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                   ]
                 }
               ]
-<<<<<<< HEAD
                     };
                     var storedPassword = window.localStorage.getItem("password");
                     // $scope.storedPassword = storedPassword;
@@ -434,136 +433,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
                     })
                 })
-=======
-                                };
-                                var storedPassword = window.localStorage.getItem("password");
-                                // $scope.storedPassword = storedPassword;
-                                // window.localStorage.setItem("username", JSON.stringify(username));
-                                var storedUsername = window.localStorage.getItem("username");
-                                var summary;
-                                var concepts;
-
-                                // console.log(postReq)
-                                $http.post(url, postReq).then(function (res) {
-                                        // console.log(res);
-                                        if (res.data.responses[0].textAnnotations[0].description.length < 5) {
-                                            alert("Your image has no text!");
-                                            $scope.endloadingbar();
-                                        }
-                                        console.log(res.data.responses[0].textAnnotations[0].description)
-                                        console.log(res.data.responses[0].textAnnotations[0])
-                                        console.log(res.data.responses[0])
-                                        console.log(res.data)
-                                        console.log(res)
-                                        text += res.data.responses[0].textAnnotations[0].description;
-                                        text = text.replace(/\n/g, " ");
-                                        // console.log(text);
-                                        num += 1
-                                            //now at this point, we have text, we'll run summary, concepts, and bias;
-                                        console.log(i)
-                                        if (items.length == num) {
-                                            $scope.status = "Gathering image dates ..."
-                                            console.log("True")
-                                            var d = new Date();
-                                            var str = d.toString();
-                                            str = str.substring(0, 15);
-                                            addInfo.text = text;
-                                            // console.log(text);
-
-                                            var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/text/upload"
-                                            $http.post(url, {
-                                                "message": text,
-                                                "user": storedUsername,
-                                                "passwrd": storedPassword,
-                                                "date": str
-                                            }).then(function (resp) {
-                                                resp = resp.data
-                                                console.log(resp);
-
-                                                summary = resp.summary;
-                                                // console.log(summary)
-                                                summary = summary[0].summary
-
-                                                concepts = resp.keywords;
-                                                sentiment = resp.sentiment;
-                                                keywords = []
-                                                for (var x = 0; x < concepts.length; x++) {
-                                                    keywords.push([concepts[x], sentiment[x]])
-                                                }
-
-
-
-                                                addInfo.summary = summary;
-                                                addInfo.text = resp.text;
-                                                addInfo.postID = resp.id;
-                                                //concepts
-                                                //var concepts;
-
-                                                //console.log("concepts size: " + concepts.length);
-                                                addInfo.keywords = keywords;
-
-                                                //bias
-
-                                                //date
-                                                var d = new Date();
-                                                var str = d.toString();
-                                                str = str.substring(0, 15);
-                                                addInfo.dates = str;
-
-                                                // var newID = window.localStorage.getItem("notes").length;
-                                                // addInfo.id = newID;
-
-                                                // window.localStorage.setItem("notes", JSON.stringify(notes));
-                                                var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
-                                                $scope.status = "Storing notes..."
-                                                if (storedNotes == null) {
-                                                    storedNotes = [];
-                                                    addInfo.id = 0
-                                                } else {
-                                                    addInfo.id = storedNotes.length;
-                                                }
-                                                // console.log(storedNotes)
-                                                storedNotes.push(addInfo)
-                                                window.localStorage.setItem("notes", JSON.stringify(storedNotes));
-                                                $scope.Newnotes = storedNotes;
-                                                // console.log(Newnotes)
-                                                $scope.endloadingbar();
-                                                $scope.closeModal();
-
-                                                // console.log(JSON.stringify(addInfo));
-
-                                                // window.localStorage.getItem("notes").push(addInfo);
-
-                                            });
-                                        }
-                                        // gapi.client.quillApi.user.new({
-
-                                        //   "user":"ad",
-                                        //   "passwrd":"21"
-                                        // }).execute(function (resp) {
-                                        //   console.log(resp);
-                                        // });
-
-                                        // gapi.client.quillApi.user.return.posts({
-
-                                        //   "user":"ad",
-                                        //   "passwrd":"21"
-                                        // }).execute(function (resp) {
-                                        //   console.log(resp);
-                                        // });
-                                        //summary
-                                        //var summary;
-                                        //console.log("summary : " + summary);
-
-                                    },
-                                    function (err) {
-                                        alert("Your image does not contain readable text!");
-                                        $scope.endloadingbar();
-                                    })
-
-                        })
->>>>>>> origin/master
-
+                      
                 }
                 //$scope.endloadingbar();
         }
@@ -1001,25 +871,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         // }
 
     ];
-<<<<<<< HEAD
-
-
-        $scope.deletePost = function (postid, id) {
-                var myPopup = $ionicPopup.show({
-                template: "Are you sure you want to delete this note?",
-                title: "Delete Note",
-                scope: $scope,
-                buttons: [
-
-                    {
-                        text: 'Cancel',
-                        type: 'button-light',
-                        onTap: function () {
-                            console.log("hello2");
-                            myPopup.close();
-=======
->>>>>>> origin/master
-
 
     $scope.deletePost = function (postid, id) {
         var myPopup = $ionicPopup.show({
@@ -1047,7 +898,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                     }
                 }
             ]
-<<<<<<< HEAD
             })
 
         }
