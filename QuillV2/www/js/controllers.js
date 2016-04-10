@@ -276,7 +276,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                     var addInfo = {};
 
                     var text = "";
-                    var url = "https://vision.googleapis.com/v1/images:annotate?key=AAIzaSyAkhsm-Xit8NvKka2lMbsHvMnT4_TfPpMw";
+                    var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAFdrwTV52IbCFFo0tISUK007o7p3sfXIo";
                     console.log("ran pictest");
                     //$scope.base64(testPhoto);
                     console.log("items length: " + $scope.items.length);
@@ -285,7 +285,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                     var num = 0;
                     items = $scope.items
                     for (var i = 0; i < $scope.items.length; i++) {
-                        var num = 1 + i;
+
                         $scope.status = "Sending Image Number " + num;
                         console.log("why did you not show?");
                         var imgURL = $scope.items[i].src;
@@ -320,14 +320,17 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                     // console.log(postReq)
                     $http.post(url, postReq).then(function (res) {
                         // console.log(res);
-
+                        alert(res)
                         text += res.data.responses[0].textAnnotations[0].description;
                         text = text.replace(/\n/g, " ");
+                      alert(text)
                         // console.log(text);
                         num += 1
                             //now at this point, we have text, we'll run summary, concepts, and bias;
                         console.log(i)
+                      alert(num)
                         if (items.length == num) {
+                          alert("login")
                           window.plugins.googleplus.login(
                             {
                               // 'scopes': ' ', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
@@ -346,8 +349,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                             var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/text/upload"
                             $http.post(url, {
                                 "message": text,
-                                "user": storedUsername,
-                                "passwrd": storedPassword,
+                                "userID": obj.idToken,
                                 "date": str
                             }).then(function (resp) {
                                 resp = resp.data
@@ -981,15 +983,16 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         function (obj) {
           alert(JSON.stringify(obj));
           $scope.error;
-            // var url = "http://localhost:8080/_ah/api/quillApi/v1/user/return/posts"
+            var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts"
         $http.post(url, {
           "message":obj.idToken
                 // "passwrd": storedUsername
         }).then(function (resps) {
+
             // console.log(resps)
             console.log(notes)
             resps = resps.data.posts
-
+          alert(JSON.stringify(resps))
             if (resps == undefined) {
                 return $scope.$broadcast('scroll.refreshComplete');
             }
