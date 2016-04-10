@@ -276,7 +276,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                     var addInfo = {};
 
                     var text = "";
-                    var url = "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc";
+                    var url = "https://vision.googleapis.com/v1/images:annotate?key=AAIzaSyAkhsm-Xit8NvKka2lMbsHvMnT4_TfPpMw";
                     console.log("ran pictest");
                     //$scope.base64(testPhoto);
                     console.log("items length: " + $scope.items.length);
