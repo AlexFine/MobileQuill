@@ -42,6 +42,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             if (window.localStorage.getItem('rememberme') == "true") {
                 console.log("Go")
                 $state.go('tab.notes');
+              $scope.saveData();
             } else {
                 $state.go('intro');
                 console.log("test")
@@ -1071,7 +1072,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     $scope.notes = Notes.all();
 
 
-    $scope.saveData();
+
 })
 
 .controller('NoteDetailCtrl', function ($scope, $stateParams, Notes, $cordovaEmailComposer) {

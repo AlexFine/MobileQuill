@@ -42,6 +42,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             if (window.localStorage.getItem('rememberme') == "true") {
                 console.log("Go")
                 $state.go('tab.notes');
+              $scope.saveData();
             } else {
                 $state.go('intro');
                 console.log("test")
@@ -1064,21 +1065,14 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
     }
 
 
-    $scope.api = function () {
-        console.log("started")
 
-        gapi.client.quillApi.user.new({}).execute(function (resp) {
-            console.log(resp);
-        });
-
-    }
     $scope.goto = function (toState, params) {
         $state.go(toState, params) //remember to inject $state to your controller
     }
     $scope.notes = Notes.all();
 
 
-    $scope.saveData();
+
 })
 
 .controller('NoteDetailCtrl', function ($scope, $stateParams, Notes, $cordovaEmailComposer) {
