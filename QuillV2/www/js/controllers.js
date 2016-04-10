@@ -433,7 +433,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
                     })
                 })
-                      
+
                 }
                 //$scope.endloadingbar();
         }
@@ -921,39 +921,9 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
       $http.post(url, {
           "id": postid,
           "message":obj.idToken
-=======
->>>>>>> origin/master
+
         })
 
-<<<<<<< HEAD
-        });
-    },
-      function (msg) {
-        alert('error: ' + msg);
-      }
-  );
-=======
-    }
-
-
-
-    $scope.deletePost2 = function (postid, id) {
-
-        var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/post/delete";
-
-        // var url ="http://localhost:8080/_ah/api/quillApi/v1/user/login";
-        var storedPassword = window.localStorage.getItem("password");
-        // $scope.storedPassword = storedPassword;
-        // window.localStorage.setItem("username", JSON.stringify(username));
-        var storedUsername = window.localStorage.getItem("username");
-        // console.log(username, password)
-
-
-        $http.post(url, {
-                "id": postid,
-                "user": storedUsername,
-                "passwrd": storedPassword
-            })
             .then(function (resp) {
                 console.log(resp);
                 if (resp.data.message == "user fail") {
@@ -970,7 +940,13 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                 }
 
             });
->>>>>>> origin/master
+    // });
+    },
+      function (msg) {
+        alert('error: ' + msg);
+      }
+  );
+
     }
 
     $scope.saveData = function () {
@@ -1132,11 +1108,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         window.plugin.email.open(emails, function () {
             console.log("email view dismissed")
         });
-<<<<<<< HEAD
+
         }
-=======
-    }
->>>>>>> origin/master
 
 
 
