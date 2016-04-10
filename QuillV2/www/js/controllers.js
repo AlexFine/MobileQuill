@@ -650,7 +650,15 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             for(var i = 0; i < response.links.length; i++) {
               memes.push(response.links[i]);
             }
-            $scope.json = memes;
+            var meme = memes[Math.floor(Math.random()*memes.length)];
+            console.log(meme);
+            $scope.meme = meme;
+
+            console.log("made it")
+            console.log("THE MEME IS " + meme);
+            $ionicLoading.show({
+                template: $scope.status + "<br> Depending on how many images you've <br>submitted it may take a minute to load.<br> <br> <img src='" + meme + "' style='width:100%;'>"
+            });
          }, function(err){
             console.log(JSON.stringify(err));
          })
@@ -675,7 +683,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         //      "http://www.twitquotes.com/uploads/1/162.jpg"
         // ]
     //code goes here that will be run every 5 seconds.
-             var meme = memes[Math.floor(Math.random()*memes.length)];
+             // var meme = memes[Math.floor(Math.random()*memes.length)];
+             
         //        $scope.meme;
         //        $scope.getmemes = function(){
         //        var memes = [
@@ -698,13 +707,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
 
 
-            $scope.meme = meme;
-
-            console.log("made it")
-            console.log("THE MEME IS " + meme);
-            $ionicLoading.show({
-                template: $scope.status + "<br> Depending on how many images you've <br>submitted it may take a minute to load.<br> <br> <img src='" + meme + "' style='width:100%;'>"
-            });
+            
 
             //setTimeout($scope.endloadingbar(),60000);
 
