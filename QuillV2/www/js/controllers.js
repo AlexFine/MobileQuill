@@ -328,8 +328,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                     var num = 0;
                     items = $scope.items
                     for (var i = 0; i < $scope.items.length; i++) {
-
-                        $scope.status = "Sending Image Number " + i;
+                        var num = 1 + i;
+                        $scope.status = "Sending Image Number " + num;
                         console.log("why did you not show?");
                         var imgURL = $scope.items[i].src;
 
@@ -473,7 +473,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                                         //console.log("summary : " + summary);
 
                                     },
-                                    function (res) {
+                                    function (err) {
                                         alert("Your image does not contain readable text!");
                                         $scope.endloadingbar();
                                     })
@@ -644,9 +644,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
 }      
           var memes =[];
-          var response;
+          
          $http.get("https://api.github.com/repos/kushaltirumala/memestorage/contents/memelist.json", {headers:{'Accept': 'application/json'}}).then(function(resp){
-            response=JSON.parse(Base64.decode(resp.data.content));
+             
+            var response = JSON.parse(Base64.decode(resp.data.content));
+             
             for(var i = 0; i < response.links.length; i++) {
               memes.push(response.links[i]);
             }
