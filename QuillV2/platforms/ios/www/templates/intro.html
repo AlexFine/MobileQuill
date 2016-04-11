@@ -11,12 +11,12 @@
      <ion-nav-bar class="bar-stable bar-energized">
          <ion-nav-buttons side="left">
         <button class="button button-dark button-clear no-animation"
-                   ng-click="login()" ng-show="!slideIndex">
+                   ng-click="register()" ng-show="!slideIndex">
             Login
           </button>
              
           <button class="button button-dark button-clear no-animation"
-                  ng-click="login()" ng-show="slideIndex > 0">
+                  ng-click="register()" ng-show="slideIndex > 0">
             Login
           </button>
         </ion-nav-buttons>
@@ -69,6 +69,7 @@
             <label class="item item-input">
                 <input type="password" ng-model="user.password" placeholder="Password">
             </label>-->
+<!--
             <div class="input-wrapper">
                 <input required type="email" ng-model="user.username" placeholder="Email" style="color:white; font-size:17px; padding-left:10%;" class="introsignup">
                 </div>
@@ -80,31 +81,30 @@
                 </div>
                 
 
-        <!--</div>-->
+        </div>
             <div class="assertive" style="color:white;">
                <p ng-if="user.password2 !== user.password">Passwords do not match </p>
                 <br>{{status}}
             </div>
              
         <div class="assertive" ng-show="error.message">{{error}}</div>
-        <button class="button button-block button-outline button-assertive" style= "border:1px solid white; height:10%; width:80%; margin-right:auto; margin-left:auto; text-align:center; color:white;" ng-click="register(user.username, user.password)">
-            CREATE ACCOUNT
+-->
+            <i class="ion-person-add" style="font-size:200px;"></i>
+        <button class="button button-block button-outline button-assertive ion-social-google" style= "border:1px solid white; height:10%; width:80%; margin-right:auto; margin-left:auto; text-align:center; color:white;" ng-click="register()">
+            REGISTER WITH GOOGLE
         </button>
 
-        <p style="font-size:18px;">Already have an account?<a style= "height:10%; width:80%; margin-right:auto; margin-left:auto; text-align:center; font-family: 'Raleway'; color:#33CCFF;" ng-click="login()">
-            <b>Login!</b>
-        </a></p>
-        <p style="font-size:8px; padding-top:70%;">By creating an account you agree to the Terms of Use and Privacy Policy.</p>
-        <button class="button button-block button-assertive" style= "background-color:#CC3300; border:1px solid #CC3300;  height:10%; width:80%; margin-right:auto; margin-left:auto; text-align:center; font-family: 'Raleway';" ng-click="signUp()">
-            SIGN UP
-        </button>
-        <div style="padding-top:30%;">
-      </div>
+    
         </div>
-          </div>
+          
           </ion-slide>
-            </div>
-                    </ion-slide>
+           <ion-slide>
+              <div style="padding-top:30%;">
+                  <i class="ion-social-nodejs" style="font-size:200px;"></i>
+           <h3 style= "color:white; font-family: 'Raleway';">Code With Quill!</h3>
+                  <p>Are you a coder that loves Quill? Join the team  <br>by learning more on our website at quillapp.io. </p>
+              </div>
+              </ion-slide>
 
         </ion-slide-box>
       </ion-view>
