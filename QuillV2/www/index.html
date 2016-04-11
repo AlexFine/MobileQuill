@@ -7,9 +7,7 @@
     <title></title>
     <!-- <script src="http://tenso.rs/tesseract.js"></script>
 
-      <script src="node_modules/tesseract.js/lib/Tesseract.js"></script>
-Do not think these two scripts are needed for tesseract.js. I believe only the link one is neccessary. Will move that javascript code locally soon.
--->
+      <script src="node_modules/tesseract.js/lib/Tesseract.js"></script>-->
 
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
@@ -22,52 +20,7 @@ Do not think these two scripts are needed for tesseract.js. I believe only the l
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
-    <!--GAE APi-->
-    <script>
-//          var PROJECT_ID = 'quill-1176';
-//        var CLIENT_ID = '717056452157-5udkhp8gsi6imu2lj684ushiecsrn1qq.apps.googleusercontent.com';
-//        var API_KEY = 'AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc';
-//        var SCOPES = 'https://www.googleapis.com/auth/userinfo.email';
-//
-//        /**
-//         * Authorize Google Compute Engine API.
-//         */
-//        function authorization() {
-//            gapi.client.setApiKey(API_KEY);
-//            gapi.auth.authorize({
-//                client_id: CLIENT_ID,
-//                scope: SCOPES,
-//                immediate: false
-//            }, function (authResult) {
-//                if (authResult && !authResult.error) {
-//                    window.alert('Auth was successful!');
-//                } else {
-//                    window.alert('Auth was not successful');
-//                }
-//            });
-//        }
-
-//
-//                  var init = function() {
-//                    var ROOT = 'https://quill-1176.appspot.com/_ah/api/';
-//                    // var ROOT = 'http://localhost:8080/_ah/api'
-//                    console.log("API Loaded1")
-//                    gapi.client.load('quillApi', 'v1', function () {
-//                      console.log("API Loaded")
-//                    }, ROOT);
-//                  }
-        //            url ='https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDdYPAS4Mji2KbCq5PWw3cIzknwxNpOuqc';
-        //
-        //            gapi.client.load('vision', 'v1', function () {}, url);
-        //          }
-
-
-
-        /**quill-1176
-         * Driver for sample application.
-         */
-//        $(window).load(authorization);
-    </script>
+    <!-GAE APi-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
 
@@ -86,10 +39,6 @@ Do not think these two scripts are needed for tesseract.js. I believe only the l
     <script type="text/javascript" src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
 
-    <!--<script src="https://apis.google.com/js/client.js?onload=init">-->
-<!--//    </script>-->
-
-
     <!-- your app's js -->
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
@@ -97,18 +46,10 @@ Do not think these two scripts are needed for tesseract.js. I believe only the l
 </head>
 
 <body ng-app="starter">
-    <!--
-      The nav bar that will be updated as we navigate between views.
-    -->
    <ion-nav-bar class="bar-stable bar-energized">
        <ion-nav-back-button>
         </ion-nav-back-button>
     </ion-nav-bar>
-    <!--
-      The views will be rendered in the <ion-nav-view> directive below
-      Templates are in the /templates folder (but you could also
-      have templates inline in this html file if you'd like).
-    -->
     <ion-nav-view></ion-nav-view>
 </body>
 
