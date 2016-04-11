@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Quill</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="http://blackrockdigital.github.io/startbootstrap-creative/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="http://blackrockdigital.github.io/startbootstrap-stylish-portfolio/css/stylish-portfolio.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://blackrockdigital.github.io/startbootstrap-stylish-portfolio/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script src="https://raw.githubusercontent.com/HubSpot/pace/v1.0.0/pace.min.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--<script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script>
+      function initialize() {
+        var mapCanvas = document.getElementById('map-canvas');
+        var mapOptions = {
+          center: new google.maps.LatLng(37.7876131, -122.3966376),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions)
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>-->
+    <script>
+        // .btn is the class of the element you want to change color
+        $(".btn").click(function () {
+            // Instead of directly editing CSS, toggle a class
+            $(this).toggleClass("clicked");
+        });
+    </script>
+    <script>
+        function initialize() {
+            var myLatlng = new google.maps.LatLng(37.7876131, -122.3966376);
+            var mapOptions = {
+                zoom: 12,
+                center: myLatlng
+            }
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'Hello World!'
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+<style>
+    #map-canvas {
+        width: 100%;
+        height: 400px;
+        margin: 0;
+        padding: 0;
+    }
+
+    #hover {
+        background: transparent;
+        border: 2px solid #FF6600;
+        color:white;
+        border-radius:3px;
+    }
+
+    #hover:hover {
+        background-color: #FF6600;
+        color:white;
+    }
+
+    span.text-content {
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        cursor: pointer;
+        display: table;
+        height: 150px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 150px;
+    }
+
+    span.text-content span {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    span.text-content {
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        cursor: pointer;
+        display: table;
+        height: 150px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 150px;
+        opacity: 0;
+    }
+
+    ul.img-list li:hover span.text-content {
+        opacity: 1;
+    }
+
+    span.text-content {
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        cursor: pointer;
+        display: table;
+        height: 150px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 150px;
+        opacity: 0;
+        -webkit-transition: opacity 500ms;
+        -moz-transition: opacity 500ms;
+        -o-transition: opacity 500ms;
+        transition: opacity 500ms;
+    }
+    
+    .pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  width: 100%;
+  height: 12px;
+  background: #fff;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background-color: #FF8533;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.pace .pace-activity {
+  position: fixed;
+  top: 0;
+  right: -32px;
+  bottom: 0;
+  left: 0;
+
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.2)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.2)), color-stop(0.75, rgba(255, 255, 255, 0.2)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+  -webkit-background-size: 32px 32px;
+  -moz-background-size: 32px 32px;
+  -o-background-size: 32px 32px;
+  background-size: 32px 32px;
+
+  -webkit-animation: pace-theme-barber-shop-motion 500ms linear infinite;
+  -moz-animation: pace-theme-barber-shop-motion 500ms linear infinite;
+  -ms-animation: pace-theme-barber-shop-motion 500ms linear infinite;
+  -o-animation: pace-theme-barber-shop-motion 500ms linear infinite;
+  animation: pace-theme-barber-shop-motion 500ms linear infinite;
+}
+
+@-webkit-keyframes pace-theme-barber-shop-motion {
+  0% { -webkit-transform: none; transform: none; }
+  100% { -webkit-transform: translate(-32px, 0); transform: translate(-32px, 0); }
+}
+@-moz-keyframes pace-theme-barber-shop-motion {
+  0% { -moz-transform: none; transform: none; }
+  100% { -moz-transform: translate(-32px, 0); transform: translate(-32px, 0); }
+}
+@-o-keyframes pace-theme-barber-shop-motion {
+  0% { -o-transform: none; transform: none; }
+  100% { -o-transform: translate(-32px, 0); transform: translate(-32px, 0); }
+}
+@-ms-keyframes pace-theme-barber-shop-motion {
+  0% { -ms-transform: none; transform: none; }
+  100% { -ms-transform: translate(-32px, 0); transform: translate(-32px, 0); }
+}
+@keyframes pace-theme-barber-shop-motion {
+  0% { transform: none; transform: none; }
+  100% { transform: translate(-32px, 0); transform: translate(-32px, 0); }
+}
+    
+</style>
+
+<body>
+
+    <!-- Navigation -->
+    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
+    <nav id="sidebar-wrapper">
+
+        <ul class="sidebar-nav">
+            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+            <li class="sidebar-brand">
+                <a href="#top" onclick=$ ( "#menu-close").click();>Quill</a>
+            </li>
+            <li>
+                <a href="#about" onclick=$ ( "#menu-close").click();>About</a>
+            </li>
+            <li>
+                <a href="#services" onclick=$ ( "#menu-close").click();>Product</a>
+            </li>
+            <li>
+                <a href="#solution" onclick=$ ( "#menu-close").click();>Team</a>
+            </li>
+            <li>
+                <a href="#contact" onclick=$ ( "#menu-close").click();>Location</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header id="top" class="header" style="background-image:url('http://quillapp.io/MIT.png')">
+        <img src="http://quillapp.io/logoslim.png" style="width:80px; height:80px; padding:10px">
+        <div class="text-vertical-center" style="padding-right:200px;">
+            <h1 style="color:#FF6600">Quill</h1>
+            <h3 style="color:white;"> A platform to help you <br>learn more from your text.</h3>
+            <br>
+            <a href="#about" id="hover" class="btn btn-dark btn-lg">Find Out More</a>
+            <!--<a href="/webHome.html" id="hover" class="btn btn-dark btn-lg">Start using!</a>-->
+        </div>
+    </header>
+
+    <!-- About -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Quill takes notes for you</h2>
+                    <p class="lead">Quill analyzes your text into a data visualization, takes notes for you and allows you to share and impact those notes with your peers. On our mobile app, you take a picture of your text, we take notes on it and summarize it. For our web version, we also provide data visiualizations and multipart upload. </p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- Services -->
+    <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+    <section id="services" class="services bg-primary" style="background-color:#FF944D;">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <h2>Our Solution</h2>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <img src="http://quillapp.io/introcamera.png" style="height:80px; width:80px;">
+                            </span>
+                                <h4>
+                                    <strong>Upload Text</strong>
+                                </h4>
+                                <p>Start by uploading the text you want analyzed.</p>
+                                <!--<a href="#" class="btn btn-light">Learn More</a>-->
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <img src="http://quillapp.io/intronote.png" style="height:80px; width:80px;">
+                            </span>
+                                <h4>
+                                    <strong>Analyze Text</strong>
+                                </h4>
+                                <p>We will analyze the text and provide notes, summaries and data visualizations about the text. </p>
+                                <!--<a href="#" class="btn btn-light">Learn More</a>-->
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <img src="http://quillapp.io/thumbsup.png" style="height:80px; width:80px;">
+                            </span>
+                                <h4>
+                                    <strong>Crowd Source Data</strong>
+                                </h4>
+                                <p>If you don't find what you want, feel free to add your own note. You can also upvote and downvote notes so all of our content is curated to you.</p>
+                                <!--<a href="#" class="btn btn-light">Learn More</a>-->
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <img src="http://quillapp.io/charts.png" style="height:80px; width:80px;">
+                            </span>
+                                <h4>
+                                    <strong>Data Visualization</strong>
+                                </h4>
+                                <p>We provide a data visualization to help you understand the text in a new and different way.</p>
+                                <!--<a href="#" class="btn btn-light">Learn More</a>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- Callout -->
+    <aside class="callout">
+        <div class="text-vertical-center">
+            <h1>Android, iOS and Web</h1>
+        </div>
+    </aside>
+
+    <!-- Portfolio -->
+    <section id="solution" class="services bg-primary" style="background-color:white; color:#606060;">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <h2>Our Team</h2>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+
+                                <img src="http://quillapp.io/kushal.png" style="height:160px; width:140px; border-radius:5px; margin-right:10px;">
+                                <h4>
+                                    <strong>Kushal Tirumala</strong>
+                                </h4>
+                                <p>Kushal Tirumala is a full-stack developer who focuses on the backend and content creation.</p>
+                                <!--<a href="#" class="btn btn-light">Learn More</a>-->
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <img src="http://quillapp.io/alex.png" style="height:160px; width:170px; border-radius:5px;">
+
+                                <h4>
+                                    <strong>Alex Fine</strong>
+                                </h4>
+                                <p>Alex Fine loves product design and focuses on the front end of Quill.</p>
+                                <!--<a href="#" class="btn btn-light">Learn More</a>-->
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <img src="http://quillapp.io/sanjeev.png" style="height:160px; width:160px; border-radius:5px;">
+                                <h4>
+                                    <strong>Sanjeev Murty</strong>
+                                </h4>
+                                <p>Sanjeev Murty is a strong algorithmic developer. He works on the server side backend and the algorithms.</p>
+                                <!--<a href="#" class="btn btn-light">Learn More</a>-->
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <img src="http://quillapp.io/mahesh.png" style="height:160px; width:160px; border-radius:5px;">
+                                <h4>
+                                    <strong>Mahesh Murag</strong>
+                                </h4>
+                                <p>Mahesh Murag is a developer who works and focuses on the backend.</p>
+                                <!--<a href="#" class="btn btn-light">Learn More</a>-->
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <section id="solution" class="services bg-primary" style="background-color:white; color:#606060;">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+
+                                <img src="http://quillapp.io/ethan.png" style="height:160px; width:160px; border-radius:5px; margin-right:10px;">
+                                <h4>
+                                    <strong>Ethan Lee</strong>
+                                </h4>
+                                <p>Ethan is a node.js pro and has lots of experience in other backend framworks.</p>
+                                <!--<a href="#" class="btn btn-light">Learn More</a>-->
+                            </div>
+                        </div>
+<div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+
+                                <img src="http://quillapp.io/samphoto.jpg" style="height:160px; width:140px; border-radius:5px; margin-right:10px;">
+                                <h4>
+                                    <strong>Sam Schickler </strong>
+                                </h4>
+                                <p>Sam is an avid learner and strong at web, Python and Java development.</p>
+                                <!--<a href="#" class="btn btn-light">Learn More</a>-->
+                            </div>
+                        </div>
+                        
+
+
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+    <!-- Call to Action -->
+    <aside class="call-to-action bg-primary"  style="background-color:#FF944D;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h3>Founded at the Sloan Center at MIT, headquartered in San Francisco</h3>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div id="map-canvas"></div>
+
+    <!-- Map
+    <section id="contact" class="map">
+        <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
+        <br />
+        <small>
+            <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Galvanize,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Galvanize,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
+        </small>
+        </iframe>
+    </section>-->
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h4><strong>Quill</strong>
+                    </h4>
+
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:general@quillapp.io">general@quillapp.io</a>
+                        </li>
+                    </ul>
+                    <br>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/QuillAppIO"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-dribbble fa-fw fa-3x"></i></a>
+                        </li>
+                    </ul>
+                    <hr class="small">
+                    <p class="text-muted">Copyright &copy; Quill 2015</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://ironsummitmedia.github.io/startbootstrap-stylish-portfolio/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://ironsummitmedia.github.io/startbootstrap-stylish-portfolio/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script>
+        // Closes the sidebar menu
+        $("#menu-close").click(function (e) {
+            e.preventDefault();
+            $("#sidebar-wrapper").toggleClass("active");
+        });
+
+        // Opens the sidebar menu
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#sidebar-wrapper").toggleClass("active");
+        });
+
+        // Scrolls to the selected menu item on the page
+        $(function () {
+            $('a[href*=#]:not([href=#])').click(function () {
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
