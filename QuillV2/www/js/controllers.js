@@ -105,8 +105,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
 
                   window.localStorage.setItem("rememberme", "true");
                   $state.go('tab.notes');
-                  console.log(storedUsername);
-                  console.log(storedPassword);
+                  
                 }
               });// do something useful instead of alerting
             },
@@ -158,21 +157,21 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
         }
 
 
-        var storedUsername = window.localStorage.getItem("username");
-        var storedPassword = window.localStorage.getItem("password");
+        // var storedUsername = window.localStorage.getItem("username");
+        // var storedPassword = window.localStorage.getItem("password");
 
 
         $scope.info = function () {
-            console.log("USRNAME IS" + storedUsername)
-
-            var alertPopup = $ionicPopup.alert({
-                title: 'Account Details',
-                template: 'Username: ' + storedUsername + '<br>' + 'Password: ' + storedPassword + '<br><hr class="normalhr"> Interested in Quill? Check out our website at quillapp.io'
-            });
-
-            alertPopup.then(function (res) {
-                console.log('Thank you for not eating my delicious ice cream cone');
-            });
+            // console.log("USRNAME IS" + storedUsername)
+            //
+            // var alertPopup = $ionicPopup.alert({
+            //     title: 'Account Details',
+            //     template: 'Username: ' + storedUsername + '<br>' + 'Password: ' + storedPassword + '<br><hr class="normalhr"> Interested in Quill? Check out our website at quillapp.io'
+            // });
+            //
+            // alertPopup.then(function (res) {
+            //     console.log('Thank you for not eating my delicious ice cream cone');
+            // });
         }
 
 
@@ -324,10 +323,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
                 }
               ]
                     };
-                    var storedPassword = window.localStorage.getItem("password");
-                    // $scope.storedPassword = storedPassword;
-                    // window.localStorage.setItem("username", JSON.stringify(username));
-                    var storedUsername = window.localStorage.getItem("username");
+                    // var storedPassword = window.localStorage.getItem("password");
+                    // // $scope.storedPassword = storedPassword;
+                    // // window.localStorage.setItem("username", JSON.stringify(username));
+                    // var storedUsername = window.localStorage.getItem("username");
                     var summary;
                     var concepts;
 
