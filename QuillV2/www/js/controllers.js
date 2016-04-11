@@ -105,7 +105,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
 
                   window.localStorage.setItem("rememberme", "true");
                   $state.go('tab.notes');
-                  
+
                 }
               });// do something useful instead of alerting
             },
@@ -162,6 +162,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
 
 
         $scope.info = function () {
+
             // console.log("USRNAME IS" + storedUsername)
             //
             // var alertPopup = $ionicPopup.alert({
@@ -172,9 +173,8 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
             // alertPopup.then(function (res) {
             //     console.log('Thank you for not eating my delicious ice cream cone');
             // });
+
         }
-
-
 
     })
     .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal, $ionicPopup, $ionicLoading, $jrCrop) {

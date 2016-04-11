@@ -1,0 +1,33 @@
+<ion-view title="Login">
+    <ion-content has-header="false" has-tabs="true" padding="true" class="intropage">
+        <!--        <div class="list">-->
+        <!--            <label class="item item-input">-->
+        <!--                <span class="input-label">Email</span>-->
+        <br>
+        <br>
+ 
+
+        <div class="input-wrapper" style="padding-top:20%">
+            <input ng-model="user.email" type="email" placeholder="Email" style="padding-left:10%; color:white; font-size:18px;"/>
+        </div>
+        <!--            </label>-->
+        <!--            <label class="item item-input">-->
+        <!--                <span class="input-label">Password</span>-->
+        <div class="input-wrapper" >
+            <input ng-model="user.password" type="password" placeholder="Password" style="padding-left:10%; color:white; font-size:18px;"/>
+        </div>
+        <!--            </label>-->
+        <!--        </div>-->
+        <!--KUSHNOTE ALEX COPY HERE-->
+        
+        <!--<div class="assertive" ng-show="error.message">{{error.message}}</div>-->
+        <p class="padding" style="color:white;">{{status}}</p>
+        <button class="button button-block button-outline button-assertive" style="height:25%; width:80%; margin-right:auto; margin-left:auto; text-align:center; font-family: 'Raleway'; border:1px solid white; color:white;" ng-click="login(user.email, user.password)">
+            LOG IN
+        </button>
+        
+        <button class="button button-block button-clear button-calm" ng-click="forgot()">
+            Forgot your password?
+        </button>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,24 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "quill.quill"
+        },
+        "cordova-plugin-email-composer": {
+            "PACKAGE_NAME": "quill.quill"
+        },
+        "cordova-plugin-googleplus": {
+            "PACKAGE_NAME": "quill.quill"
+        },
+        "cordova-plugin-image-picker": {
+            "PACKAGE_NAME": "quill.quill"
+        }
+    },
+    "dependent_plugins": {}
+}

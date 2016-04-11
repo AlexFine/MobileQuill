@@ -1,0 +1,60 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="Further Info">
+
+    <ion-content class="padding">
+
+        <div class="card">
+            <div class="item item-divider item-calm" ng-click="summaryisCollapsed = !summaryisCollapsed">
+                Summary - {{Newnotes[lastChar].dates}}
+            </div>
+            <div class="item item-text-wrap " ng-if="summaryisCollapsed">
+                {{Newnotes[lastChar].summary}}
+            </div>
+        </div>
+        <div class="card" >
+            <div class="item item-divider item-calm" ng-click="keywordsisCollapsed = !keywordsisCollapsed">
+                Keywords And Motifs
+            </div>
+            <div class="item item-text-wrap" ng-if="keywordsisCollapsed" ng-repeat="keyword in Newnotes[lastChar].keywords| limitTo:12">
+                <ul>
+                    <div ng-if='keyword[1] == "negative"' ng-style="{'color':'#e74c3c'}">
+                        <li ng-style="myStyle">{{keyword[0]}}</li>
+                    </div>
+                    <div ng-if='keyword[1] == "positive"' ng-style="{'color':'#27ae60'}">
+                        <li ng-style="myStyle">{{keyword[0]}}</li>
+                    </div>
+                    <div ng-if='keyword[1] == "neutral"' ng-style="{'color':'#f39c12'}">
+                        <li ng-style="myStyle">{{keyword[0]}}</li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="item item-divider item-light" ng-click="textisCollapsed = !textisCollapsed">
+                Text (click to<span ng-if="!textisCollapsed"> view</span><span ng-if="textisCollapsed"> minimize</span>)
+            </div>
+            <div class="item item-text-wrap" ng-if="textisCollapsed">
+                <p>
+            {{Newnotes[lastChar].text}}    </p>
+                <img ng-src="{{Newnotes[lastChar].img}}" style="width: 100%; height: 100%;">
+
+            </div>
+        </div>
+
+        <hr>
+        <button class="button button-block button-positive" ng-click="submit()">
+            Save
+        </button>
+
+        <button ng-controller="NotesCtrl" class="button button-block button-assertive" ng-click="deletePost(Newnotes[lastChar].postID, lastChar)">
+            Delete Note
+        </button>
+
+    </ion-content>
+</ion-view>

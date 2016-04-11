@@ -1,0 +1,178 @@
+/* Empty. Add your own CSS if you like */
+body{
+    font-family: 'Raleway', sans-serif;
+}
+hr{
+    height:0px;
+    border:1px dashed red;
+}
+.normalhr{
+    border:1px dashed #DCDCDC;
+}
+p{
+    font-size:14px;
+}
+h2{
+    font-size:22px;
+}
+
+/* Coloring main bar*/
+.bar-energized{
+    background-color: #FF8533 !important;
+    border-bottom: 1px solid white;
+    border-color: white !important;
+}
+
+
+.wrapper {
+    color: #fff;
+    background-color: transparent;
+    width: 100%;
+    margin-top: 80px;
+    text-align: center;
+    position: relative;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+input {
+    background-color: transparent;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    width: 100%;
+    border-radius: 2px;
+    border: none;
+    padding-left: 0px;
+    height: 0px;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+input:focus {
+    background-color: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+.input-wrapper:after {
+    background-color: transparent;
+    position: absolute;
+    border: 1px solid #fff;
+    border-top: none;
+    margin-left: 5%;
+    margin-right: auto;
+    height: 0px;
+    width: 85%;
+    bottom: 6px;
+    left: 0;
+    content: "";
+}
+
+
+blockquote {
+    width: 90% !important;
+    border-color: #FFC299 !important;
+    border-width: 5px 5px 5px 5px !important;
+    /*border-style: solid solid solid solid !important;*/
+    
+    padding: 5px 5px 5px 5px !important;
+    /*background-color: #eee !important;*/
+}
+
+
+.slider {
+    height: 100%;
+}
+
+/*.slider-slide {*/
+.introslide{
+    padding-top: 80px;
+    color: white;
+    text-align: center;
+  
+    background: -webkit-linear-gradient(90deg, #FF6600 10%, #FF8533 90%);
+    /* Chrome 10+, Saf5.1+ */
+    
+    background: -moz-linear-gradient(90deg, #FF6600 10%, #FF8533 90%);
+    /* FF3.6+ */
+    
+    background: -ms-linear-gradient(90deg, #FF6600 10%, #FF8533 90%);
+    /* IE10 */
+    
+    background: -o-linear-gradient(90deg, #FF6600 10%, #FF8533 90%);
+    /* Opera 11.10+ */
+    /*background:         linear-gradient(90deg, #FF6600  10%, #F3A183 90%); /* W3C */
+    
+    font-family: 'Raleway', 'Hind', sans-serif;
+}
+
+.intropage {
+    background: -webkit-linear-gradient(90deg, #FF6600 10%, #FF8533 90%);
+    /* Chrome 10+, Saf5.1+ */
+    
+    background: -moz-linear-gradient(90deg, #FF6600 10%, #FF8533 90%);
+    /* FF3.6+ */
+    
+    background: -ms-linear-gradient(90deg, #FF6600 10%, #FF8533 90%);
+    /* IE10 */
+    
+    background: -o-linear-gradient(90deg, #FF6600 10%, #FF8533 90%);
+    /* Opera 11.10+ */
+}
+
+.slider-slide #subtext {
+    padding-top: 20px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#logo {
+    margin: 50px 0px;
+}
+
+#list {
+    width: 300px;
+    margin: 30px auto;
+    font-size: 25px;
+    text-align: center;
+    color: white;
+    font-family: 'Raleway';
+    /*font-weight: bold;*/
+}
+
+#list ol li {
+    text-align: center;
+}
+
+.button.ng-hide {
+    display: none;
+}
+
+.homeimg {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    width: 30%;
+    height: 30%;
+}
+
+#file {
+    display: none;
+}
+
+h1 {
+    font-family: 'Raleway', 'Hind', sans-serif;
+    margin: 0px;
+    padding: 10px;
+}
+
+p {
+    font-family: 'Raleway', 'Hind', sans-serif;
+}
+
+input {
+    font-family: 'Raleway', 'Hind', sans-serif;
+}
