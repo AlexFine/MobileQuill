@@ -1,0 +1,102 @@
+<ion-view view-title="Take Photo">
+     
+    <ion-content class="padding">
+        <!--
+testing code for testing each part of the tesseract code inidivudalliy 
+        <canvas id="c"></canvas>
+
+        <div>
+            <button class="button button-outline button-positive" ng-click="getPhoto()">
+                Take Photo
+            </button>
+        </div>
+         <p>SUMMARY: {{summary}}</p>
+        <button class="button button-outline button-positive" ng-click="api()">YO summarize BITCH</button>
+        <img id="myImage">
+        <p>{{text}}</p>
+        <button class="button button-outline button-positive" ng-click="picText()">Reconize</button>
+        <button class="button button-outline button-positive" onclick="test()">Test</button>
+
+        <p>BREAK</p>
+        <p>{{status}}</p>
+        <button ng-click="getPhoto()" class="button button-block button-primary">Take Photo</button>
+        
+        <button ng-click="convertToCanvas(lastPhoto)" class="button button-block button-primary">Convert To Canvas</button>
+
+        -->
+       <!-- <button ng-click="picText()" class="button button-block button-primary">Convert Photo to Text</button>
+        <button ng-click="api()" class="button button-block button-primary">Convert Text to Summary</button>
+-->
+       <!-- 
+        <img ng-src="{{lastPhoto}}" style="max-width: 100%">
+        <p>Break</p>
+        <canvas id="canvas2"></canvas>
+       
+--><div class="row">
+        <button ng-click="getPhoto()" class="button button-block button-outline button-calm" style="width:100%;">Take Photos</button>
+<!--
+        <button ng-click="choosePhoto()" class="button button-block button-outline button-calm" style="width:50%;">Upload From Camera Roll</button>
+        </div>
+                <button ng-click="picText()"class="button button-block button-outline button-energized">Analyze with Quill</button>
+-->
+
+        </div>
+        <ion-gallery ion-gallery-items="items"></ion-gallery>
+        <p ng-if="text.length>1">Text: {{text}}</p>
+        <p ng-if="summary.length>1">Summary: {{summary}}</p>
+        
+<!--
+        <div clas="card">
+            <div class="item item-text-wrap">
+                <canvas id="canvas2"></canvas>
+                <p>Status: {{status}}</p>
+                <p>TEXT: {{text}}</p>
+                <p>SUMMARY: {{summary}}</p>
+            </div>
+        </div>
+-->
+        <!--
+The javascript for the tesseract api done on the front end
+        <script type="text/javascript">
+            text = "test4"
+            var canvas = document.getElementById('c')
+            canvas.width = 400
+            canvas.height = 400
+            var ctx = canvas.getContext('2d');
+            ctx.font = '30px "Arial Black"'
+            ctx.fillText('Hello World', 100, 40)
+                //Text for hello world
+            ctx.font = '30px "Times New Roman"'
+            ctx.fillText('from beyond', 100, 80)
+                //text for from beyond 
+            ctx.font = '30px sans-serif'
+            ctx.fillText('the Cosmic Void', 100, 120)
+            console.log(canvas)
+                //Setting up canvas above, doing the magic here
+            Tesseract.recognize(canvas, {
+                tessedit_char_blacklist: 'e',
+                progress: function (e) {
+                    console.log(e)
+                    $scope.text = e
+                }
+            }).then(function (d) {
+                console.log(d)
+                $scope.text = d
+            })
+        </script>
+-->
+
+<!--
+Was the code for adding image from camera roll
+        <hr>
+        <button class="button button-energized" ng-click="addImage()">
+            Add image
+        </button>
+        <br>
+        <br>
+        <ion-scroll>
+            <img ng-repeat="image in images" ng-src="{{urlForImage(image)}}" height="200px" />
+        </ion-scroll>
+-->
+    </ion-content>
+</ion-view>

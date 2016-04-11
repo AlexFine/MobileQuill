@@ -1,0 +1,139 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "res/xml/config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"EmailComposer\"><param name=\"android-package\" value=\"de.appplant.cordova.emailcomposer.EmailComposer\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"GooglePlus\"><param name=\"android-package\" value=\"nl.xservices.plugins.GooglePlus\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://accounts.google.com/*\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ImagePicker\"><param name=\"android-package\" value=\"com.synconset.ImagePicker\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
+                            "count": 2
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 1
+                        }
+                    ],
+                    "/manifest/application": [
+                        {
+                            "xml": "<activity android:label=\"@string/multi_app_name\" android:name=\"com.synconset.MultiImageChooserActivity\" android:theme=\"@android:style/Theme.Holo.Light\"></activity>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "quill.quill"
+        },
+        "cordova-plugin-email-composer": {
+            "PACKAGE_NAME": "quill.quill"
+        },
+        "cordova-plugin-googleplus": {
+            "PACKAGE_NAME": "quill.quill"
+        },
+        "cordova-plugin-image-picker": {
+            "PACKAGE_NAME": "quill.quill"
+        }
+    },
+    "dependent_plugins": {},
+    "modules": [
+        {
+            "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
+            "id": "cordova-plugin-camera.Camera",
+            "clobbers": [
+                "Camera"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
+            "id": "cordova-plugin-camera.CameraPopoverOptions",
+            "clobbers": [
+                "CameraPopoverOptions"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-camera/www/Camera.js",
+            "id": "cordova-plugin-camera.camera",
+            "clobbers": [
+                "navigator.camera"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-camera/www/CameraPopoverHandle.js",
+            "id": "cordova-plugin-camera.CameraPopoverHandle",
+            "clobbers": [
+                "CameraPopoverHandle"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-email-composer/www/email_composer.js",
+            "id": "cordova-plugin-email-composer.EmailComposer",
+            "clobbers": [
+                "cordova.plugins.email",
+                "plugin.email"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+            "id": "cordova-plugin-googleplus.GooglePlus",
+            "clobbers": [
+                "window.plugins.googleplus"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-image-picker/www/imagepicker.js",
+            "id": "cordova-plugin-image-picker.ImagePicker",
+            "clobbers": [
+                "plugins.imagePicker"
+            ]
+        }
+    ],
+    "plugin_metadata": {
+        "cordova-plugin-camera": "2.1.1",
+        "cordova-plugin-email-composer": "0.8.3",
+        "cordova-plugin-googleplus": "4.0.8",
+        "cordova-plugin-image-picker": "1.0.8"
+    }
+}

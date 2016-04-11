@@ -165,16 +165,14 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             console.log("USRNAME IS" + storedUsername)
 
             var alertPopup = $ionicPopup.alert({
-                title: 'Account Details',
-                template: 'Username: ' + storedUsername + '<br>' + 'Password: ' + storedPassword + '<br><hr class="normalhr"> Interested in Quill? Check out our website at quillapp.io'
+                title: 'About Quill',
+                template: 'Quill helps students learn more from their textbook pages. If you encounter a bug feel free to email us at company@quillapp.io. Interested in Quill? Check out our website at quillapp.io'
             });
 
             alertPopup.then(function (res) {
                 console.log('Thank you for not eating my delicious ice cream cone');
             });
         }
-
-
 
     })
     .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal, $ionicPopup, $ionicLoading) {
