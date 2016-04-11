@@ -1090,7 +1090,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
     $scope.goto = function (toState, params) {
         $state.go(toState, params) //remember to inject $state to your controller
     }
-    $scope.notes = Notes.all();
+    
 
 
 
