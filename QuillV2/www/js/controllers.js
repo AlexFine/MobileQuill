@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
+angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
     .controller('IntroCtrl', function ($scope, $http, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
 
 
@@ -89,7 +89,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
               // 'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
             },
             function (obj) {
-              alert(JSON.stringify(obj));
+              // alert(JSON.stringify(obj));
               $scope.error;
 
               var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/new"
@@ -97,7 +97,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                 "message": obj.idToken,
               }).then(function (resp) {
                 console.log(resp);
-                alert("hi")
+                //alert("hi")
                 $scope.status = "Email has already been used or entered email is not a vlid email.";
                 console.log(resp.data.message);
                 if (resp.data.message == "key success") {
@@ -144,6 +144,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                     console.log('You are sure');
                     window.localStorage.setItem("rememberme", "false");
                     window.localStorage.setItem("notes", JSON.stringify([]));
+                  $scope.deleteNotes()
                   window.plugins.googleplus.logout(
                     function (msg) {
                       alert(msg); // do something useful instead of alerting
@@ -175,7 +176,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
         }
 
     })
-    .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal, $ionicPopup, $ionicLoading) {
+    .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal, $ionicPopup, $ionicLoading, $jrCrop) {
 
 
             $ionicModal.fromTemplateUrl('my-modal2.html', {
@@ -222,10 +223,22 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
                     console.log("called the convertToCanvas Function")
 
+                    var newimageURI;
+                    $jrCrop.crop({
+                        url: imageURI,
+                        width: 200,
+                        height: 200
+                    }).then(function(canvas) {
+                        newimageURI = canvas.toDataURL();
+                    }, function() {
+                        console.log("can't get image");
+                    });
+
                     var newimage = {
-                        src: imageURI,
+                        src: newimageURI,
                         sub: "Most recent photos 03/29/2016"
                     };
+
                     console.log($scope.items)
                     $scope.items.push(newimage);
                     console.log($scope.items);
@@ -319,17 +332,17 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                     // console.log(postReq)
                     $http.post(url, postReq).then(function (res) {
                         // console.log(res);
-                        alert(res)
+                        //alert(res)
                         text += res.data.responses[0].textAnnotations[0].description;
                         text = text.replace(/\n/g, " ");
-                      alert(text)
+                      //alert(text)
                         // console.log(text);
                         num += 1
                             //now at this point, we have text, we'll run summary, concepts, and bias;
                         console.log(i)
-                      alert(num)
+                      //alert(num)
                         if (items.length == num) {
-                          alert("login")
+                          //alert("login")
                           window.plugins.googleplus.login(
                             {
                               // 'scopes': ' ', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
@@ -337,7 +350,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                               // 'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
                             },
                             function (obj) {
-                              alert(JSON.stringify(obj));
+                              //alert(JSON.stringify(obj));
                             $scope.status = "Gathering image dates ..."
                             console.log("True")
                             var d = new Date();
@@ -353,7 +366,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                             }).then(function (resp) {
                                 resp = resp.data
                                 console.log(resp);
-                              alert(JSON.stringify(resp))
+                              //alert(JSON.stringify(resp))
                                 summary = resp.summary;
                                 // console.log(summary)
                                 summary = summary[0].summary
@@ -398,11 +411,14 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
                                 }
                                 // console.log(storedNotes)
                                 storedNotes.push(addInfo)
+
                                 window.localStorage.setItem("notes", JSON.stringify(storedNotes));
                                 $scope.Newnotes = storedNotes;
                                 // console.log(Newnotes)
                                 $scope.endloadingbar();
                                 $scope.closeModal();
+                              $scope.saveData();
+
 
                                 // console.log(JSON.stringify(addInfo));
 
@@ -917,7 +933,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
           // 'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
         },
         function (obj) {
-          alert(JSON.stringify(obj));
+          //alert(JSON.stringify(obj));
           $scope.error;
 
       $http.post(url, {
@@ -950,7 +966,10 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
   );
 
     }
-
+    $scope.saveDatas = function(){
+      var storedNotes = JSON.parse(window.localStorage.getItem("notes"));
+      $scope.newNotes = storedNotes
+    }
     $scope.saveData = function () {
         //CALL DATABASE HERE TO UPDATE LOCAL STORAGE
         //        window.localStorage.setItem("text", JSON.stringify(text));
@@ -981,7 +1000,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
           // 'offline': true, // optional, but requires the webClientId - if set to true the plugin will also return a serverAuthCode, which can be used to grant offline access to a non-Google server
         },
         function (obj) {
-          alert(JSON.stringify(obj));
+          //alert(JSON.stringify(obj));
           $scope.error;
             var url = "https://quill-1176.appspot.com/_ah/api/quillApi/v1/user/return/posts"
         $http.post(url, {
@@ -992,7 +1011,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
             // console.log(resps)
             console.log(notes)
             resps = resps.data.posts
-          alert(JSON.stringify(resps))
+          //alert(JSON.stringify(resps))
             if (resps == undefined) {
                 return $scope.$broadcast('scroll.refreshComplete');
             }
@@ -1055,11 +1074,14 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
       );
 
     }
+  $scope.deleteNotes = function(){
+    $scope.Newnotes = []
+  }
 
 
 
     $scope.loadData = function () {
-        alert(window.localStorage.getItem("data"));
+        //alert(window.localStorage.getItem("data"));
     }
 
 

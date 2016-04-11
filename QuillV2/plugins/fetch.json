@@ -25,8 +25,9 @@
     },
     "cordova-plugin-googleplus": {
         "source": {
-            "type": "registry",
-            "id": "cordova-plugin-googleplus"
+            "type": "git",
+            "url": "https://github.com/EddyVerbruggen/cordova-plugin-googleplus",
+            "subdir": "."
         },
         "is_top_level": true,
         "variables": {

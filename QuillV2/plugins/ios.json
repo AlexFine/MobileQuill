@@ -7,18 +7,18 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-image-picker": {
-            "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
-        },
         "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.ionicframework.quillv2320419"
+            "PACKAGE_NAME": "quill.quill"
         },
         "cordova-plugin-email-composer": {
-            "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+            "PACKAGE_NAME": "quill.quill"
         },
         "cordova-plugin-googleplus": {
             "REVERSED_CLIENT_ID": "com.googleusercontent.apps.717056452157-ar5jsh5v2so0qiqa2sh1cbekhi4fhm6a",
-            "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+            "PACKAGE_NAME": "quill.quill"
+        },
+        "cordova-plugin-image-picker": {
+            "PACKAGE_NAME": "quill.quill"
         }
     },
     "dependent_plugins": {}
