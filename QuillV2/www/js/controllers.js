@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
+angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
     .controller('IntroCtrl', function ($scope, $http, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
 
 
@@ -177,7 +177,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
 
     })
-    .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal, $ionicPopup, $ionicLoading) {
+    .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal, $ionicPopup, $ionicLoading, $jrCrop) {
 
 
             $ionicModal.fromTemplateUrl('my-modal2.html', {
@@ -224,10 +224,22 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova'])
 
                     console.log("called the convertToCanvas Function")
 
+                    var newimageURI;
+                    $jrCrop.crop({
+                        url: imageURI,
+                        width: 200,
+                        height: 200
+                    }).then(function(canvas) {
+                        newimageURI = canvas.toDataURL();
+                    }, function() {
+                        console.log("can't get image");
+                    });
+
                     var newimage = {
-                        src: imageURI,
+                        src: newimageURI,
                         sub: "Most recent photos 03/29/2016"
                     };
+
                     console.log($scope.items)
                     $scope.items.push(newimage);
                     console.log($scope.items);
