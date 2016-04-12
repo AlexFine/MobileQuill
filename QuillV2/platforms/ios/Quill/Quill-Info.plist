@@ -24,6 +24,28 @@
     <string>0.0.1</string>
     <key>CFBundleSignature</key>
     <string>????</string>
+    <key>CFBundleVersion</key>
+    <string>0.0.1</string>
+    <key>LSRequiresIPhoneOS</key>
+    <true/>
+    <key>NSMainNibFile</key>
+    <string/>
+    <key>NSMainNibFile~ipad</key>
+    <string/>
+    <key>UIRequiresFullScreen</key>
+    <true/>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string/>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>mailto</string>
+      <string>quill.quill</string>
+      <string>com.googleusercontent.apps.717056452157-ar5jsh5v2so0qiqa2sh1cbekhi4fhm6a</string>
+      <string>com-google-gidconsent</string>
+      <string>com-google-gidconsent-google</string>
+      <string>com.google.gppconsent.2.4.0</string>
+      <string>com.google.gppconsent.2.4.1</string>
+    </array>
     <key>CFBundleURLTypes</key>
     <array>
       <dict>
@@ -47,20 +69,6 @@
         </array>
       </dict>
     </array>
-    <key>CFBundleVersion</key>
-    <string>0.0.1</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>mailto</string>
-      <string>quill.quill</string>
-      <string>com.googleusercontent.apps.717056452157-ar5jsh5v2so0qiqa2sh1cbekhi4fhm6a</string>
-      <string>com-google-gidconsent</string>
-      <string>com-google-gidconsent-google</string>
-      <string>com.google.gppconsent.2.4.0</string>
-      <string>com.google.gppconsent.2.4.1</string>
-    </array>
-    <key>LSRequiresIPhoneOS</key>
-    <true/>
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSExceptionDomains</key>
@@ -71,13 +79,5 @@
       <key>NSAllowsArbitraryLoads</key>
       <true/>
     </dict>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string/>
-    <key>NSMainNibFile</key>
-    <string/>
-    <key>NSMainNibFile~ipad</key>
-    <string/>
-    <key>UIRequiresFullScreen</key>
-    <true/>
   </dict>
 </plist>

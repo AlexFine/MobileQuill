@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
+angular.module('starter.controllers', ['ngCordova', 'jrCrop'])
     .controller('IntroCtrl', function ($scope, $http, $state, $ionicSlideBoxDelegate, $rootScope, $ionicHistory, $stateParams, $ionicLoading) {
 
 
@@ -50,11 +50,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
             }
         };
 
-        //        if (window.localStorage['didTutorial'] === "true") {
-        //            console.log('Skip intro');
-        //            $state.go('intro');
-        //        }
-
         $scope.next = function () {
             $ionicSlideBoxDelegate.next();
         };
@@ -105,7 +100,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
 
                   window.localStorage.setItem("rememberme", "true");
                   $state.go('tab.notes');
-                  
+
                 }
               });// do something useful instead of alerting
             },
@@ -113,15 +108,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
               alert('error: ' + msg);
             }
           );
-
-
-
-
-                }
-
-
-
-
+        }
     })
     .controller('LoginCtrl', function ($location, $scope, $ionicPopup, $state, $http) {
 
@@ -157,24 +144,19 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
         }
 
 
-        // var storedUsername = window.localStorage.getItem("username");
-        // var storedPassword = window.localStorage.getItem("password");
 
 
-        $scope.info = function () {
-            // console.log("USRNAME IS" + storedUsername)
-            //
-            // var alertPopup = $ionicPopup.alert({
-            //     title: 'Account Details',
-            //     template: 'Username: ' + storedUsername + '<br>' + 'Password: ' + storedPassword + '<br><hr class="normalhr"> Interested in Quill? Check out our website at quillapp.io'
-            // });
-            //
-            // alertPopup.then(function (res) {
-            //     console.log('Thank you for not eating my delicious ice cream cone');
-            // });
+        $scope.info = function () {            
+            var alertPopup = $ionicPopup.alert({
+                title: 'About Quill',
+                template: 'Quill helps students learn more from their textbook pages. If you encounter a bug feel free to email us at company@quillapp.io. Interested in Quill? Check out our website at quillapp.io'
+             });
+            
+             alertPopup.then(function (res) {
+                 console.log('Thank you for not eating my delicious ice cream cone');
+             });
+
         }
-
-
 
     })
     .controller('PhotoCtrl', function ($scope, Camera, $http, $cordovaCamera, $cordovaImagePicker, $state, $ionicModal, $ionicPopup, $ionicLoading, $jrCrop) {
@@ -207,9 +189,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
                 // Execute action
             });
 
-
-
-
             $scope.status = "Sending Image";
             $scope.summary;
 
@@ -220,7 +199,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
 
                     $scope.status = "get picture";
                     $scope.lastPhoto = imageURI;
-
 
                     console.log("called the convertToCanvas Function")
 
@@ -258,7 +236,6 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
 
             };
 
-
             var canvas = document.createElement('canvas');
             $scope.base64 = function (url, callback) {
                     var image = new Image();
@@ -275,13 +252,13 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
                     };
                     image.src = url;
 
-
                 }
-                //why do we need this part ^^
-
-
 
             $scope.picText = function () {
+                if($scope.items.length == 0){
+                    alert("You didn't choose any photos!");
+                }
+                else{
                     $scope.loadingbar();
                     $scope.status = "Sending Images ... ";
 
@@ -323,10 +300,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
                 }
               ]
                     };
-                    // var storedPassword = window.localStorage.getItem("password");
-                    // // $scope.storedPassword = storedPassword;
-                    // // window.localStorage.setItem("username", JSON.stringify(username));
-                    // var storedUsername = window.localStorage.getItem("username");
+
                     var summary;
                     var concepts;
 
@@ -431,59 +405,14 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
                         alert('error: ' + msg);
                       }
                       );}
-                        // gapi.client.quillApi.user.new({
-
-                        //   "user":"ad",
-                        //   "passwrd":"21"
-                        // }).execute(function (resp) {
-                        //   console.log(resp);
-                        // });
-
-                        // gapi.client.quillApi.user.return.posts({
-
-                        //   "user":"ad",
-                        //   "passwrd":"21"
-                        // }).execute(function (resp) {
-                        //   console.log(resp);
-                        // });
-                        //summary
-                        //var summary;
-                        //console.log("summary : " + summary);
-
                     })
                 })
 
                 }
-                //$scope.endloadingbar();
+                }
         }
-//        $scope.meme;
-//        $scope.getmemes = function(){
-//        var memes = [
-//            "http://25.media.tumblr.com/20463acf0cd7032c1047b03526bc80c4/tumblr_mm6typKnQB1qeak1oo1_500.gif",
-//            "https://40.media.tumblr.com/358994cd528efde9d75e2088deeec8f4/tumblr_ne9stytIE81tpri36o1_500.jpg",
-//            "http://a.fod4.com/misc/Creed%20taliban.gif",
-//            "http://www.relatably.com/m/img/office-appropriate-memes/the-office-meme-jim.jpg",
-//            "http://4.bp.blogspot.com/-4sEseI_hyC4/VRujMvF8ptI/AAAAAAAAD4A/oyTvQbvktr8/s1600/inside%2Bjokes.jpg",
-//            "http://2.bp.blogspot.com/-MmEzOgZi2XQ/UYc94KwI7mI/AAAAAAAAB9c/rrpJt9gw4e0/s1600/MICHAELSFLAWS.jpg",
-//            "http://3.bp.blogspot.com/-m7kV0Qf2ZMM/UYU8Pu4Ft3I/AAAAAAAAB88/yPrk29Hv87s/s1600/superstitious.jpg",
-//            "https://s-media-cache-ak0.pinimg.com/736x/d2/1c/51/d21c517cd10e209038c42a66661251b4.jpg",
-//            "http://memesvault.com/wp-content/uploads/Happy-Friday-Office-Meme-10.jpg",
-//            "http://s.quickmeme.com/img/c9/c9c9573e46b3fb7bd6003c62958f4e9bbe9b305801c1e14dff0ab955172c0f74.jpg",
-//            "http://memesvault.com/wp-content/uploads/Funny-Meme-8.jpg"
-//        ]
-//        var meme = memes[Math.floor(Math.random()*memes.length)];
-//            $scope.meme = meme;
-//        }
 
      $scope.loadingbar = function(){
-         //$scope.getmemes();
-
-
-         // $http.get("https://api.github.com/repos/kushaltirumala/memestorage/contents/memelist.json", {headers:{'Accept': 'application/json'}}).then(function(resp){
-
-         // }, function(err){
-
-         // })
 
     var Base64 = {
 
@@ -806,7 +735,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
 
     })
 
-.controller('NotesCtrl', function ($scope, Notes, $state, $ionicModal, $http, $ionicPopup) {
+.controller('NotesCtrl', function ($scope, $state, $ionicModal, $http, $ionicPopup) {
 
     $ionicModal.fromTemplateUrl('my-modal2.html', {
         scope: $scope,
@@ -1090,14 +1019,11 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
     $scope.goto = function (toState, params) {
         $state.go(toState, params) //remember to inject $state to your controller
     }
-    $scope.notes = Notes.all();
-
 
 
 })
 
-.controller('NoteDetailCtrl', function ($scope, $stateParams, Notes, $cordovaEmailComposer) {
-    $scope.note = Notes.get($stateParams.noteId);
+.controller('NoteDetailCtrl', function ($scope, $stateParams, $cordovaEmailComposer) {
     $scope.summaryisCollapsed = true;
     $scope.keywordsisCollapsed = true;
     $scope.textisCollapsed = true;
@@ -1112,7 +1038,7 @@ angular.module('starter.controllers', ['ion-gallery', 'ngCordova', 'jrCrop'])
     $scope.lastChar = lastChar;
 
     $scope.submit = function () {
-        var comments = "Keywords: " + $scope.Newnotes[lastChar].keywords[0] + "<br> Summary: " + $scope.Newnotes[lastChar].summary + "<br> Text: " + $scope.Newnotes[lastChar].text;
+        var comments = "Keywords: " + $scope.Newnotes[lastChar].keywords[0] + "Summary: " + $scope.Newnotes[lastChar].summary + "Text: " + $scope.Newnotes[lastChar].text;
 
         var config = {
             'subject': "Saved Notes from Quill",
