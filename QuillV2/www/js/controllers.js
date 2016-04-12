@@ -450,7 +450,11 @@ angular.module('starter.controllers', ['ngCordova', 'jrCrop'])
 
                 }
 <<<<<<< HEAD
+<<<<<<< HEAD
                 }
+=======
+                //$scope.endloadingbar();
+>>>>>>> parent of 137f8ce... more cleanup
 =======
                 //$scope.endloadingbar();
 >>>>>>> parent of 137f8ce... more cleanup
