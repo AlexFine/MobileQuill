@@ -1,84 +1,84 @@
 <ion-view view-title="Home">
- <ion-nav-buttons side="right">
-            <a ng-controller="LoginCtrl" ng-click="info()" style="text-decoration:none; color:#FBF2EF; margin-right:6px;"><i style="font-size:35px;" class="ion-ios-information"></i></a>
-            <a ng-controller="LoginCtrl" ng-click="out()" style="text-decoration:none; color:#FBF2EF;"><i style="font-size:35px;" class="ion-ios-close"></i></a>
+  <ion-nav-buttons side="right">
+    <a ng-controller="LoginCtrl" ng-click="info()" style="text-decoration:none; color:#FBF2EF; margin-right:6px;"><i style="font-size:35px;" class="ion-ios-information"></i></a>
+    <a ng-controller="LoginCtrl" ng-click="out()" style="text-decoration:none; color:#FBF2EF;"><i style="font-size:35px;" class="ion-ios-close"></i></a>
 
-        </ion-nav-buttons>
-    
-    <ion-content>
-        <ion-refresher pulling-text="Pull to refresh..." on-refresh="saveData()">
-        </ion-refresher>
-        <div style="margin:1%;">
+  </ion-nav-buttons>
 
-            <button class="button button-outline button-energized icon ion-ios-camera-outline" style="width:100%;" ng-controller="PhotoCtrl" ng-click="openModal(); photoselector()">
-                Upload Photo
-            </button>
- 
-        </div>
-        <div style="margin:1%;">
-            <label class="item item-input" style="height:35px;">
-                <i class="icon ion-search placeholder-icon"></i>
-                <input type="search" ng-model="query" value="Search">
-            </label>
-        </div>
-     
+  <ion-content>
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="saveData()">
+    </ion-refresher>
+    <div style="margin:1%;">
 
-        <div class="list" style="height:5%;">
-            <div ng-repeat="entry in Newnotes.slice().reverse() | filter:query; ">
+      <button class="button button-outline button-energized icon ion-ios-camera-outline" style="width:100%;" ng-controller="PhotoCtrl" ng-click="openModal(); photoselector()">
+        Upload Photo
+      </button>
 
-                <a class="item item-thumbnail-left" href="#/tab/notes/{{entry.id}}">
-                    <img ng-src="img/text1.JPG" style="border-radius:4px;">
-                  <div ng-repeat="keyword in entry.keywords| filter:query | limitTo:3">
-                      
-                      <p ng-if='keyword[1] == "negative"' ng-style="{'color':'#e74c3c'}"><span ng-style="myStyle"> {{keyword[0]}}</span></p>
-                      <p ng-if='keyword[1] == "positive"' ng-style="{'color':'#27ae60'}"><span ng-style="myStyle"> {{keyword[0]}}</span></p>
-                      <p ng-if='keyword[1] == "neutral"' ng-style="{'color':'#f39c12'}"><span ng-style="myStyle"> {{keyword[0]}}</span></p>
-                    
-                    </div>
-                    <p> {{entry.text}}</p>
-                    <p style="color:#B0B0B0">{{entry.dates}}</p>
-
-                </a>
-            </div>
-            
-
-        </div>
-
-        <div class="list" style="height:5%;" ng-if="!Newnotes">
-            <div >
-                <a class="item item-thumbnail-left">
-                    <img ng-src="img/text3.JPG" style="border-radius:4px;">
-                    <h2> Example Photo</h2>
-                    <p> Click 'take photo' to analyze text and get started. </p>
-                    <p style="color:#B0B0B0">01/22/1984</p>
-
-                </a>
-            </div>
-
-        </div>
-
-
-<div ng-controller="PhotoCtrl">
-        <script id="my-modal2.html" type="text/ng-template">
-            <ion-modal-view>
-                <ion-header-bar>
-                    <h1 class="title">Take Photos</h1>
-                    <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
-                </ion-header-bar>
-                <ion-content class="padding">
-                    <button ng-click="photoselector()" class="button button-block button-outline button-calm ion-ios-reverse-camera" style="width:98%; margin:1%; font-size:20px;"> Take More Photos </button>
-                    
-               
-                   
-                            <button ng-click="picText(); loadingbar()" class="button button-block button-outline button-calm ion-ios-color-wand-outline" style="width:98%; margin:1%; font-size:20px;"> Analyze Photos</button>
-<div class="padding:1%;">
-<!--                         <ion-gallery ion-gallery-items="items"></ion-gallery>-->
-    
-    <img ng-repeat="i in items" src="{{i.src}}" style="width:100%;">
     </div>
-                </ion-content>
-            </ion-modal-view>
-        </script>
-</div>
-    </ion-content>
+    <div style="margin:1%;">
+      <label class="item item-input" style="height:35px;">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" ng-model="query" value="Search">
+      </label>
+    </div>
+
+
+    <div class="list" style="height:5%;">
+      <div ng-repeat="entry in Newnotes.slice().reverse() | filter:query; ">
+
+        <a class="item item-thumbnail-left" href="#/tab/notes/{{entry.id}}">
+          <img ng-src="img/text1.JPG" style="border-radius:4px;">
+          <div ng-repeat="keyword in entry.keywords| filter:query | limitTo:3">
+
+            <p ng-if='keyword[1] == "negative"' ng-style="{'color':'#e74c3c'}"><span ng-style="myStyle"> {{keyword[0]}}</span></p>
+            <p ng-if='keyword[1] == "positive"' ng-style="{'color':'#27ae60'}"><span ng-style="myStyle"> {{keyword[0]}}</span></p>
+            <p ng-if='keyword[1] == "neutral"' ng-style="{'color':'#f39c12'}"><span ng-style="myStyle"> {{keyword[0]}}</span></p>
+
+          </div>
+          <p> {{entry.text}}</p>
+          <p style="color:#B0B0B0">{{entry.dates}}</p>
+
+        </a>
+      </div>
+
+
+    </div>
+
+    <div class="list" style="height:5%;" ng-if="!Newnotes">
+      <div >
+        <a class="item item-thumbnail-left">
+          <img ng-src="img/text3.JPG" style="border-radius:4px;">
+          <h2> Example Photo</h2>
+          <p> Click 'take photo' to analyze text and get started. </p>
+          <p style="color:#B0B0B0">01/22/1984</p>
+
+        </a>
+      </div>
+
+    </div>
+
+
+    <div ng-controller="PhotoCtrl">
+      <script id="my-modal2.html" type="text/ng-template">
+        <ion-modal-view>
+          <ion-header-bar>
+            <h1 class="title">Take Photos</h1>
+            <div class="button button-clear" ng-click="modal.hide()"><span class="icon ion-close"></span></div>
+          </ion-header-bar>
+          <ion-content class="padding">
+            <button ng-click="photoselector()" class="button button-block button-outline button-calm ion-ios-reverse-camera" style="width:98%; margin:1%; font-size:20px;"> Take More Photos </button>
+
+
+
+            <button ng-click="picText(); loadingbar()" class="button button-block button-outline button-calm ion-ios-color-wand-outline" style="width:98%; margin:1%; font-size:20px;"> Analyze Photos</button>
+            <div class="padding:1%;">
+              <!--                         <ion-gallery ion-gallery-items="items"></ion-gallery>-->
+
+              <img ng-repeat="i in items" src="{{i.src}}" style="width:100%;">
+            </div>
+          </ion-content>
+        </ion-modal-view>
+      </script>
+    </div>
+  </ion-content>
 </ion-view>
