@@ -1,12 +1,4 @@
 {
-    "cordova-plugin-image-picker": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-image-picker"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-camera": {
         "source": {
             "type": "registry",
@@ -33,5 +25,13 @@
         "variables": {
             "REVERSED_CLIENT_ID": "com.googleusercontent.apps.717056452157-ar5jsh5v2so0qiqa2sh1cbekhi4fhm6a"
         }
+    },
+    "cordova-plugin-image-picker": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-image-picker"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

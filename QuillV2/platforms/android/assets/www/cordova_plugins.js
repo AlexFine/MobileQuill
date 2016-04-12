@@ -46,6 +46,7 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-image-picker/www/imagepicker.js",
         "id": "cordova-plugin-image-picker.ImagePicker",
+        "pluginId": "cordova-plugin-image-picker",
         "clobbers": [
             "plugins.imagePicker"
         ]
@@ -58,6 +59,6 @@ module.exports.metadata =
     "cordova-plugin-email-composer": "0.8.3",
     "cordova-plugin-googleplus": "4.0.8",
     "cordova-plugin-image-picker": "1.0.8"
-};
+}
 // BOTTOM OF METADATA
 });

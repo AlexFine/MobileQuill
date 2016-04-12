@@ -125,6 +125,7 @@
         {
             "file": "plugins/cordova-plugin-image-picker/www/imagepicker.js",
             "id": "cordova-plugin-image-picker.ImagePicker",
+            "pluginId": "cordova-plugin-image-picker",
             "clobbers": [
                 "plugins.imagePicker"
             ]
