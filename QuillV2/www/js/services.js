@@ -1,8 +1,5 @@
 angular.module('starter.services', [])
 
-.factory('Notes', function() {
-  return null;
-})
 
 .factory('Camera', ['$q', function($q) {
   return {

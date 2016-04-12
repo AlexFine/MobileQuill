@@ -144,22 +144,17 @@ angular.module('starter.controllers', ['ngCordova', 'jrCrop'])
         }
 
 
-        // var storedUsername = window.localStorage.getItem("username");
-        // var storedPassword = window.localStorage.getItem("password");
 
 
-        $scope.info = function () {
-
-            // console.log("USRNAME IS" + storedUsername)
-            //
-            // var alertPopup = $ionicPopup.alert({
-            //     title: 'Account Details',
-            //     template: 'Username: ' + storedUsername + '<br>' + 'Password: ' + storedPassword + '<br><hr class="normalhr"> Interested in Quill? Check out our website at quillapp.io'
-            // });
-            //
-            // alertPopup.then(function (res) {
-            //     console.log('Thank you for not eating my delicious ice cream cone');
-            // });
+        $scope.info = function () {            
+            var alertPopup = $ionicPopup.alert({
+                title: 'About Quill',
+                template: 'Quill helps students learn more from their textbook pages. If you encounter a bug feel free to email us at company@quillapp.io. Interested in Quill? Check out our website at quillapp.io'
+             });
+            
+             alertPopup.then(function (res) {
+                 console.log('Thank you for not eating my delicious ice cream cone');
+             });
 
         }
 
@@ -257,10 +252,13 @@ angular.module('starter.controllers', ['ngCordova', 'jrCrop'])
                     };
                     image.src = url;
 
-
                 }
 
             $scope.picText = function () {
+                if($scope.items.length == 0){
+                    alert("You didn't choose any photos!");
+                }
+                else{
                     $scope.loadingbar();
                     $scope.status = "Sending Images ... ";
 
@@ -302,10 +300,7 @@ angular.module('starter.controllers', ['ngCordova', 'jrCrop'])
                 }
               ]
                     };
-                    // var storedPassword = window.localStorage.getItem("password");
-                    // // $scope.storedPassword = storedPassword;
-                    // // window.localStorage.setItem("username", JSON.stringify(username));
-                    // var storedUsername = window.localStorage.getItem("username");
+
                     var summary;
                     var concepts;
 
@@ -414,7 +409,7 @@ angular.module('starter.controllers', ['ngCordova', 'jrCrop'])
                 })
 
                 }
-                
+                }
         }
 
      $scope.loadingbar = function(){
@@ -740,7 +735,7 @@ angular.module('starter.controllers', ['ngCordova', 'jrCrop'])
 
     })
 
-.controller('NotesCtrl', function ($scope, Notes, $state, $ionicModal, $http, $ionicPopup) {
+.controller('NotesCtrl', function ($scope, $state, $ionicModal, $http, $ionicPopup) {
 
     $ionicModal.fromTemplateUrl('my-modal2.html', {
         scope: $scope,
@@ -1024,14 +1019,11 @@ angular.module('starter.controllers', ['ngCordova', 'jrCrop'])
     $scope.goto = function (toState, params) {
         $state.go(toState, params) //remember to inject $state to your controller
     }
-    
-
 
 
 })
 
-.controller('NoteDetailCtrl', function ($scope, $stateParams, Notes, $cordovaEmailComposer) {
-    $scope.note = Notes.get($stateParams.noteId);
+.controller('NoteDetailCtrl', function ($scope, $stateParams, $cordovaEmailComposer) {
     $scope.summaryisCollapsed = true;
     $scope.keywordsisCollapsed = true;
     $scope.textisCollapsed = true;
@@ -1046,7 +1038,7 @@ angular.module('starter.controllers', ['ngCordova', 'jrCrop'])
     $scope.lastChar = lastChar;
 
     $scope.submit = function () {
-        var comments = "Keywords: " + $scope.Newnotes[lastChar].keywords[0] + "<br> Summary: " + $scope.Newnotes[lastChar].summary + "<br> Text: " + $scope.Newnotes[lastChar].text;
+        var comments = "Keywords: " + $scope.Newnotes[lastChar].keywords[0] + "Summary: " + $scope.Newnotes[lastChar].summary + "Text: " + $scope.Newnotes[lastChar].text;
 
         var config = {
             'subject': "Saved Notes from Quill",
